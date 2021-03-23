@@ -10,18 +10,21 @@ const FestivalReducer = (state = DefaultState, action) => {
             return {
                 ...state,
                 loading: true,
+                errorMsg: ""
             };
         case "FESTIVAL_SUCCESS":
+            console.log(action.payload);
             return {
                 ...state,
                 loading: false,
-                data: action.payload,
+                errorMsg: "",
+                data: action.payload
             };
         case "FESTIVAL_FAIL":
             return {
                 ...state,
                 loading: false,
-                errorMsg: action.err,
+                errorMsg: action.err
             }
         default:
             return state;

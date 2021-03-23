@@ -1,5 +1,3 @@
-import {act} from "@testing-library/react";
-
 const DefaultState = {
     loading: false,
     data: [],
@@ -13,6 +11,7 @@ const FestivalListReducer = (state = DefaultState, action) => {
             return {
                 ...state,
                 loading: true,
+                errorMsg: ""
             };
         case "FESTIVAL_LIST_SUCCESS":
             return {

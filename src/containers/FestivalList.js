@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {getFestivalList} from "../actions/festivalActions";
-import {NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const FestivalList = () => {
 
@@ -10,18 +10,17 @@ const FestivalList = () => {
     const festivalList = useSelector(state => state.FestivalList);
 
     React.useEffect(() => {
+        const fetchData = () => {
+            dispatch(getFestivalList());
+        };
         fetchData();
-    }, []);
-
-    const fetchData = () => {
-        dispatch(getFestivalList());
-    }
+    }, [dispatch]);
 
     const showData = () => {
         if(!_.isEmpty(festivalList.data)) {
             return festivalList.data.map(f => {
-                return (<li>
-                    <NavLink to={`/festival/${f._id}`}>{f.festivalName}</NavLink>
+                return (<li key={f._id}>
+                    <Link to={`/festival/${f._id}`}>{f.festivalName}</Link>
                 </li>)
             }
             )
@@ -38,7 +37,7 @@ const FestivalList = () => {
 
     return(
         <div>
-            <h1>Liste de Festivaux</h1>
+            <h1>Liste des Festivals</h1>
             {showData()}
         </div>
     )

@@ -28,12 +28,13 @@ export const getFestivalByID = (id) => async dispatch => {
             type: "FESTIVAL_LOADING",
         });
 
-        console.log(id);
         const res = await axios.get(`https://awi-api.herokuapp.com/festival/${id}`);
+
+        console.log(res);
 
         dispatch({
             type: "FESTIVAL_SUCCESS",
-            payload: res.data,
+            payload: res.data
         });
     } catch (err) {
         dispatch({
