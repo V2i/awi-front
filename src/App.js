@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
         <nav>
-            <NavLink to={""}>
+            <NavLink to={"/"}>
                 Search
             </NavLink>
         </nav>
