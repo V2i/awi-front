@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {getFestivalList} from "../actions/festivalActions";
 import {Link} from "react-router-dom";
+import Loading from "./Loading";
 
 const FestivalList = () => {
 
@@ -26,7 +27,7 @@ const FestivalList = () => {
             )
         }
         if(festivalList.loading) {
-            return <p>loading...</p>;
+            return <Loading color={'lightblue'} type={'bubbles'} />;
         }
         if(festivalList.errorMsg !== "") {
             return <p>{festivalList.errorMsg}</p>;

@@ -2,6 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getFestivalByID} from "../actions/festivalActions";
 import _ from "lodash";
+import Loading from "./Loading";
 
 const Festival = (props) => {
 
@@ -18,7 +19,7 @@ const Festival = (props) => {
             return <h1>{festival.data.festivalName}</h1>
         }
         if(festival.loading) {
-            return <p>loading...</p>;
+            return <Loading color={'lightblue'} type={'bubbles'} />
         }
         if(festival.errorMsg !== "") {
             return <p>{festival.errorMsg}</p>;
