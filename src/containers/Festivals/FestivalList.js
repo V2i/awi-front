@@ -1,9 +1,11 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
-import {getFestivalList} from "../actions/FestivalActions";
+import {getFestivalList} from "../../actions/FestivalActions";
 import {Link} from "react-router-dom";
-import Loading from "./Loading";
+import Loading from "../Loading";
+import { Grid } from "@material-ui/core";
+import FestivalCard from './FestivalCard';
 
 const FestivalList = () => {
 
@@ -19,12 +21,24 @@ const FestivalList = () => {
 
     const showData = () => {
         if(!_.isEmpty(festivalList.data)) {
-            return festivalList.data.map(f => {
-                    return (<li key={f._id}>
-                        <Link to={`/festival/${f._id}`}>{f.festivalName}</Link>
-                    </li>)
-                }
+            return (
+                <Grid
+                    container
+                    direction="row"
+                    spacing = {3}
+                    >
+                        
+                        { festivalList.data.map(f => 
+                            <Grid item xs={6}>
+                                <FestivalCard festival = {f} /> 
+                            </Grid>
+                        )}
+                        
+                        
+                </Grid>
+            
             )
+
         }
         if(festivalList.loading) {
             return <Loading color={'lightblue'} type={'bubbles'} />;

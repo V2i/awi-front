@@ -1,11 +1,9 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getFestivalByID} from "../actions/FestivalActions";
+import {getFestivalByID} from "../../actions/FestivalActions";
 import _ from "lodash";
-import Loading from "./Loading";
-import Card from "react-bootstrap/Card";
-import Form from "react-bootstrap/FormCheck"
-import moment from 'moment';
+import Loading from "../Loading";
+import FestivalCard from './FestivalCard';
 
 const Festival = (props) => {
 
@@ -20,16 +18,7 @@ const Festival = (props) => {
     const showData = () => {
         if(!_.isEmpty(festival.data)) {
             return (
-                <Card>
-                    <Card.Header>{moment(festival.data.festivalDate).format("Do MMM YY")}</Card.Header>
-                    <Card.Body>
-                        <Card.Title>{festival.data.festivalName}</Card.Title>
-                        <Card.Text>
-                            allo
-                        </Card.Text>
-                        {/*<Form.Check type="checkbox" label="Festival Courant" defaultChecked={festival.data.isCurrent}/>*/}
-                    </Card.Body>
-                </Card>
+                <FestivalCard festival={festival.data} />
             );
         }
         if(festival.loading) {

@@ -3,8 +3,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {Switch, Route, NavLink, Redirect} from 'react-router-dom';
-import FestivalList from "./containers/FestivalList";
-import Festival from "./containers/Festival";
+import FestivalList from "./containers/Festivals/FestivalList";
+import Festival from "./containers/Festivals/Festival";
 
 import GameList from "./containers/GameList";
 import Game from "./containers/Game";
