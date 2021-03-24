@@ -14,6 +14,7 @@ import GameReducer from "./GameReducer";
 
 import ReservationListReducer from "./ReservationListReducer";
 import ReservationReducer from "./ReservationReducer";
+import EditorListFestivalReducer from "./EditorListFestivalReducer";
 
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
@@ -23,6 +24,7 @@ const RootReducer = combineReducers({
     Game: GameReducer,
 
     EditorList: EditorListReducer,
+    EditorListFestival: EditorListFestivalReducer,
     Editor: EditorReducer,
 
     ExhibitorList: ExhibitorListReducer,

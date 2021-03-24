@@ -20,7 +20,29 @@ export const getEditorList = () => async dispatch => {
             err: err
         });
     }
-}
+};
+
+export const getEditorListByFestivalID = (id) => async dispatch => {
+    try {
+
+        dispatch({
+            type: "EDITOR_LIST_FESTIVAL_LOADING",
+        });
+
+        const res = await axios.get(`https://awi-api.herokuapp.com/editor/list/festival/${id}`);
+
+        dispatch({
+            type: "EDITOR_LIST_FESTIVAL_SUCCESS",
+            payload: res.data,
+        });
+
+    } catch (err) {
+        dispatch({
+            type: "EDITOR_LIST_FESTIVAL_FAIL",
+            err: err
+        });
+    }
+};
 
 export const getEditorByID = (id) => async dispatch => {
     try {
@@ -42,4 +64,4 @@ export const getEditorByID = (id) => async dispatch => {
             err: err
         });
     }
-}
+};
