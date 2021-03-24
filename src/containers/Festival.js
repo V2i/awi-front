@@ -27,7 +27,7 @@ const Festival = (props) => {
                         <Card.Text>
                             allo
                         </Card.Text>
-                        {/*<Form.Check type="checkbox" label="Check me out" isValid={festival.data.isCurrent}/>*/}
+                        {/*<Form.Check type="checkbox" label="Festival Courant" defaultChecked={festival.data.isCurrent}/>*/}
                     </Card.Body>
                 </Card>
             );
