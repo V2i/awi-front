@@ -3,6 +3,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {getFestivalByID} from "../actions/FestivalActions";
 import _ from "lodash";
 import Loading from "./Loading";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/FormCheck"
+import moment from 'moment';
 
 const Festival = (props) => {
 
@@ -16,7 +19,18 @@ const Festival = (props) => {
 
     const showData = () => {
         if(!_.isEmpty(festival.data)) {
-            return <h1>{festival.data.festivalName}</h1>
+            return (
+                <Card>
+                    <Card.Header>{moment(festival.data.festivalDate).format("Do MMM YY")}</Card.Header>
+                    <Card.Body>
+                        <Card.Title>{festival.data.festivalName}</Card.Title>
+                        <Card.Text>
+                            allo
+                        </Card.Text>
+                        {/*<Form.Check type="checkbox" label="Check me out" isValid={festival.data.isCurrent}/>*/}
+                    </Card.Body>
+                </Card>
+            );
         }
         if(festival.loading) {
             return <Loading color={'lightblue'} type={'bubbles'} />
