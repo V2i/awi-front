@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getExhibitorByID} from "../actions/ExhibitorAction";
+import {getExhibitorByID} from "../actions/ExhibitorActions";
 import _ from "lodash";
 import Loading from "./Loading";
 

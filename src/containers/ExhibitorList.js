@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {Link} from "react-router-dom";
 import Loading from "./Loading";
-import {getExhibitorList} from "../actions/ExhibitorAction";
+import {getExhibitorList} from "../actions/ExhibitorActions";
 
 const ExhibitorList = () => {
 
