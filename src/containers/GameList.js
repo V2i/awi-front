@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
-import {getGameList} from "../actions/gameActions";
+import {getGameList} from "../actions/GameActions";
 import {Link} from "react-router-dom";
 import Loading from "./Loading";
 

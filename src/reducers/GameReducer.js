@@ -13,7 +13,6 @@ const GameReducer = (state = DefaultState, action) => {
                 errorMsg: ""
             };
         case "GAME_SUCCESS":
-            console.log(action.payload);
             return {
                 ...state,
                 loading: false,

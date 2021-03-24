@@ -30,8 +30,6 @@ export const getGameByID = (id) => async dispatch => {
 
         const res = await axios.get(`https://awi-api.herokuapp.com/game/${id}`);
 
-        
-
         dispatch({
             type: "GAME_SUCCESS",
             payload: res.data
@@ -39,7 +37,7 @@ export const getGameByID = (id) => async dispatch => {
     } catch (err) {
         dispatch({
             type: "GAME_FAIL",
-            //err: err,
+            err: err,
         });
     }
 }
