@@ -12,6 +12,9 @@ import Editor from "./containers/Editor";
 import ExhibitorList from "./containers/ExhibitorList";
 import Exhibitor from "./containers/Exhibitor";
 
+import ReservationList from "./containers/ReservationList";
+import Reservation from "./containers/Reservation";
+
 function App() {
   return (
     <div className="App">
@@ -20,6 +23,7 @@ function App() {
             <NavLink to={"/game/list"}>Jeux</NavLink>
             <NavLink to={"/editor/list"}>Editeurs</NavLink>
             <NavLink to={"/exhibitor/list"}>Exposants</NavLink>
+            <NavLink to={"/reservation/list"}>Reservations</NavLink>
         </nav>
       <Switch>
         <Route path={"/festival/list"} exact component={FestivalList}/>
@@ -34,6 +38,8 @@ function App() {
         <Route path={"/exhibitor/list"} exact component={ExhibitorList}/>
         <Route path={"/exhibitor/:id"} exact component={Exhibitor}/>
 
+        <Route path={"/reservation/list"} exact component={ReservationList}/>
+        <Route path={"/reservation/:id"} exact component={Reservation}/>
         <Redirect to={"/"}/>
       </Switch>
     </div>

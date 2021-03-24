@@ -5,11 +5,15 @@ import FestivalReducer from "./FestivalReducer";
 
 import EditorListReducer from "./EditorListReducer";
 import EditorReducer from "./EditorReducer";
+
 import ExhibitorListReducer from "./ExhibitorListReducer";
 import ExhibitorReducer from "./ExhibitorReducer";
 
 import GameListReducer from "./GameListReducer";
 import GameReducer from "./GameReducer";
+
+import ReservationListReducer from "./ReservationListReducer";
+import ReservationReducer from "./ReservationReducer";
 
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
@@ -23,6 +27,9 @@ const RootReducer = combineReducers({
 
     ExhibitorList: ExhibitorListReducer,
     Exhibitor: ExhibitorReducer,
+
+    ReservationList: ReservationListReducer,
+    Reservation: ReservationReducer,
 });
 
 export default RootReducer;
