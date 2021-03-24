@@ -1,36 +1,36 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
-import {getFestivalList} from "../actions/festivalActions";
+import {getEditorList} from "../actions/EditorActions";
 import {Link} from "react-router-dom";
 import Loading from "./Loading";
 
-const FestivalList = () => {
+const EditorList = () => {
 
     const dispatch = useDispatch();
-    const festivalList = useSelector(state => state.FestivalList);
+    const editorList = useSelector(state => state.EditorList);
 
     React.useEffect(() => {
         const fetchData = () => {
-            dispatch(getFestivalList());
+            dispatch(getEditorList());
         };
         fetchData();
     }, [dispatch]);
 
     const showData = () => {
-        if(!_.isEmpty(festivalList.data)) {
-            return festivalList.data.map(f => {
+        if(!_.isEmpty(editorList.data)) {
+            return editorList.data.map(f => {
                     return (<li key={f._id}>
-                        <Link to={`/festival/${f._id}`}>{f.festivalName}</Link>
+                        <Link to={`/editor/${f._id}`}>{f.editorName}</Link>
                     </li>)
                 }
             )
         }
-        if(festivalList.loading) {
+        if(editorList.loading) {
             return <Loading color={'lightblue'} type={'bubbles'} />;
         }
-        if(festivalList.errorMsg !== "") {
-            return <p>{festivalList.errorMsg}</p>;
+        if(editorList.errorMsg !== "") {
+            return <p>{editorList.errorMsg}</p>;
         }
 
         return <p>unable to get data</p>;
@@ -38,10 +38,10 @@ const FestivalList = () => {
 
     return(
         <div>
-            <h1>Liste des Festivals</h1>
+            <h1>Liste des Editeurs</h1>
             {showData()}
         </div>
     )
 }
 
-export default FestivalList;
+export default EditorList;

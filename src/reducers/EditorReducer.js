@@ -4,22 +4,23 @@ const DefaultState = {
     errorMsg: "",
 };
 
-const FestivalReducer = (state = DefaultState, action) => {
+const EditorReducer = (state = DefaultState, action) => {
     switch (action.type) {
-        case "FESTIVAL_LOADING":
+        case "EDITOR_LOADING":
             return {
                 ...state,
                 loading: true,
                 errorMsg: ""
             };
-        case "FESTIVAL_SUCCESS":
+        case "EDITOR_SUCCESS":
+            console.log(action.payload);
             return {
                 ...state,
                 loading: false,
                 errorMsg: "",
                 data: action.payload
             };
-        case "FESTIVAL_FAIL":
+        case "EDITOR_FAIL":
             return {
                 ...state,
                 loading: false,
@@ -30,4 +31,4 @@ const FestivalReducer = (state = DefaultState, action) => {
     }
 }
 
-export default FestivalReducer;
+export default EditorReducer;
