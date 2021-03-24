@@ -13,7 +13,6 @@ const FestivalReducer = (state = DefaultState, action) => {
                 errorMsg: ""
             };
         case "FESTIVAL_SUCCESS":
-            console.log(action.payload);
             return {
                 ...state,
                 loading: false,

@@ -20,10 +20,10 @@ const FestivalList = () => {
     const showData = () => {
         if(!_.isEmpty(festivalList.data)) {
             return festivalList.data.map(f => {
-                return (<li key={f._id}>
-                    <Link to={`/festival/${f._id}`}>{f.festivalName}</Link>
-                </li>)
-            }
+                    return (<li key={f._id}>
+                        <Link to={`/festival/${f._id}`}>{f.festivalName}</Link>
+                    </li>)
+                }
             )
         }
         if(festivalList.loading) {
