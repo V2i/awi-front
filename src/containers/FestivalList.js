@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
-import {getFestivalList} from "../actions/festivalActions";
+import {getFestivalList} from "../actions/FestivalActions";
 import {Link} from "react-router-dom";
 import Loading from "./Loading";
 

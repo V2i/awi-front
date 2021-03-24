@@ -37,7 +37,7 @@ export const getFestivalByID = (id) => async dispatch => {
     } catch (err) {
         dispatch({
             type: "FESTIVAL_FAIL",
-            //err: err,
+            err: err,
         });
     }
 }

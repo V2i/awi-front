@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getFestivalByID} from "../actions/festivalActions";
+import {getFestivalByID} from "../actions/FestivalActions";
 import _ from "lodash";
 import Loading from "./Loading";
 
