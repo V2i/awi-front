@@ -4,6 +4,8 @@ import FestivalList from "./containers/FestivalList";
 import Festival from "./containers/Festival";
 import EditorList from "./containers/EditorList";
 import Editor from "./containers/Editor";
+import ExhibitorList from "./containers/ExhibitorList";
+import Exhibitor from "./containers/Exhibitor";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path={"/festival/:id"} exact component={Festival}/>
         <Route path={"/editor/list"} exact component={EditorList}/>
         <Route path={"/editor/:id"} exact component={Editor}/>
+        <Route path={"/exhibitor/list"} exact component={ExhibitorList}/>
+        <Route path={"/exhibitor/:id"} exact component={Exhibitor}/>
         <Redirect to={"/"}/>
       </Switch>
     </div>
