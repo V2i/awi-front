@@ -63,20 +63,16 @@ export const postFestival = (festival) => async dispatch => {
 export const deleteFestival = (id) => async dispatch => {
     try {
 
-        dispatch({
-            type: "FESTIVAL_LOADING",
-        });
-
         const res = await axios.delete(`https://awi-api.herokuapp.com/festival/${id}`);
 
         dispatch({
-            type: "FESTIVAL_SUCCESS",
+            type: "FESTIVAL_DELETE_SUCCESS",
             payload: res.data
         });
     } catch (err) {
-        dispatch({
-            type: "FESTIVAL_FAIL",
-            err: err,
-        });
+        // dispatch({
+        //     type: "FESTIVAL_FAIL",
+        //     err: err,
+        // });
     }
 };

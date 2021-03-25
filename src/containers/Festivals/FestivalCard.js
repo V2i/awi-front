@@ -9,13 +9,21 @@ import {
     Button,
   } from "@material-ui/core";
 import moment from 'moment';
+import {postFestival} from "../../actions/FestivalActions";
+import {useDispatch} from "react-redux";
+import {deleteFestival} from "../../actions/FestivalActions";
 
 const FestivalCard = ({festival}) => {
 
+    const dispatch = useDispatch();
     const handleChange = (event) => {
         festival[event.target.name] = event.target.value;
         //TODO : Use patch to change value
     };
+
+    const removeFestival = (id) => {
+        dispatch(deleteFestival(id));
+    }
 
     return(
         <Card>
@@ -29,6 +37,9 @@ const FestivalCard = ({festival}) => {
 
             <Button variant="contained" color="primary" href={`${festival._id}`}>
                 Voir
+            </Button>
+            <Button variant="contained" color="secondary" onClick={() => removeFestival(festival._id)}>
+                Supprimer
             </Button>
 
             <TableContainer component={Paper}>
