@@ -76,3 +76,20 @@ export const deleteFestival = (id) => async dispatch => {
         // });
     }
 };
+
+export const patchFestival = (festival) => async dispatch => {
+    try {
+
+        const res = await axios.patch(`https://awi-api.herokuapp.com/festival/${festival._id}`, festival);
+
+        dispatch({
+            type: "FESTIVAL_UPDATED_SUCCESS",
+            payload: res.data
+        });
+    } catch (err) {
+        // dispatch({
+        //     type: "FESTIVAL_FAIL",
+        //     err: err,
+        // });
+    }
+};

@@ -38,7 +38,7 @@ const AddFestival = () => {
     return(
         <div>
             <form>
-                <TextField name="festivalName" label="Name of the Festival" value={festival.festivalName} onChange={handleInputChange}/>
+                <TextField name="festivalName" label="Nom" value={festival.festivalName} onChange={handleInputChange}/>
                 <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
