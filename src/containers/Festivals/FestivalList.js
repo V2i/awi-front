@@ -55,6 +55,7 @@ const FestivalList = () => {
         <div>
             <h1>Liste des Festivals</h1>
             {showData()}
+            <AddFestival/>
         </div>
     )
 }

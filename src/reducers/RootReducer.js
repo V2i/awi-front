@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
 
-import FestivalListReducer from "./FestivalListReducer";
-import FestivalReducer from "./FestivalReducer";
+import FestivalListReducer from "./Festival/FestivalListReducer";
+import FestivalReducer from "./Festival/FestivalReducer";
 
 import EditorListReducer from "./EditorListReducer";
 import EditorReducer from "./EditorReducer";
@@ -15,10 +15,12 @@ import GameReducer from "./GameReducer";
 import ReservationListReducer from "./ReservationListReducer";
 import ReservationReducer from "./ReservationReducer";
 import EditorListFestivalReducer from "./EditorListFestivalReducer";
+import AddFestivalReducer from "./Festival/AddFestivalReducer";
 
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
     Festival: FestivalReducer,
+    AddFestival: AddFestivalReducer,
 
     GameList: GameListReducer,
     Game: GameReducer,

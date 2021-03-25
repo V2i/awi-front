@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getFestivalByID, postFestival} from "../../actions/FestivalActions";
+import {getFestivalByID, getFestivalList, postFestival} from "../../actions/FestivalActions";
 import moment from "moment";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -10,7 +10,7 @@ const AddFestival = () => {
 
     const initialFestivalState = {
         festivalName: "",
-        festivalDate: moment().format("Do MMM YYYY"),
+        festivalDate: moment(),
         festivalSpace: [],
     };
 
@@ -18,8 +18,12 @@ const AddFestival = () => {
     const [festival, setFestival] = useState(initialFestivalState);
 
     const handleInputChange = event => {
-        const { name, value } = event.target;
-        setFestival({ ...festival, [name]: value });
+        if(event.target) {
+            const { name, value } = event.target;
+            setFestival({ ...festival, [name]: value });
+        } else {
+            setFestival({...festival, festivalDate: event});
+        }
     };
 
     const saveFestival = () => {
@@ -29,16 +33,16 @@ const AddFestival = () => {
             festivalSpace: festival.festivalSpace
         };
         dispatch(postFestival(data));
-    }
+    };
 
     return(
         <div>
             <form>
-                <TextField id="festivalName" label="Name of the Festival" value={festival.festivalName} onChange={handleInputChange}/>
+                <TextField name="festivalName" label="Name of the Festival" value={festival.festivalName} onChange={handleInputChange}/>
                 <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
-                    format="MM/dd/yyyy"
+                    format="dd MM YYYY"
                     margin="normal"
                     id="date-picker"
                     label="Date picker inline"
@@ -48,7 +52,7 @@ const AddFestival = () => {
                         'aria-label': 'change date',
                     }}
                 />
-                <Button variant="contained" color="primary" onClick={saveFestival()}>Ajouter</Button>
+                <Button variant="contained" color="primary" onClick={saveFestival}>Ajouter</Button>
             </form>
         </div>
     );
