@@ -19,7 +19,7 @@ export const getFestivalList = () => async dispatch => {
             err: err
         });
     }
-}
+};
 
 export const getFestivalByID = (id) => async dispatch => {
     try {
@@ -40,4 +40,26 @@ export const getFestivalByID = (id) => async dispatch => {
             err: err,
         });
     }
-}
+};
+
+export const postFestival = (festival) => async dispatch => {
+    try {
+
+        dispatch({
+            type: "FESTIVAL_POST_LOADING",
+        });
+
+        const res = await axios.post(`https://awi-api.herokuapp.com/festival`, festival);
+
+        dispatch({
+            type: "FESTIVAL_POST_SUCCESS",
+            payload: res.data
+        });
+
+    } catch (err) {
+        dispatch({
+            type: "FESTIVAL_POST_FAIL",
+            err: err,
+        });
+    }
+};

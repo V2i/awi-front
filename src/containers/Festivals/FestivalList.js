@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import Loading from "../Loading";
 import { Grid } from "@material-ui/core";
 import FestivalCard from './FestivalCard';
+import AddFestival from "./AddFestival";
 
 const FestivalList = () => {
 
