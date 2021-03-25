@@ -12,8 +12,8 @@ import Game from "./containers/Game";
 import EditorList from "./containers/EditorList";
 import Editor from "./containers/Editor";
 
-import ExhibitorList from "./containers/ExhibitorList";
-import Exhibitor from "./containers/Exhibitor";
+import ExhibitorList from "./containers/Exhibitors/ExhibitorList";
+import Exhibitor from "./containers/Exhibitors/Exhibitor";
 
 import ReservationList from "./containers/ReservationList";
 import Reservation from "./containers/Reservation";
