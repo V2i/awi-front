@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {getFestivalByID, getFestivalList, postFestival} from "../../actions/FestivalActions";
+import {useDispatch} from "react-redux";
+import {postFestival} from "../../actions/FestivalActions";
 import moment from "moment";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import {KeyboardDatePicker} from "@material-ui/pickers";
+import "moment/locale/fr";
+
+moment.locale("fr");
 
 const AddFestival = () => {
 
@@ -42,10 +45,10 @@ const AddFestival = () => {
                 <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
-                    format="dd MM YYYY"
+                    format="DD MM YYYY"
                     margin="normal"
                     id="date-picker"
-                    label="Date picker inline"
+                    label="Date"
                     value={festival.festivalDate}
                     onChange={handleInputChange}
                     KeyboardButtonProps={{
