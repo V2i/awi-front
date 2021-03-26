@@ -13,7 +13,6 @@ const EditorReducer = (state = DefaultState, action) => {
                 errorMsg: ""
             };
         case "EDITOR_SUCCESS":
-            console.log(action.payload);
             return {
                 ...state,
                 loading: false,

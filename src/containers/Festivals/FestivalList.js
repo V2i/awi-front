@@ -2,14 +2,14 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {getFestivalList} from "../../actions/FestivalActions";
-import {Link} from "react-router-dom";
 import Loading from "../Loading";
-import { Grid } from "@material-ui/core";
+import { Grid, IconButton} from "@material-ui/core";
 import FestivalCard from './FestivalCard';
 import AddFestival from "./AddFestival";
+import AddIcon from '@material-ui/icons/Add';
 
 const FestivalList = () => {
-
+    const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
     const festivalList = useSelector(state => state.FestivalList);
 
@@ -19,6 +19,10 @@ const FestivalList = () => {
         };
         fetchData();
     }, [dispatch]);
+
+    const changeValueOpen = (value) => {
+        setOpen(value)
+    }
 
     const showData = () => {
         if(!_.isEmpty(festivalList.data)) {
@@ -54,8 +58,11 @@ const FestivalList = () => {
     return(
         <div>
             <h1>Liste des Festivals</h1>
+            <IconButton aria-label="add" color="primary" onClick={() => changeValueOpen(true)}>
+                <AddIcon />
+            </IconButton>
             {showData()}
-            <AddFestival/>
+            <AddFestival open={open} handleClose={() => changeValueOpen(false)}/>
         </div>
     )
 }

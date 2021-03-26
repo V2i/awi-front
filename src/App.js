@@ -9,8 +9,8 @@ import Festival from "./containers/Festivals/Festival";
 import GameList from "./containers/GameList";
 import Game from "./containers/Game";
 
-import EditorList from "./containers/EditorList";
-import Editor from "./containers/Editor";
+import EditorList from "./containers/Editors/EditorList";
+import Editor from "./containers/Editors/Editor";
 
 import ExhibitorList from "./containers/Exhibitors/ExhibitorList";
 import Exhibitor from "./containers/Exhibitors/Exhibitor";
