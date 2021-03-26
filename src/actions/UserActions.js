@@ -74,7 +74,7 @@ export const patchUser = (user) => async dispatch => {
     }
 };
 
-export const Login = (user) => async dispatch => {
+export const login = (user) => async dispatch => {
     try {
 
         const res = await axios.post(`${servURL}/login`, user);

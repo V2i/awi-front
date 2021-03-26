@@ -19,6 +19,7 @@ import ReservationList from "./containers/Reservations/ReservationList";
 import Reservation from "./containers/Reservations/Reservation";
 
 import UserList from "./containers/Users/UserList";
+import Login from "./containers/Users/Login";
 
 import NavBar from "./containers/Navbar";
 
@@ -45,6 +46,7 @@ function App() {
                 <Route path={"/reservation/:id"} exact component={Reservation}/>
 
                 <Route path={"/user/list"} exact component={UserList}/>
+                <Route path={"/login"} exact component={Login}/>
 
                 <Redirect to={"/"}/>
             </Switch>
