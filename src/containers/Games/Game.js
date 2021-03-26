@@ -1,8 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getGameByID} from "../actions/GameActions";
+import {getGameByID} from "../../actions/GameActions";
 import _ from "lodash";
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 const Game = (props) => {
 

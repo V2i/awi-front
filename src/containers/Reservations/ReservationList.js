@@ -1,9 +1,9 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
-import {getReservationList} from "../actions/ReservationActions";
+import {getReservationList} from "../../actions/ReservationActions";
 import {Link} from "react-router-dom";
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 const ReservationList = () => {
 
