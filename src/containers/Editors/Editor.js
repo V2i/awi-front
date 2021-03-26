@@ -1,8 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getEditorByID} from "../actions/EditorActions";
+import {getEditorByID} from "../../actions/EditorActions";
 import _ from "lodash";
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 const Editor = (props) => {
 

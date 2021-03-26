@@ -20,9 +20,9 @@ const FestivalList = () => {
         fetchData();
     }, [dispatch]);
 
-const changeValueOpen = (value) => {
-    setOpen(value)
-}
+    const changeValueOpen = (value) => {
+        setOpen(value)
+    }
 
     const showData = () => {
         if(!_.isEmpty(festivalList.data)) {
