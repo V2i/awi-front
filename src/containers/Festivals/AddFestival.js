@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {postFestival} from "../../actions/FestivalActions";
 import moment from "moment";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import { Button, TextField, Grid,
+    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+} from "@material-ui/core";
 import {KeyboardDatePicker} from "@material-ui/pickers";
 import "moment/locale/fr";
 
@@ -59,10 +60,10 @@ const AddFestival = ({open = false, handleClose}) => {
                             <KeyboardDatePicker
                                 disableToolbar
                                 variant="inline"
-                                format="dd MM YYYY"
+                                format="DD MM YYYY"
                                 margin="normal"
                                 id="date-picker"
-                                label="Date picker inline"
+                                label="Date"
                                 value={festival.festivalDate}
                                 onChange={handleInputChange}
                                 KeyboardButtonProps={{

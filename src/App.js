@@ -2,7 +2,7 @@ import React from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {Switch, Route, NavLink, Redirect} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import FestivalList from "./containers/Festivals/FestivalList";
 import Festival from "./containers/Festivals/Festival";
 

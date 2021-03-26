@@ -1,17 +1,20 @@
 import React, {useState} from 'react';
-import { 
+import {
     Table, TableBody, TableCell, TableRow, TableHead, TableContainer,
-    Checkbox, 
-    Typography, 
+    Checkbox,
+    Typography,
     Paper,
     Card,
     FormControlLabel,
-    Button,
-  } from "@material-ui/core";
+    Button, IconButton,
+} from "@material-ui/core";
 import moment from 'moment';
 import {patchFestival, deleteFestival} from "../../actions/FestivalActions";
 import {useDispatch} from "react-redux";
 import TextField from "@material-ui/core/TextField";
+import AddIcon from "@material-ui/icons/Add";
+import {postSpace} from "../../actions/SpaceActions";
+import FestivalSpace from "./FestivalSpace";
 
 const FestivalCard = ({festival}) => {
 
@@ -44,6 +47,18 @@ const FestivalCard = ({festival}) => {
         dispatch(patchFestival(festival));
     }
 
+    const addSpace = () => {
+        const space = {
+            spaceName: "Nouveau",
+            spacePriceTable: 0,
+            spacePriceSurface: 0,
+            spaceNbTable: 0,
+            spaceSurface: 0
+        };
+        dispatch(postSpace(space, newFestival));
+    }
+
+
     return(
         <Card>
             <form>
@@ -51,7 +66,7 @@ const FestivalCard = ({festival}) => {
                 <Typography>{moment(festival.festivalDate).format('DD/MM/YYYY')}</Typography>
 
                 <FormControlLabel
-                    control={<Checkbox checked={festival.isCurrent} onChange={handleChange} name="isCurrent" />}
+                    control={<Checkbox value={newFestival.isCurrent} checked={newFestival.isCurrent} onChange={handleChange} name="isCurrent" />}
                     label="Courant ?"
                 />
 
@@ -79,28 +94,22 @@ const FestivalCard = ({festival}) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {festival.festivalSpace.map(row => (
-                                <TableRow key={row._id}>
-                                    <TableCell component="th" scope="row">
-                                        {row.spaceName}
-                                    </TableCell>
-                                    <TableCell align="right">{row.spaceNbTable}</TableCell>
-                                    <TableCell align="right">{row.spacePriceTable}</TableCell>
-                                    <TableCell align="right">{row.spacePriceSurface}</TableCell>
-                                    <TableCell align="right">Res</TableCell>
-                                    <TableCell align="right">Res</TableCell>
-                                    <TableCell align="right">Res</TableCell>
-                                </TableRow>
+                            {newFestival.festivalSpace.map(space => (
+                                <FestivalSpace space={space} festival={newFestival} key={space._id}/>
                             ))}
+                            <TableRow>
+                                <TableCell align="center">
+                                    <IconButton aria-label="add" color="primary" onClick={() => addSpace()}>
+                                        <AddIcon />
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>
             </form>
         </Card>
-        
-    
     )
-
 }
 
 export default FestivalCard;
