@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {
     TableCell, TableRow, IconButton,
 } from "@material-ui/core";
-import {patchSpace, deleteSpace} from "../../actions/SpaceActions";
+import {deleteSpace} from "../../actions/SpaceActions";
 import {useDispatch} from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -29,10 +29,6 @@ const FestivalSpace = ({space, festival}) => {
 
     const removeSpace = (id) => {
         dispatch(deleteSpace(id, festival));
-    };
-
-    const updateFestival = (space) => {
-        dispatch(patchSpace(space));
     };
 
     return(
