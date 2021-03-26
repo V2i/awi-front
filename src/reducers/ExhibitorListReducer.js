@@ -2,7 +2,6 @@ const DefaultState = {
     loading: false,
     data: [],
     errorMsg: "",
-    count: 0
 };
 
 const ExhibitorListReducer = (state = DefaultState, action) => {
