@@ -30,8 +30,6 @@ export const deleteSpace = (id, festival) => async dispatch => {
 
         festival.festivalSpace = festival.festivalSpace.filter(s => s._id !== deletedSpace.data._id);
 
-        console.log(festival);
-
         const res = await axios.patch(`https://awi-api.herokuapp.com/festival/${festival._id}`, festival);
 
         dispatch({
@@ -43,6 +41,7 @@ export const deleteSpace = (id, festival) => async dispatch => {
         //     type: "FESTIVAL_FAIL",
         //     err: err,
         // });
+        console.log(err);
     }
 };
 
