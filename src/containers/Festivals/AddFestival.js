@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getFestivalByID, getFestivalList, postFestival} from "../../actions/FestivalActions";
 import moment from "moment";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import { Button, TextField, Grid,
+    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+ } from "@material-ui/core";
 import {KeyboardDatePicker} from "@material-ui/pickers";
 
-const AddFestival = () => {
+const AddFestival = ({open = false, handleClose}) => {
 
     const initialFestivalState = {
         festivalName: "",
@@ -27,34 +28,58 @@ const AddFestival = () => {
     };
 
     const saveFestival = () => {
+        handleClose()
         const data = {
             festivalName: festival.festivalName,
             festivalDate: festival.festivalDate,
             festivalSpace: festival.festivalSpace
         };
         dispatch(postFestival(data));
+        setFestival(initialFestivalState);
     };
 
     return(
-        <div>
-            <form>
-                <TextField name="festivalName" label="Nom" value={festival.festivalName} onChange={handleInputChange}/>
-                <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    format="dd MM YYYY"
-                    margin="normal"
-                    id="date-picker"
-                    label="Date picker inline"
-                    value={festival.festivalDate}
-                    onChange={handleInputChange}
-                    KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                    }}
-                />
-                <Button variant="contained" color="primary" onClick={saveFestival}>Ajouter</Button>
-            </form>
-        </div>
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">{"Ajouter un nouveau festival"}</DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                
+                    <Grid container spacing={3}>
+                        <Grid item xs={6}>
+                        <TextField name="festivalName" label="Nom" value={festival.festivalName} onChange={handleInputChange}/>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <KeyboardDatePicker
+                                disableToolbar
+                                variant="inline"
+                                format="dd MM YYYY"
+                                margin="normal"
+                                id="date-picker"
+                                label="Date picker inline"
+                                value={festival.festivalDate}
+                                onChange={handleInputChange}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                            />
+                        </Grid>
+                    </Grid>
+                
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+            <Button variant="contained" color="primary" onClick={saveFestival}>Ajouter</Button>
+            <Button onClick={handleClose} color="primary" autoFocus>
+                Annuler
+            </Button>
+            </DialogActions>
+      </Dialog>
+        
     );
 }
 
