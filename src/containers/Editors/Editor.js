@@ -4,7 +4,7 @@ import {getEditorByID} from "../../actions/EditorActions";
 import _ from "lodash";
 import Loading from "../Loading";
 import {patchEditor, deleteEditor} from "../../actions/EditorActions";
-import { Grid, Button, TextField } from "@material-ui/core";
+import { Grid, Button, TextField, Typography } from "@material-ui/core";
 
 const Editor = (props) => {
 
@@ -14,6 +14,7 @@ const Editor = (props) => {
 
     React.useEffect(() => {
         dispatch(getEditorByID(editorId));
+        dispatch()
     }, [dispatch, editorId]);
 
 
@@ -62,6 +63,10 @@ const Editor = (props) => {
                     
                     <Grid item xs={4}>
                         <Button onClick={() => removeEditor(editorId)}>Supprimer</Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Typography>Liste des jeux</Typography>
+
                     </Grid>
                     
                 </Grid>

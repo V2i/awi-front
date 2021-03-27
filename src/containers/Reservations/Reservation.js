@@ -1,8 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getReservationByID} from "../actions/ReservationActions";
+import {getReservationByID} from "../../actions/ReservationActions";
 import _ from "lodash";
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 const Reservation = (props) => {
 

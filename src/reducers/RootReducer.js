@@ -12,16 +12,16 @@ import EditorListFestivalReducer from "./Editor/EditorListFestivalReducer";
 import AddEditorReducer from "./Editor/AddEditorReducer";
 
 // EXHIBITOR REDUCERS
-import ExhibitorListReducer from "./ExhibitorListReducer";
-import ExhibitorReducer from "./ExhibitorReducer";
+import ExhibitorListReducer from "./Exhibitor/ExhibitorListReducer";
+import ExhibitorReducer from "./Exhibitor/ExhibitorReducer";
 
 // GAME REDUCERS
-import GameListReducer from "./GameListReducer";
-import GameReducer from "./GameReducer";
+import GameListReducer from "./Game/GameListReducer";
+import GameReducer from "./Game/GameReducer";
 
 // RESERVATION REDUCERS
-import ReservationListReducer from "./ReservationListReducer";
-import ReservationReducer from "./ReservationReducer";
+import ReservationListReducer from "./Reservation/ReservationListReducer";
+import ReservationReducer from "./Reservation/ReservationReducer";
 
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,

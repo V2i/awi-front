@@ -47,18 +47,18 @@ export const getGameListByEditorID = (id) => async dispatch => {
     try {
 
         dispatch({
-            type: "GAME_LOADING",
+            type: "GAME_LIST_EDITOR_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/game/${id}`);
+        const res = await axios.get(`${servURL}/game/list/editor/${id}`);
 
         dispatch({
-            type: "GAME_SUCCESS",
+            type: "GAME_LIST_EDITOR_SUCCESS",
             payload: res.data
         });
     } catch (err) {
         dispatch({
-            type: "GAME_FAIL",
+            type: "GAME_LIST_EDITOR_FAIL",
             err: err,
         });
     }
