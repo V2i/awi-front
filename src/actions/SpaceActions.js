@@ -1,13 +1,14 @@
 import axios from "axios";
+import servURL from "../servUrl";
 
 export const postSpace = (space, festival) => async dispatch => {
     try {
 
-        const newSpace = await axios.post("https://awi-api.herokuapp.com/space", space);
+        const newSpace = await axios.post(`${servURL}/space`, space);
 
         festival.festivalSpace.push(newSpace.data);
 
-        const res = await axios.patch(`https://awi-api.herokuapp.com/festival/${festival._id}`, festival);
+        const res = await axios.patch(`${servURL}/festival/${festival._id}`, festival);
 
         dispatch({
             type: "FESTIVAL_UPDATED_SUCCESS",
@@ -26,11 +27,11 @@ export const postSpace = (space, festival) => async dispatch => {
 export const deleteSpace = (id, festival) => async dispatch => {
     try {
 
-        const deletedSpace = await axios.delete(`https://awi-api.herokuapp.com/space/${id}`);
+        const deletedSpace = await axios.delete(`${servURL}/space/${id}`);
 
         festival.festivalSpace = festival.festivalSpace.filter(s => s._id !== deletedSpace.data._id);
 
-        const res = await axios.patch(`https://awi-api.herokuapp.com/festival/${festival._id}`, festival);
+        const res = await axios.patch(`${servURL}/festival/${festival._id}`, festival);
 
         dispatch({
             type: "FESTIVAL_UPDATED_SUCCESS",
@@ -48,7 +49,7 @@ export const deleteSpace = (id, festival) => async dispatch => {
 export const patchSpace = (space) => async dispatch => {
     try {
 
-        const res = await axios.patch(`https://awi-api.herokuapp.com/space/${space._id}`, space);
+        const res = await axios.patch(`${servURL}/space/${space._id}`, space);
 
         dispatch({
             type: "FESTIVAL_UPDATED_SUCCESS",

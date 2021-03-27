@@ -1,4 +1,5 @@
 import axios from "axios";
+import servURL from "../servUrl";
 
 export const getReservationList = () => async dispatch => {
     try {
@@ -7,7 +8,7 @@ export const getReservationList = () => async dispatch => {
             type: "RESERVATION_LIST_LOADING",
         });
 
-        const res = await axios.get("https://awi-api.herokuapp.com/reservation/list");
+        const res = await axios.get(`${servURL}/reservation/list`);
 
         dispatch({
             type: "RESERVATION_LIST_SUCCESS",
@@ -28,7 +29,7 @@ export const getReservationByID = (id) => async dispatch => {
             type: "RESERVATION_LOADING",
         });
 
-        const res = await axios.get(`https://awi-api.herokuapp.com/reservation/${id}`);
+        const res = await axios.get(`${servURL}/reservation/${id}`);
 
         dispatch({
             type: "RESERVATION_SUCCESS",
