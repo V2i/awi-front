@@ -9,6 +9,7 @@ import { Grid, Button, TextField, Typography,
  } from "@material-ui/core";
  import IconButton from '@material-ui/core/IconButton';
  import { Visibility, Add, Create, Delete} from '@material-ui/icons';
+ 
 const Editor = (props) => {
 
     const editorId = props.match.params.id;

@@ -15,6 +15,7 @@ import TextField from "@material-ui/core/TextField";
 import AddIcon from "@material-ui/icons/Add";
 import {postSpace} from "../../actions/SpaceActions";
 import FestivalSpace from "./FestivalSpace";
+import { Visibility, Save, Delete} from '@material-ui/icons';
 
 const FestivalCard = ({festival}) => {
 
@@ -70,15 +71,15 @@ const FestivalCard = ({festival}) => {
                     label="Courant ?"
                 />
 
-                <Button variant="contained" color="primary" href={`${festival._id}`}>
-                    Voir
-                </Button>
-                <Button variant="contained" color="default" onClick={() => updateFestival(newFestival)}>
-                    Sauvegarder
-                </Button>
-                <Button variant="contained" color="secondary" onClick={() => removeFestival(festival._id)}>
-                    Supprimer
-                </Button>
+                <IconButton variant="contained" color="primary" href={`${festival._id}`}>
+                    <Visibility />
+                </IconButton>
+                <IconButton variant="contained" color="default" onClick={() => updateFestival(newFestival)}>
+                    <Save />
+                </IconButton>
+                <IconButton variant="contained" color="secondary" onClick={() => removeFestival(festival._id)}>
+                    <Delete />
+                </IconButton>
 
                 <TableContainer component={Paper}>
                     <Table size="small" aria-label="simple table">
