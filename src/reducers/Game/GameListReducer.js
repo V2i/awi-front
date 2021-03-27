@@ -25,6 +25,24 @@ const GameListReducer = (state = DefaultState, action) => {
                 loading: false,
                 errorMsg: action.err,
             }
+        case "GAME_LIST_EDITOR_LOADING":
+            return {
+                ...state,
+                loading: true,
+                errorMsg: ""
+            };
+        case "GAME_LIST_EDITOR_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                data: action.payload,
+            };
+        case "GAME_LIST_EDITOR_FAIL":
+            return {
+                ...state,
+                loading: false,
+                errorMsg: action.err,
+            }
         default:
             return state;
     }

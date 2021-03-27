@@ -1,20 +1,24 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getEditorByID} from "../../actions/EditorActions";
+import { getGameListByEditorID } from "../../actions/GameActions";
 import _ from "lodash";
 import Loading from "../Loading";
-import {patchEditor, deleteEditor} from "../../actions/EditorActions";
-import { Grid, Button, TextField, Typography } from "@material-ui/core";
-
+import {getEditorByID, patchEditor, deleteEditor} from "../../actions/EditorActions";
+import { Grid, Button, TextField, Typography,
+    Table, TableBody, TableCell, TableRow, TableHead, 
+ } from "@material-ui/core";
+ import IconButton from '@material-ui/core/IconButton';
+ import { Visibility, Add, Create, Delete} from '@material-ui/icons';
 const Editor = (props) => {
 
     const editorId = props.match.params.id;
     const dispatch = useDispatch();
     const editor = useSelector(state => state.Editor);
+    const gameList = useSelector(state => state.GameList);
 
     React.useEffect(() => {
         dispatch(getEditorByID(editorId));
-        dispatch()
+        dispatch(getGameListByEditorID(editorId))
     }, [dispatch, editorId]);
 
 
@@ -64,9 +68,43 @@ const Editor = (props) => {
                     <Grid item xs={4}>
                         <Button onClick={() => removeEditor(editorId)}>Supprimer</Button>
                     </Grid>
-                    <Grid item xs={4}>
-                        <Typography>Liste des jeux</Typography>
-
+                    <Grid item xs={9}>
+                        <Typography>Liste des jeux : </Typography>
+                        <IconButton variant="outlined" color="primary"><Add /></IconButton>
+                        <Table aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Nom</TableCell>
+                                    <TableCell>Age Min</TableCell>
+                                    <TableCell>Durée (en min)</TableCell>
+                                    <TableCell>Min Joueurs</TableCell>
+                                    <TableCell>Max Joueurs</TableCell>
+                                    <TableCell>Catégorie</TableCell>
+                                    <TableCell>Notice</TableCell>
+                                    <TableCell>Prototype ?</TableCell>
+                                    <TableCell> </TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                            {gameList.data.map((row) => (
+                                <TableRow key={row._id}>
+                                    <TableCell>{row.gameName}</TableCell>
+                                    <TableCell>{row.gameMinimumAge}</TableCell>
+                                    <TableCell>{row.gameDuration}</TableCell>
+                                    <TableCell>{row.gameMinimumPlayers}</TableCell>
+                                    <TableCell>{row.gameMaximumPlayers}</TableCell>
+                                    <TableCell>{row.gameType.gameTypeName}</TableCell>
+                                    <TableCell>{row.gameNotice}</TableCell>
+                                    <TableCell>{row.isPrototype ? 'Oui' : 'Non'}</TableCell>
+                                    <TableCell>
+                                        <IconButton variant="outlined" color="primary" href={`/game/${row._id}`}><Visibility /></IconButton>
+                                        <IconButton variant="outlined" color="primary" ><Create /></IconButton>
+                                        <IconButton variant="outlined" color="primary" ><Delete /></IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                            </TableBody>
+                        </Table>
                     </Grid>
                     
                 </Grid>
