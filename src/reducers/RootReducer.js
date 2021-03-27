@@ -18,10 +18,16 @@ import ExhibitorReducer from "./Exhibitor/ExhibitorReducer";
 // GAME REDUCERS
 import GameListReducer from "./Game/GameListReducer";
 import GameReducer from "./Game/GameReducer";
+import AddGameReducer from "./Game/AddGameReducer";
 
 // RESERVATION REDUCERS
 import ReservationListReducer from "./Reservation/ReservationListReducer";
 import ReservationReducer from "./Reservation/ReservationReducer";
+
+// GAME TYPE REDUCERS
+import GameTypeListReducer from "./GameType/GameTypeListReducer";
+import GameTypeReducer from "./GameType/GameTypeReducer";
+//import AddGameTypeReducer from "./GameType/AddGameTypeReducer";
 
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
@@ -30,6 +36,7 @@ const RootReducer = combineReducers({
 
     GameList: GameListReducer,
     Game: GameReducer,
+    AddGame: AddGameReducer,
 
     EditorList: EditorListReducer,
     EditorListFestival: EditorListFestivalReducer,
@@ -41,6 +48,10 @@ const RootReducer = combineReducers({
 
     ReservationList: ReservationListReducer,
     Reservation: ReservationReducer,
+
+    GameTypeList: GameTypeListReducer,
+    GameType: GameTypeReducer,
+    //AddGameType: AddGameTypeReducer,
 });
 
 export default RootReducer;

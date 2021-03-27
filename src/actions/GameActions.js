@@ -64,3 +64,54 @@ export const getGameListByEditorID = (id) => async dispatch => {
     }
 }
 
+export const postGame = (game) => async dispatch => {
+    try {
+
+        const res = await axios.post(`${servURL}/game`, game);
+
+        dispatch({
+            type: "GAME_ADD_SUCCESS",
+            payload: res.data
+        });
+
+    } catch (err) {
+        // dispatch({
+        //     type: "GAME_POST_FAIL",
+        //     err: err,
+        // });
+    }
+};
+
+export const deleteGame = (id) => async dispatch => {
+    try {
+
+        const res = await axios.delete(`${servURL}/game/${id}`);
+
+        dispatch({
+            type: "GAME_DELETE_SUCCESS",
+            payload: res.data
+        });
+    } catch (err) {
+        // dispatch({
+        //     type: "GAME_DELETE_FAIL",
+        //     err: err,
+        // });
+    }
+};
+
+export const patchGame = (game) => async dispatch => {
+    try {
+
+        const res = await axios.patch(`${servURL}/game/${game._id}`, game);
+
+        dispatch({
+            type: "GAME_UPDATED_SUCCESS",
+            payload: res.data
+        });
+    } catch (err) {
+        // dispatch({
+        //     type: "GAME_UPDATED_FAIL",
+        //     err: err,
+        // });
+    }
+};

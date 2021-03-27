@@ -4,22 +4,22 @@ const DefaultState = {
     errorMsg: "",
 };
 
-const AddEditorReducer = (state = DefaultState, action) => {
+const AddGameReducer = (state = DefaultState, action) => {
     switch (action.type) {
-        case "EDITOR_POST_LOADING":
+        case "GAME_POST_LOADING":
             return {
                 ...state,
                 loading: true,
                 errorMsg: ""
             };
-        case "EDITOR_POST_SUCCESS":
+        case "GAME_POST_SUCCESS":
             return {
                 ...state,
                 loading: false,
                 errorMsg: "",
                 data: action.payload
             };
-        case "EDITOR_POST_FAIL":
+        case "GAME_POST_FAIL":
             return {
                 ...state,
                 loading: false,
@@ -30,4 +30,4 @@ const AddEditorReducer = (state = DefaultState, action) => {
     }
 }
 
-export default AddEditorReducer;
+export default AddGameReducer;

@@ -1,33 +1,33 @@
 const DefaultState = {
     loading: false,
-    data: {},
+    data: [],
     errorMsg: "",
+    count: 0
 };
 
-const AddEditorReducer = (state = DefaultState, action) => {
+const GameListReducer = (state = DefaultState, action) => {
     switch (action.type) {
-        case "EDITOR_POST_LOADING":
+        case "GAME_TYPE_LIST_LOADING":
             return {
                 ...state,
                 loading: true,
                 errorMsg: ""
             };
-        case "EDITOR_POST_SUCCESS":
+        case "GAME_TYPE_LIST_SUCCESS":
             return {
                 ...state,
                 loading: false,
-                errorMsg: "",
-                data: action.payload
+                data: action.payload,
             };
-        case "EDITOR_POST_FAIL":
+        case "GAME_TYPE_LIST_FAIL":
             return {
                 ...state,
                 loading: false,
-                errorMsg: action.err
+                errorMsg: action.err,
             }
         default:
             return state;
     }
 }
 
-export default AddEditorReducer;
+export default GameListReducer;
