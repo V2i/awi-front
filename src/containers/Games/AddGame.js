@@ -90,8 +90,7 @@ const AddGame = ({open = false, handleClose}) => {
                             </FormControl>
                         </Grid>
                         }
-                        
-                        
+
                         { gameTypeList.data && 
                         <Grid item xs={4}>
                             <FormControl>
@@ -108,7 +107,7 @@ const AddGame = ({open = false, handleClose}) => {
                             </FormControl>
                         </Grid>
                         }
-                            
+
                         <Grid item xs={4}>
                             <TextField name="isPrototype" label="Prototype ?" value={game.isPrototype} onChange={handleInputChange}/>
                         </Grid>
@@ -116,7 +115,6 @@ const AddGame = ({open = false, handleClose}) => {
                             <TextField name="gameNotice" label="Notice" value={game.gameNotice} onChange={handleInputChange}/>
                         </Grid>
                     </Grid>
-                    
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -125,8 +123,7 @@ const AddGame = ({open = false, handleClose}) => {
                 Annuler
             </Button>
             </DialogActions>
-      </Dialog>
-        
+        </Dialog>
     );
 }
 
