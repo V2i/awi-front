@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import {IconButton, Typography} from '@material-ui/core';
+import {IconButton, Menu, MenuItem, Typography} from '@material-ui/core';
 import Login from "./Users/Login";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../actions/UserActions";
@@ -44,6 +44,8 @@ const NavBar = () => {
     const user = useSelector(state => state.User);
 
     const [open, setOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const menu = Boolean(anchorEl);
 
     const changeValueOpen = (value) => {
         setOpen(value);
@@ -51,7 +53,20 @@ const NavBar = () => {
 
     const logOut = () => {
         dispatch(logout());
-    }
+        handleClose();
+    };
+
+    const myAccount = () => {
+        handleClose();
+    };
+
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     return (
         <div className={classes.root}>
@@ -59,16 +74,46 @@ const NavBar = () => {
                 <Toolbar>
                     <Typography variant="h6">Festival des Jeux</Typography>
                     <ChevronRightIcon/>
-                    <Button color="inherit" href="/festival/list" className={classes.menuButton}>Festival</Button>
-                    <Button color="inherit" href="/game/list" className={classes.menuButton}>Jeux</Button>
-                    <Button color="inherit" href="/editor/list" className={classes.menuButton}>Editeurs</Button>
-                    <Button color="inherit" href="/exhibitor/list" className={classes.menuButton}>Exposants</Button>
-                    <Button color="inherit" href="/reservation/list" className={classes.menuButton}>Réservations</Button>
-                    <Button color="inherit" href="/user/list" className={classes.menuButton}>Utilisateurs</Button>
                     {user.isLoggedIn ?
-                        <IconButton variant="contained" color="default" className={classes.menuButtonRight} onClick={logOut}>
-                            <AccountCircle />
-                        </IconButton> :
+                        <div>
+                            <Button color="inherit" href="/festival/list" className={classes.menuButton}>Festival</Button>
+                            <Button color="inherit" href="/game/list" className={classes.menuButton}>Jeux</Button>
+                            <Button color="inherit" href="/editor/list" className={classes.menuButton}>Editeurs</Button>
+                            <Button color="inherit" href="/exhibitor/list" className={classes.menuButton}>Exposants</Button>
+                            <Button color="inherit" href="/reservation/list" className={classes.menuButton}>Réservations</Button>
+                            <Button color="inherit" href="/user/list" className={classes.menuButton}>Utilisateurs</Button>
+                        </div>
+                    :
+                        <div>
+                            <Button color="inherit" href="/game/list" className={classes.menuButton}>Jeux</Button>
+                            <Button color="inherit" href="/editor/list" className={classes.menuButton}>Editeurs</Button>
+                        </div>
+                    }
+                    {user.isLoggedIn ?
+                        <div className={classes.menuButtonRight}>
+                            <IconButton variant="contained" color="default" onClick={handleMenu}>
+                                <AccountCircle />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={menu}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={myAccount}>Mon Compte</MenuItem>
+                                <MenuItem onClick={logOut}>Deconnexion</MenuItem>
+                            </Menu>
+                        </div>
+                        :
                         <Button color="inherit" className={classes.menuButtonRight} onClick={() => changeValueOpen(true)}>
                             Connexion
                         </Button>
@@ -80,4 +125,5 @@ const NavBar = () => {
         </div>
     );
 }
+
 export default NavBar;
