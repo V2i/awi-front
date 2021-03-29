@@ -11,9 +11,12 @@ import { IconButton, Button,
 } from "@material-ui/core";
 
 const EditorList = () => {
+
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
     const editorList = useSelector(state => state.EditorList);
+    const user = useSelector(state => state.User);
+
 
     React.useEffect(() => {
         const fetchData = () => {
@@ -63,9 +66,14 @@ const EditorList = () => {
     return(
         <div>
             <h1>Liste des Editeurs</h1>
-            <IconButton aria-label="add" color="primary" onClick={() => changeValueOpen(true)}>
-                <AddIcon />
-            </IconButton>
+            {user.isLoggedIn
+                ?
+                    <IconButton aria-label="add" color="primary" onClick={() => changeValueOpen(true)}>
+                        <AddIcon />
+                    </IconButton>
+                :
+                    <></>
+            }
             {showData()}
             <AddEditor open={open} handleClose={() => changeValueOpen(false)}/>
         </div>

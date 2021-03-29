@@ -18,6 +18,8 @@ const Editor = (props) => {
     const dispatch = useDispatch();
     const editor = useSelector(state => state.Editor);
     const gameList = useSelector(state => state.GameList);
+    const user = useSelector(state => state.User);
+
 
     React.useEffect(() => {
         dispatch(getEditorByID(editorId));
@@ -60,7 +62,7 @@ const Editor = (props) => {
             return (
                 <Grid container spacing={3}>
                     <Grid item xs={12}><h1>{editor.data.editorName}</h1></Grid>
-                    { toUpdate && 
+                    { toUpdate &&
                     <Grid item xs={4}>
                         <TextField name="editorName" label="Nom" value={editorSelected.editorName} onChange={handleChange}/>
                         <Button onClick={() => updateEditor(editorSelected)}>Modifier</Button>
@@ -72,13 +74,21 @@ const Editor = (props) => {
                             <Button onClick={() => setUpdate(true)}>Modifier</Button>
                         </Grid>
                     }
-                    
-                    <Grid item xs={4}>
-                        <Button onClick={() => removeEditor(editorId)}>Supprimer</Button>
-                    </Grid>
+
+                    {user.isLoggedIn
+                        ?
+                            <Grid item xs={4}>
+                                <Button onClick={() => removeEditor(editorId)}>Supprimer</Button>
+                            </Grid>
+                        :
+                            <></>
+                    }
                     <Grid item xs={9}>
-                        <Typography>Liste des jeux : </Typography>
-                        <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
+                        <Typography><h3>Liste des jeux</h3></Typography>
+                        {user.isLoggedIn
+                            ? <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
+                            : <></>
+                        }
                         <Table aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -104,11 +114,15 @@ const Editor = (props) => {
                                     <TableCell>{row.gameType.gameTypeName}</TableCell>
                                     <TableCell>{row.gameNotice}</TableCell>
                                     <TableCell>{row.isPrototype ? 'Oui' : 'Non'}</TableCell>
-                                    <TableCell>
-                                        <IconButton variant="outlined" color="primary" component={Link} to={`/game/${row._id}`}><Visibility /></IconButton>
-                                        <IconButton variant="outlined" color="primary" ><Create /></IconButton>
-                                        <IconButton variant="outlined" color="primary" ><Delete /></IconButton>
-                                    </TableCell>
+                                    {user.isLoggedIn
+                                        ?
+                                            <TableCell>
+                                                <IconButton variant="outlined" color="primary" component={Link} to={`/game/${row._id}`}><Visibility /></IconButton>
+                                                <IconButton variant="outlined" color="primary" ><Create /></IconButton>
+                                                <IconButton variant="outlined" color="primary" ><Delete /></IconButton>
+                                            </TableCell>
+                                        : <></>
+                                    }
                                 </TableRow>
                             ))}
                             </TableBody>

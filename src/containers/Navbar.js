@@ -111,7 +111,7 @@ const NavBar = () => {
                                 onClose={handleClose}
                             >
                                 <MenuItem component={Link} to="/profile" onClick={myAccount}>Mon Compte</MenuItem>
-                                <MenuItem component={Link} onClick={logOut}>Deconnexion</MenuItem>
+                                <MenuItem component={Link} to="/" onClick={logOut}>Deconnexion</MenuItem>
                             </Menu>
                         </div>
                         :

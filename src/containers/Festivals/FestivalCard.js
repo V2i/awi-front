@@ -5,7 +5,7 @@ import {
     Paper,
     Card,
     FormControlLabel,
-    Button, IconButton,
+    IconButton,
 } from "@material-ui/core";
 import {patchFestival, deleteFestival} from "../../actions/FestivalActions";
 import {useDispatch} from "react-redux";
