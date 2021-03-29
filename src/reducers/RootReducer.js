@@ -1,37 +1,57 @@
 import {combineReducers} from "redux";
 
-import FestivalListReducer from "./FestivalListReducer";
-import FestivalReducer from "./FestivalReducer";
+// FESTIVAL REDUCERS
+import FestivalListReducer from "./Festival/FestivalListReducer";
+import FestivalReducer from "./Festival/FestivalReducer";
+import AddFestivalReducer from "./Festival/AddFestivalReducer";
 
-import EditorListReducer from "./EditorListReducer";
-import EditorReducer from "./EditorReducer";
+// EDITOR REDUCERS
+import EditorListReducer from "./Editor/EditorListReducer";
+import EditorReducer from "./Editor/EditorReducer";
+import EditorListFestivalReducer from "./Editor/EditorListFestivalReducer";
+import AddEditorReducer from "./Editor/AddEditorReducer";
 
-import ExhibitorListReducer from "./ExhibitorListReducer";
-import ExhibitorReducer from "./ExhibitorReducer";
+// EXHIBITOR REDUCERS
+import ExhibitorListReducer from "./Exhibitor/ExhibitorListReducer";
+import ExhibitorReducer from "./Exhibitor/ExhibitorReducer";
 
-import GameListReducer from "./GameListReducer";
-import GameReducer from "./GameReducer";
+// GAME REDUCERS
+import GameListReducer from "./Game/GameListReducer";
+import GameReducer from "./Game/GameReducer";
+import AddGameReducer from "./Game/AddGameReducer";
 
-import ReservationListReducer from "./ReservationListReducer";
-import ReservationReducer from "./ReservationReducer";
-import EditorListFestivalReducer from "./EditorListFestivalReducer";
+// RESERVATION REDUCERS
+import ReservationListReducer from "./Reservation/ReservationListReducer";
+import ReservationReducer from "./Reservation/ReservationReducer";
+
+// GAME TYPE REDUCERS
+import GameTypeListReducer from "./GameType/GameTypeListReducer";
+import GameTypeReducer from "./GameType/GameTypeReducer";
+//import AddGameTypeReducer from "./GameType/AddGameTypeReducer";
 
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
     Festival: FestivalReducer,
+    AddFestival: AddFestivalReducer,
 
     GameList: GameListReducer,
     Game: GameReducer,
+    AddGame: AddGameReducer,
 
     EditorList: EditorListReducer,
     EditorListFestival: EditorListFestivalReducer,
     Editor: EditorReducer,
+    AddEditor: AddEditorReducer,
 
     ExhibitorList: ExhibitorListReducer,
     Exhibitor: ExhibitorReducer,
 
     ReservationList: ReservationListReducer,
     Reservation: ReservationReducer,
+
+    GameTypeList: GameTypeListReducer,
+    GameType: GameTypeReducer,
+    //AddGameType: AddGameTypeReducer,
 });
 
 export default RootReducer;

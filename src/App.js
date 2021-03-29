@@ -2,21 +2,21 @@ import React from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {Switch, Route, NavLink, Redirect} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import FestivalList from "./containers/Festivals/FestivalList";
 import Festival from "./containers/Festivals/Festival";
 
-import GameList from "./containers/GameList";
-import Game from "./containers/Game";
+import GameList from "./containers/Games/GameList";
+import Game from "./containers/Games/Game";
 
-import EditorList from "./containers/EditorList";
-import Editor from "./containers/Editor";
+import EditorList from "./containers/Editors/EditorList";
+import Editor from "./containers/Editors/Editor";
 
 import ExhibitorList from "./containers/Exhibitors/ExhibitorList";
 import Exhibitor from "./containers/Exhibitors/Exhibitor";
 
-import ReservationList from "./containers/ReservationList";
-import Reservation from "./containers/Reservation";
+import ReservationList from "./containers/Reservations/ReservationList";
+import Reservation from "./containers/Reservations/Reservation";
 
 import NavBar from "./containers/Navbar";
 

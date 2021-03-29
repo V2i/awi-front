@@ -5,21 +5,21 @@ const DefaultState = {
     count: 0
 };
 
-const FestivalListReducer = (state = DefaultState, action) => {
+const GameListReducer = (state = DefaultState, action) => {
     switch (action.type) {
-        case "FESTIVAL_LIST_LOADING":
+        case "GAME_TYPE_LIST_LOADING":
             return {
                 ...state,
                 loading: true,
                 errorMsg: ""
             };
-        case "FESTIVAL_LIST_SUCCESS":
+        case "GAME_TYPE_LIST_SUCCESS":
             return {
                 ...state,
                 loading: false,
                 data: action.payload,
             };
-        case "FESTIVAL_LIST_FAIL":
+        case "GAME_TYPE_LIST_FAIL":
             return {
                 ...state,
                 loading: false,
@@ -30,4 +30,4 @@ const FestivalListReducer = (state = DefaultState, action) => {
     }
 }
 
-export default FestivalListReducer;
+export default GameListReducer;

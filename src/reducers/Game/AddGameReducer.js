@@ -1,33 +1,33 @@
 const DefaultState = {
     loading: false,
-    data: [],
+    data: {},
     errorMsg: "",
-    count: 0
 };
 
-const GameListReducer = (state = DefaultState, action) => {
+const AddGameReducer = (state = DefaultState, action) => {
     switch (action.type) {
-        case "GAME_LIST_LOADING":
+        case "GAME_POST_LOADING":
             return {
                 ...state,
                 loading: true,
                 errorMsg: ""
             };
-        case "GAME_LIST_SUCCESS":
+        case "GAME_POST_SUCCESS":
             return {
                 ...state,
                 loading: false,
-                data: action.payload,
+                errorMsg: "",
+                data: action.payload
             };
-        case "GAME_LIST_FAIL":
+        case "GAME_POST_FAIL":
             return {
                 ...state,
                 loading: false,
-                errorMsg: action.err,
+                errorMsg: action.err
             }
         default:
             return state;
     }
 }
 
-export default GameListReducer;
+export default AddGameReducer;
