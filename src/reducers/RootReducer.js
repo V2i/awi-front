@@ -29,6 +29,9 @@ import GameTypeListReducer from "./GameType/GameTypeListReducer";
 import GameTypeReducer from "./GameType/GameTypeReducer";
 //import AddGameTypeReducer from "./GameType/AddGameTypeReducer";
 
+//USER REDUCERS
+import UserListReducer from "./User/UserListReducer";
+
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
     Festival: FestivalReducer,
@@ -52,6 +55,9 @@ const RootReducer = combineReducers({
     GameTypeList: GameTypeListReducer,
     GameType: GameTypeReducer,
     //AddGameType: AddGameTypeReducer,
+
+    UserList: UserListReducer,
+
 });
 
 export default RootReducer;
