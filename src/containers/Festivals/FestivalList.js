@@ -30,7 +30,7 @@ const FestivalList = () => {
                 <Grid
                     container
                     direction="row"
-                    spacing = {3}
+                    spacing = {5}
                     alignItems="center"
                     alignContent="center"
                     justify="center"
@@ -41,12 +41,8 @@ const FestivalList = () => {
                                 <FestivalCard festival = {f} /> 
                             </Grid>
                         )}
-                        
-                        
                 </Grid>
-            
             )
-
         }
         if(festivalList.loading) {
             return <Loading color={'lightblue'} type={'bubbles'} />;
