@@ -7,8 +7,15 @@ const User = () => {
 
 
     const showData = () => {
+        console.log(user);
         if(user.isLoggedIn) {
-            return <h1>{user.userMail}</h1>
+            return (
+                <>
+                    <h1>Mon Compte</h1>
+                    <p>{user.user.userInfo.userMail}</p>
+                    <p>{user.user.userInfo.userPassword}</p>
+                </>
+            )
         }
         if(!user.isLoggedIn) {
             return <p>Vous n'etes pas connecté</p>;
