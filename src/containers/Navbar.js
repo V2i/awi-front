@@ -4,8 +4,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import {Typography} from '@material-ui/core';
+import {IconButton, Typography} from '@material-ui/core';
 import Login from "./Users/Login";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../actions/UserActions";
+import {AccountCircle } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,12 +39,18 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    const user = useSelector(state => state.User);
 
     const [open, setOpen] = useState(false);
-    //const [user, setUser] = useState();
 
     const changeValueOpen = (value) => {
-        setOpen(value)
+        setOpen(value);
+    };
+
+    const logOut = () => {
+        dispatch(logout());
     }
 
     return (
@@ -56,8 +65,14 @@ const NavBar = () => {
                     <Button color="inherit" href="/exhibitor/list" className={classes.menuButton}>Exposants</Button>
                     <Button color="inherit" href="/reservation/list" className={classes.menuButton}>Réservations</Button>
                     <Button color="inherit" href="/user/list" className={classes.menuButton}>Utilisateurs</Button>
-                    <Button color="inherit" href="" className={classes.menuButtonRight}
-                            onClick={() => changeValueOpen(true)}>Connexion</Button>
+                    {user.isLoggedIn ?
+                        <IconButton variant="contained" color="default" className={classes.menuButtonRight} onClick={logOut}>
+                            <AccountCircle />
+                        </IconButton> :
+                        <Button color="inherit" className={classes.menuButtonRight} onClick={() => changeValueOpen(true)}>
+                            Connexion
+                        </Button>
+                    }
                 </Toolbar>
             </AppBar>
             <div className={classes.offset}/>

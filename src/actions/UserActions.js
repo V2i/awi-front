@@ -79,6 +79,10 @@ export const login = (user) => async dispatch => {
 
         const res = await axios.post(`${servURL}/login`, user);
 
+        if(res.data.authToken) {
+            localStorage.setItem("user", JSON.stringify(res.data));
+        }
+
         dispatch({
             type: "LOGIN_SUCCESS",
             payload: res.data
@@ -86,5 +90,19 @@ export const login = (user) => async dispatch => {
 
     } catch (err) {
         console.log(err);
+    }
+};
+
+export const logout = () => async dispatch => {
+
+    try{
+        localStorage.removeItem("user");
+
+        dispatch({
+            type: "LOGOUT_SUCCESS",
+        });
+
+    } catch (e) {
+        console.log(e);
     }
 };

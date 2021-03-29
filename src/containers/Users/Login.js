@@ -47,7 +47,7 @@ const Login = ({open = false, handleClose}) => {
                             <TextField name="userMail" label="Mail" value={user.userMail} onChange={handleInputChange}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField name="userPassword" label="Mot de Passe" value={user.userPassword} onChange={handleInputChange}/>
+                            <TextField name="userPassword" label="Mot de Passe" type="password" value={user.userPassword} onChange={handleInputChange}/>
                         </Grid>
                     </Grid>
                 </DialogContentText>

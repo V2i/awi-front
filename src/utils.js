@@ -6,4 +6,14 @@ export const generatePassword = (length) => {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
-}
+};
+
+export const authHeader = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (user && user.accessToken) {
+        return { 'x-access-token': user.accessToken };
+    } else {
+        return {};
+    }
+};

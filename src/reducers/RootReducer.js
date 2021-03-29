@@ -31,6 +31,7 @@ import GameTypeReducer from "./GameType/GameTypeReducer";
 
 //USER REDUCERS
 import UserListReducer from "./User/UserListReducer";
+import AuthReducer from "./User/AuthReducer";
 
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
@@ -57,6 +58,7 @@ const RootReducer = combineReducers({
     //AddGameType: AddGameTypeReducer,
 
     UserList: UserListReducer,
+    User: AuthReducer,
 
 });
 
