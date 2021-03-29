@@ -42,3 +42,55 @@ export const getExhibitorByID = (id) => async dispatch => {
         });
     }
 }
+
+export const postExhibitor = (exhibitor) => async dispatch => {
+    try {
+
+        const res = await axios.post(`${servURL}/exhibitor`, exhibitor);
+
+        dispatch({
+            type: "EXHIBITOR_ADD_SUCCESS",
+            payload: res.data
+        });
+
+    } catch (err) {
+        // dispatch({
+        //     type: "EXHIBITOR_POST_FAIL",
+        //     err: err,
+        // });
+    }
+};
+
+export const deleteExhibitor = (id) => async dispatch => {
+    try {
+
+        const res = await axios.delete(`${servURL}/exhibitor/${id}`);
+
+        dispatch({
+            type: "EXHIBITOR_DELETE_SUCCESS",
+            payload: res.data
+        });
+    } catch (err) {
+        // dispatch({
+        //     type: "EXHIBITOR_DELETE_FAIL",
+        //     err: err,
+        // });
+    }
+};
+
+export const patchExhibitor = (exhibitor) => async dispatch => {
+    try {
+
+        const res = await axios.patch(`${servURL}/exhibitor/${exhibitor._id}`, exhibitor);
+
+        dispatch({
+            type: "EXHIBITOR_UPDATED_SUCCESS",
+            payload: res.data
+        });
+    } catch (err) {
+        // dispatch({
+        //     type: "EXHIBITOR_UPDATED_FAIL",
+        //     err: err,
+        // });
+    }
+};

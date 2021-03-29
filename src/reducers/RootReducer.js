@@ -14,6 +14,7 @@ import AddEditorReducer from "./Editor/AddEditorReducer";
 // EXHIBITOR REDUCERS
 import ExhibitorListReducer from "./Exhibitor/ExhibitorListReducer";
 import ExhibitorReducer from "./Exhibitor/ExhibitorReducer";
+import AddExhibitorReducer from "./Exhibitor/AddExhibitorReducer";
 
 // GAME REDUCERS
 import GameListReducer from "./Game/GameListReducer";
@@ -45,6 +46,7 @@ const RootReducer = combineReducers({
 
     ExhibitorList: ExhibitorListReducer,
     Exhibitor: ExhibitorReducer,
+    AddExhibitor: AddExhibitorReducer,
 
     ReservationList: ReservationListReducer,
     Reservation: ReservationReducer,
