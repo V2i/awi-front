@@ -9,11 +9,16 @@ import {
  import IconButton from '@material-ui/core/IconButton';
  import { Visibility, Add, Create, Delete} from '@material-ui/icons';
  import AddGame from "./AddGame";
+import {green} from "@material-ui/core/colors";
+import {Link} from 'react-router-dom';
 
 const GameList = () => {
+
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
     const gameList = useSelector(state => state.GameList);
+    const user = useSelector(state => state.User);
+
 
     React.useEffect(() => {
         const fetchData = () => {
@@ -57,11 +62,16 @@ const GameList = () => {
                             <TableCell>{row.gameType.gameTypeName}</TableCell>
                             <TableCell>{row.gameNotice}</TableCell>
                             <TableCell>{row.isPrototype ? 'Oui' : 'Non'}</TableCell>
-                            <TableCell>
-                                <IconButton variant="outlined" color="primary" href={`/game/${row._id}`}><Visibility /></IconButton>
-                                <IconButton variant="outlined" color="primary" ><Create /></IconButton>
-                                <IconButton variant="outlined" color="primary" onClick={() => removeGame(row._id)}><Delete /></IconButton>
-                            </TableCell>
+                            {user.isLoggedIn
+                                ?
+                                    <TableCell>
+                                        <IconButton variant="outlined" color="primary" component={Link} to={`/game/${row._id}`}><Visibility /></IconButton>
+                                        <IconButton variant="outlined" style={{ color: green[500] }} ><Create /></IconButton>
+                                        <IconButton variant="outlined" color="secondary" onClick={() => removeGame(row._id)}><Delete /></IconButton>
+                                    </TableCell>
+                                :
+                                    <></>
+                            }
                         </TableRow>
                     ))}
                     </TableBody>
@@ -76,13 +86,16 @@ const GameList = () => {
             return <p>{gameList.errorMsg}</p>;
         }
 
-        return <p>unable to get data</p>;
+        return <p>Impossible d'obtenir des données</p>;
     };
 
     return(
         <div>
             <h1>Liste des Jeux</h1>
-            <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
+            {user.isLoggedIn
+                ? <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
+                : <></>
+            }
             {showData()}
             <AddGame open={open} handleClose={() => changeValueOpen(false)}/>
         </div>

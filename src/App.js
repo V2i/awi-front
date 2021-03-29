@@ -1,8 +1,8 @@
 import React from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import {Switch, Route, Redirect} from 'react-router-dom';
+
 import FestivalList from "./containers/Festivals/FestivalList";
 import Festival from "./containers/Festivals/Festival";
 
@@ -17,6 +17,10 @@ import Exhibitor from "./containers/Exhibitors/Exhibitor";
 
 import ReservationList from "./containers/Reservations/ReservationList";
 import Reservation from "./containers/Reservations/Reservation";
+
+import UserList from "./containers/Users/UserList";
+import Login from "./containers/Users/Login";
+import User from "./containers/Users/User";
 
 import NavBar from "./containers/Navbar";
 
@@ -41,6 +45,11 @@ function App() {
 
                 <Route path={"/reservation/list"} exact component={ReservationList}/>
                 <Route path={"/reservation/:id"} exact component={Reservation}/>
+
+                <Route path={"/user/list"} exact component={UserList}/>
+                <Route path={"/login"} exact component={Login}/>
+                <Route path={"/profile"} exact component={User}/>
+
                 <Redirect to={"/"}/>
             </Switch>
         </div>

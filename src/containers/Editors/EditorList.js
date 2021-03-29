@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
+import {Link} from 'react-router-dom';
 import {getEditorList} from "../../actions/EditorActions";
 import Loading from "../Loading";
 import AddEditor from "./AddEditor";
@@ -10,9 +11,12 @@ import { IconButton, Button,
 } from "@material-ui/core";
 
 const EditorList = () => {
+
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
     const editorList = useSelector(state => state.EditorList);
+    const user = useSelector(state => state.User);
+
 
     React.useEffect(() => {
         const fetchData = () => {
@@ -41,7 +45,7 @@ const EditorList = () => {
                     <TableCell component="th" scope="row">
                         {row.editorName}
                     </TableCell>
-                    <TableCell><Button variant="outlined" color="primary" href={`/editor/${row._id}`}>Détails</Button></TableCell>
+                    <TableCell><Link to={`/editor/${row._id}`}><Button variant="outlined" color="primary">Détails</Button></Link></TableCell>
                     </TableRow>
                 ))}
                 </TableBody>
@@ -56,15 +60,20 @@ const EditorList = () => {
             return <p>{editorList.errorMsg}</p>;
         }
 
-        return <p>unable to get data</p>;
+        return <p>Impossible d'obtenir des données</p>;
     };
 
     return(
         <div>
             <h1>Liste des Editeurs</h1>
-            <IconButton aria-label="add" color="primary" onClick={() => changeValueOpen(true)}>
-                <AddIcon />
-            </IconButton>
+            {user.isLoggedIn
+                ?
+                    <IconButton aria-label="add" color="primary" onClick={() => changeValueOpen(true)}>
+                        <AddIcon />
+                    </IconButton>
+                :
+                    <></>
+            }
             {showData()}
             { open && <AddEditor/>}
             

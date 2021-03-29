@@ -7,6 +7,7 @@ import {
     Table, TableBody, TableCell, TableRow, TableHead, TableContainer,
     Paper, Button, Typography, Grid,
   } from "@material-ui/core";
+import {Link} from 'react-router-dom';
 
 const Exhibitor = (props) => {
 
@@ -27,7 +28,7 @@ const Exhibitor = (props) => {
                             <Typography variant="h3">{exhibitor.data.exhibitorName}</Typography>
                         </Grid>
                         <Grid item xs={6}>
-                        <Typography>Relié à un éditeur ? {exhibitor.data.exhibitorEditor ? <Button variant="outlined" href={`/editor/${exhibitor.data.exhibitorEditor._id}`}>{exhibitor.data.exhibitorEditor.editorName}</Button> : 'Non'}</Typography>
+                        <Typography>Relié à un éditeur ? {exhibitor.data.exhibitorEditor ? <Link to={`/editor/${exhibitor.data.exhibitorEditor._id}`}><Button variant="outlined">{exhibitor.data.exhibitorEditor.editorName}</Button></Link> : 'Non'}</Typography>
                         </Grid>
                         
                     </Grid>
@@ -71,7 +72,7 @@ const Exhibitor = (props) => {
             return <p>{exhibitor.errorMsg}</p>;
         }
 
-        return <p>unable to get data</p>;
+        return <p>Impossible d'obtenir des données</p>;
     };
 
     return(

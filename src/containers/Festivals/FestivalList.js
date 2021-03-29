@@ -30,20 +30,19 @@ const FestivalList = () => {
                 <Grid
                     container
                     direction="row"
-                    spacing = {3}
+                    spacing = {5}
+                    alignItems="center"
+                    alignContent="center"
+                    justify="center"
                     >
                         
                         { festivalList.data.map(f => 
-                            <Grid item xs={6} key={f._id}>
+                            <Grid item xs={10} key={f._id}>
                                 <FestivalCard festival = {f} /> 
                             </Grid>
                         )}
-                        
-                        
                 </Grid>
-            
             )
-
         }
         if(festivalList.loading) {
             return <Loading color={'lightblue'} type={'bubbles'} />;
@@ -52,7 +51,7 @@ const FestivalList = () => {
             return <p>{festivalList.errorMsg}</p>;
         }
 
-        return <p>unable to get data</p>;
+        return <p>Impossible d'obtenir des données</p>;
     };
 
     return(
