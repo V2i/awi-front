@@ -9,7 +9,9 @@ import { Grid, Button, TextField, Typography,
  } from "@material-ui/core";
  import IconButton from '@material-ui/core/IconButton';
  import { Visibility, Add, Create, Delete} from '@material-ui/icons';
- 
+import {Link} from 'react-router-dom';
+import AddGame from "../Games/AddGame";
+
 const Editor = (props) => {
 
     const editorId = props.match.params.id;
@@ -30,6 +32,11 @@ const Editor = (props) => {
 
     const [editorSelected, setEditor] = React.useState(initialEditor);
     const [toUpdate, setUpdate] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
+
+    const changeValueOpen = (value) => {
+        setOpen(value)
+    };
 
     const handleChange = (event) => {
         if(event.target) {
@@ -40,7 +47,7 @@ const Editor = (props) => {
 
     const removeEditor = (id) => {
         dispatch(deleteEditor(id));
-    }
+    };
 
     const updateEditor = (editor) => {
         setUpdate(false);
@@ -71,7 +78,7 @@ const Editor = (props) => {
                     </Grid>
                     <Grid item xs={9}>
                         <Typography>Liste des jeux : </Typography>
-                        <IconButton variant="outlined" color="primary"><Add /></IconButton>
+                        <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
                         <Table aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -98,7 +105,7 @@ const Editor = (props) => {
                                     <TableCell>{row.gameNotice}</TableCell>
                                     <TableCell>{row.isPrototype ? 'Oui' : 'Non'}</TableCell>
                                     <TableCell>
-                                        <IconButton variant="outlined" color="primary" href={`/game/${row._id}`}><Visibility /></IconButton>
+                                        <IconButton variant="outlined" color="primary" component={Link} to={`/game/${row._id}`}><Visibility /></IconButton>
                                         <IconButton variant="outlined" color="primary" ><Create /></IconButton>
                                         <IconButton variant="outlined" color="primary" ><Delete /></IconButton>
                                     </TableCell>
@@ -107,9 +114,7 @@ const Editor = (props) => {
                             </TableBody>
                         </Table>
                     </Grid>
-                    
                 </Grid>
-            
             )
         }
         if(editor.loading) {
@@ -125,6 +130,7 @@ const Editor = (props) => {
     return(
         <div>
             {showData()}
+            <AddGame open={open} handleClose={() => changeValueOpen(false)}/>
         </div>
     )
 }
