@@ -2,13 +2,11 @@ import React, {useState} from 'react';
 import {
     Table, TableBody, TableCell, TableRow, TableHead, TableContainer,
     Checkbox,
-    Typography,
     Paper,
     Card,
     FormControlLabel,
     Button, IconButton,
 } from "@material-ui/core";
-import moment from 'moment';
 import {patchFestival, deleteFestival} from "../../actions/FestivalActions";
 import {useDispatch} from "react-redux";
 import TextField from "@material-ui/core/TextField";
@@ -16,6 +14,8 @@ import AddIcon from "@material-ui/icons/Add";
 import {postSpace} from "../../actions/SpaceActions";
 import FestivalSpace from "./FestivalSpace";
 import { Visibility, Save, Delete} from '@material-ui/icons';
+import {KeyboardDatePicker} from "@material-ui/pickers";
+import {Link} from 'react-router-dom';
 
 const FestivalCard = ({festival}) => {
 
@@ -64,14 +64,27 @@ const FestivalCard = ({festival}) => {
         <Card>
             <form>
                 <TextField name="festivalName" label="Nom" value={newFestival.festivalName} onChange={handleChange}/>
-                <Typography>{moment(festival.festivalDate).format('DD/MM/YYYY')}</Typography>
+
+                <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="DD MM YYYY"
+                    margin="normal"
+                    id="date-picker"
+                    label="Date"
+                    value={newFestival.festivalDate}
+                    onChange={handleChange}
+                    KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                    }}
+                />
 
                 <FormControlLabel
-                    control={<Checkbox value={newFestival.isCurrent} checked={newFestival.isCurrent} onChange={handleChange} name="isCurrent" />}
+                    control={<Checkbox checked={newFestival.isCurrent} onChange={handleChange} name="isCurrent" />}
                     label="Courant ?"
                 />
 
-                <IconButton variant="contained" color="primary" href={`${festival._id}`}>
+                <IconButton variant="contained" color="primary" component={Link} to={`/festival/${festival._id}`}>
                     <Visibility />
                 </IconButton>
                 <IconButton variant="contained" color="default" onClick={() => updateFestival(newFestival)}>

@@ -3,13 +3,11 @@ import {combineReducers} from "redux";
 // FESTIVAL REDUCERS
 import FestivalListReducer from "./Festival/FestivalListReducer";
 import FestivalReducer from "./Festival/FestivalReducer";
-import AddFestivalReducer from "./Festival/AddFestivalReducer";
 
 // EDITOR REDUCERS
 import EditorListReducer from "./Editor/EditorListReducer";
 import EditorReducer from "./Editor/EditorReducer";
 import EditorListFestivalReducer from "./Editor/EditorListFestivalReducer";
-import AddEditorReducer from "./Editor/AddEditorReducer";
 
 // EXHIBITOR REDUCERS
 import ExhibitorListReducer from "./Exhibitor/ExhibitorListReducer";
@@ -18,7 +16,6 @@ import ExhibitorReducer from "./Exhibitor/ExhibitorReducer";
 // GAME REDUCERS
 import GameListReducer from "./Game/GameListReducer";
 import GameReducer from "./Game/GameReducer";
-import AddGameReducer from "./Game/AddGameReducer";
 
 // RESERVATION REDUCERS
 import ReservationListReducer from "./Reservation/ReservationListReducer";
@@ -27,7 +24,6 @@ import ReservationReducer from "./Reservation/ReservationReducer";
 // GAME TYPE REDUCERS
 import GameTypeListReducer from "./GameType/GameTypeListReducer";
 import GameTypeReducer from "./GameType/GameTypeReducer";
-//import AddGameTypeReducer from "./GameType/AddGameTypeReducer";
 
 //USER REDUCERS
 import UserListReducer from "./User/UserListReducer";
@@ -36,16 +32,13 @@ import AuthReducer from "./User/AuthReducer";
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
     Festival: FestivalReducer,
-    AddFestival: AddFestivalReducer,
 
     GameList: GameListReducer,
     Game: GameReducer,
-    AddGame: AddGameReducer,
 
     EditorList: EditorListReducer,
     EditorListFestival: EditorListFestivalReducer,
     Editor: EditorReducer,
-    AddEditor: AddEditorReducer,
 
     ExhibitorList: ExhibitorListReducer,
     Exhibitor: ExhibitorReducer,
@@ -55,7 +48,6 @@ const RootReducer = combineReducers({
 
     GameTypeList: GameTypeListReducer,
     GameType: GameTypeReducer,
-    //AddGameType: AddGameTypeReducer,
 
     UserList: UserListReducer,
     User: AuthReducer,
