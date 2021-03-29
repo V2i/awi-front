@@ -31,10 +31,13 @@ const FestivalList = () => {
                     container
                     direction="row"
                     spacing = {3}
+                    alignItems="center"
+                    alignContent="center"
+                    justify="center"
                     >
                         
                         { festivalList.data.map(f => 
-                            <Grid item xs={6} key={f._id}>
+                            <Grid item xs={10} key={f._id}>
                                 <FestivalCard festival = {f} /> 
                             </Grid>
                         )}

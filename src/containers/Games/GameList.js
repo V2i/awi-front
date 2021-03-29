@@ -9,6 +9,7 @@ import {
  import IconButton from '@material-ui/core/IconButton';
  import { Visibility, Add, Create, Delete} from '@material-ui/icons';
  import AddGame from "./AddGame";
+import {green} from "@material-ui/core/colors";
 
 const GameList = () => {
     const [open, setOpen] = React.useState(false);
@@ -59,8 +60,8 @@ const GameList = () => {
                             <TableCell>{row.isPrototype ? 'Oui' : 'Non'}</TableCell>
                             <TableCell>
                                 <IconButton variant="outlined" color="primary" href={`/game/${row._id}`}><Visibility /></IconButton>
-                                <IconButton variant="outlined" color="primary" ><Create /></IconButton>
-                                <IconButton variant="outlined" color="primary" onClick={() => removeGame(row._id)}><Delete /></IconButton>
+                                <IconButton variant="outlined" style={{ color: green[500] }} ><Create /></IconButton>
+                                <IconButton variant="outlined" color="secondary" onClick={() => removeGame(row._id)}><Delete /></IconButton>
                             </TableCell>
                         </TableRow>
                     ))}

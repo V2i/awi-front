@@ -5,7 +5,7 @@ import {
 import {patchSpace, deleteSpace} from "../../actions/SpaceActions";
 import {useDispatch} from "react-redux";
 import TextField from "@material-ui/core/TextField";
-import DeleteIcon from "@material-ui/icons/Delete";
+import {Delete, Save} from "@material-ui/icons";
 
 const FestivalSpace = ({space, festival}) => {
 
@@ -31,7 +31,7 @@ const FestivalSpace = ({space, festival}) => {
         dispatch(deleteSpace(id, festival));
     };
 
-    const updateFestival = (space) => {
+    const updateSpace = (space) => {
         dispatch(patchSpace(space));
     };
 
@@ -53,8 +53,13 @@ const FestivalSpace = ({space, festival}) => {
             <TableCell align="right">Res</TableCell>
             <TableCell align="right">Res</TableCell>
             <TableCell align="right">
+                <IconButton aria-label="delete" color="default" onClick={() => updateSpace(newSpace)}>
+                    <Save />
+                </IconButton>
+            </TableCell>
+            <TableCell align="right">
                 <IconButton aria-label="delete" color="secondary" onClick={() => removeSpace(newSpace._id)}>
-                    <DeleteIcon />
+                    <Delete />
                 </IconButton>
             </TableCell>
         </TableRow>

@@ -99,7 +99,7 @@ const FestivalCard = ({festival}) => {
                                 <FestivalSpace space={space} festival={newFestival} key={space._id}/>
                             ))}
                             <TableRow>
-                                <TableCell align="center">
+                                <TableCell align="center" colSpan={9}>
                                     <IconButton aria-label="add" color="primary" onClick={() => addSpace()}>
                                         <AddIcon />
                                     </IconButton>
