@@ -119,7 +119,7 @@ const Editor = (props) => {
             return <p>{editor.errorMsg}</p>;
         }
 
-        return <p>unable to get data</p>;
+        return <p>Impossible d'obtenir des données</p>;
     };
 
     return(

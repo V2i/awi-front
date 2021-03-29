@@ -9,6 +9,7 @@ import Login from "./Users/Login";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../actions/UserActions";
 import {AccountCircle } from "@material-ui/icons";
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -76,17 +77,17 @@ const NavBar = () => {
                     <ChevronRightIcon/>
                     {user.isLoggedIn ?
                         <div>
-                            <Button color="inherit" href="/festival/list" className={classes.menuButton}>Festival</Button>
-                            <Button color="inherit" href="/game/list" className={classes.menuButton}>Jeux</Button>
-                            <Button color="inherit" href="/editor/list" className={classes.menuButton}>Editeurs</Button>
-                            <Button color="inherit" href="/exhibitor/list" className={classes.menuButton}>Exposants</Button>
-                            <Button color="inherit" href="/reservation/list" className={classes.menuButton}>Réservations</Button>
-                            <Button color="inherit" href="/user/list" className={classes.menuButton}>Utilisateurs</Button>
+                            <Button color="inherit" component={Link} to="/festival/list" className={classes.menuButton}>Festival</Button>
+                            <Button color="inherit" component={Link} to="/game/list" className={classes.menuButton}>Jeux</Button>
+                            <Button color="inherit" component={Link} to="/editor/list" className={classes.menuButton}>Editeurs</Button>
+                            <Button color="inherit" component={Link} to="/exhibitor/list" className={classes.menuButton}>Exposants</Button>
+                            <Button color="inherit" component={Link} to="/reservation/list" className={classes.menuButton}>Réservations</Button>
+                            <Button color="inherit" component={Link} to="/user/list" className={classes.menuButton}>Utilisateurs</Button>
                         </div>
                     :
                         <div>
-                            <Button color="inherit" href="/game/list" className={classes.menuButton}>Jeux</Button>
-                            <Button color="inherit" href="/editor/list" className={classes.menuButton}>Editeurs</Button>
+                            <Button color="inherit" component={Link} to="/game/list" className={classes.menuButton}>Jeux</Button>
+                            <Button color="inherit" component={Link} to="/editor/list" className={classes.menuButton}>Editeurs</Button>
                         </div>
                     }
                     {user.isLoggedIn ?
@@ -109,8 +110,8 @@ const NavBar = () => {
                                 open={menu}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={myAccount}>Mon Compte</MenuItem>
-                                <MenuItem onClick={logOut}>Deconnexion</MenuItem>
+                                <MenuItem component={Link} to="/profile" onClick={myAccount}>Mon Compte</MenuItem>
+                                <MenuItem component={Link} onClick={logOut}>Deconnexion</MenuItem>
                             </Menu>
                         </div>
                         :

@@ -81,7 +81,7 @@ const UserList = () => {
             return <p>{userList.errorMsg}</p>;
         }
 
-        return <p>unable to get data</p>;
+        return <p>Impossible d'obtenir des données</p>;
     };
 
     return(

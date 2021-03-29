@@ -33,7 +33,7 @@ const ReservationList = () => {
             return <p>{reservationList.errorMsg}</p>;
         }
 
-        return <p>unable to get data</p>;
+        return <p>Impossible d'obtenir des données</p>;
     };
 
     return(

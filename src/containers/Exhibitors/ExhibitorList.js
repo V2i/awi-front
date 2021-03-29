@@ -54,7 +54,7 @@ const ExhibitorList = () => {
             return <p>{exhibitorList.errorMsg}</p>;
         }
 
-        return <p>unable to get data</p>;
+        return <p>Impossible d'obtenir des données</p>;
     };
 
     return(
