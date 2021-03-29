@@ -5,7 +5,7 @@ import { Button, TextField, Grid,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
  } from "@material-ui/core";
 
-const AddEditor = ({open = false, handleClose}) => {
+const AddEditor = ({open = true, handleClose}) => {
 
     const initialEditorState = {
         editorName: ""

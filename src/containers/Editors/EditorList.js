@@ -66,7 +66,8 @@ const EditorList = () => {
                 <AddIcon />
             </IconButton>
             {showData()}
-            <AddEditor open={open} handleClose={() => changeValueOpen(false)}/>
+            { open && <AddEditor/>}
+            
         </div>
     )
 }
