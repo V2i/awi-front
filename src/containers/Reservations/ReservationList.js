@@ -19,6 +19,7 @@ const ReservationList = () => {
 
     const showData = () => {
         if(!_.isEmpty(reservationList.data)) {
+            console.log(reservationList);
             return reservationList.data.map(f => {
                     return (<li key={f._id}>
                         <Link to={`/reservation/${f._id}`}>{f.reservationExhibitor.exhibitorName}</Link>
