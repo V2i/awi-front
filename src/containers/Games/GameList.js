@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { getGameList, deleteGame, patchGame } from "../../actions/GameActions";
 import { getGameTypeList } from "../../actions/GameTypeActions";
 import Loading from "../Loading";
-import { TextField, FormControl, InputLabel, Select, MenuItem,
+import { TextField, FormControl, FormControlLabel, Checkbox, InputLabel, Select, MenuItem,
     Table, TableBody, TableCell, TableRow, TableHead, 
  } from "@material-ui/core";
  import IconButton from '@material-ui/core/IconButton';
@@ -38,9 +38,8 @@ const GameList = () => {
     }
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
-        setGame({...selectedGame, [name] : value})
-        console.log(selectedGame)
+        const { name, value, checked } = event.target;
+        setGame({...selectedGame, [name] : (name == "isPrototype" ? checked : value)})
     }
 
     const saveGame = (selectedGame) => {
@@ -107,8 +106,28 @@ const GameList = () => {
                             <TableCell>
                                 {selectedGame._id === row._id ? <TextField name="gameNotice" label="Notice" value={selectedGame.gameNotice} onChange={handleChange}/> : row.gameNotice }
                             </TableCell>
+                            <TableCell>
+                                {
+                                selectedGame._id === row._id 
+                                ? <FormControlLabel
+                                    control={
+                                    <Checkbox
+                                        checked={selectedGame.isPrototype}
+                                        onChange={handleChange}
+                                        name="isPrototype"
+                                        color="primary"
+                                    />
+                                    }
+                                />
+                                : <Checkbox
+                                        checked={row.isPrototype}
+                                        disabled
+                                        name="isPrototype"
+                                        color="primary"
+                                    />
+                                }
                             
-                            <TableCell>{row.isPrototype ? 'Oui' : 'Non'}</TableCell>
+                            </TableCell>
                             {user.isLoggedIn
                                 ?
                                     <TableCell>
