@@ -1,5 +1,6 @@
 import axios from "axios";
 import servURL from "../servUrl";
+import {authHeader} from "../utils";
 
 export const getReservationList = () => async dispatch => {
     try {
@@ -8,7 +9,7 @@ export const getReservationList = () => async dispatch => {
             type: "RESERVATION_LIST_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/reservation/list`);
+        const res = await axios.get(`${servURL}/reservation/list`,{headers: authHeader()});
 
         dispatch({
             type: "RESERVATION_LIST_SUCCESS",
@@ -29,7 +30,7 @@ export const getReservationByID = (id) => async dispatch => {
             type: "RESERVATION_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/reservation/${id}`);
+        const res = await axios.get(`${servURL}/reservation/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "RESERVATION_SUCCESS",
