@@ -110,8 +110,7 @@ const AddGame = ({open = false, handleClose}) => {
                             }
                         </Grid>
                         }
-                        
-                        
+
                         { gameTypeList.data && 
                         <Grid item xs={6}>
                             <FormControl>
@@ -132,7 +131,6 @@ const AddGame = ({open = false, handleClose}) => {
                         </Grid>
                         }
                     </Grid>
-                    
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -141,8 +139,7 @@ const AddGame = ({open = false, handleClose}) => {
                 Annuler
             </Button>
             </DialogActions>
-      </Dialog>
-        
+        </Dialog>
     );
 }
 

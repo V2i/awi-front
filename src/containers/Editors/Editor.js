@@ -11,6 +11,7 @@ import { Grid, Button, TextField, Typography,
  import { Visibility, Add, Create, Delete} from '@material-ui/icons';
 import {Link} from 'react-router-dom';
 import AddGame from "../Games/AddGame";
+import {green} from "@material-ui/core/colors";
 
 const Editor = (props) => {
 
@@ -109,8 +110,8 @@ const Editor = (props) => {
                                             <TableCell>{row.isPrototype ? 'Oui' : 'Non'}</TableCell>
                                             <TableCell>
                                                 <IconButton variant="outlined" color="primary" component={Link} to={`/game/${row._id}`}><Visibility /></IconButton>
-                                                <IconButton variant="outlined" color="primary" ><Create /></IconButton>
-                                                <IconButton variant="outlined" color="primary" ><Delete /></IconButton>
+                                                <IconButton variant="outlined" style={{ color: green[500] }} ><Create /></IconButton>
+                                                <IconButton variant="outlined" color="secondary" ><Delete /></IconButton>
                                             </TableCell>
                                         </TableRow>
                                     ))}
