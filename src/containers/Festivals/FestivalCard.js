@@ -33,8 +33,8 @@ const FestivalCard = ({festival}) => {
 
     const handleChange = (event) => {
         if(event.target) {
-            const { name, value } = event.target;
-            setFestival({ ...newFestival, [name]: value });
+            const { name, value, checked } = event.target;
+            setFestival({ ...newFestival, [name]: (name === "isCurrent" ? checked : value) });
         } else {
             setFestival({...newFestival, festivalDate: event});
         }
@@ -78,11 +78,18 @@ const FestivalCard = ({festival}) => {
                         'aria-label': 'change date',
                     }}
                 />
-
                 <FormControlLabel
-                    control={<Checkbox checked={newFestival.isCurrent} onChange={handleChange} name="isCurrent" />}
+                    control={
+                    <Checkbox
+                    checked={newFestival.isCurrent}
+                        onChange={handleChange}
+                        name="isCurrent"
+                        color="primary"
+                    />
+                    }
                     label="Courant ?"
                 />
+                
 
                 <IconButton variant="contained" color="primary" component={Link} to={`/festival/${festival._id}`}>
                     <Visibility />
