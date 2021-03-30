@@ -81,8 +81,22 @@ const AddGame = ({open = false, handleClose}) => {
                         
                             
                         <Grid item xs={4}>
-                            <TextField name="isPrototype" label="Prototype ?" value={game.isPrototype} onChange={handleInputChange}/>
+                            
+                            <FormControl>
+                                <InputLabel id="prototype">Prototype ?</InputLabel>
+                                <Select
+                                labelId="prototype"
+                                id="prototypeSelect"
+                                name="isPrototype"
+                                value={game.isPrototype}
+                                onChange={handleInputChange}
+                                >
+                                    <MenuItem value={true}>Oui</MenuItem>
+                                    <MenuItem value={false}>Non</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Grid>
+
                         <Grid item xs={4}>
                             <TextField name="gameNotice" label="Notice" value={game.gameNotice} onChange={handleInputChange}/>
                         </Grid>
