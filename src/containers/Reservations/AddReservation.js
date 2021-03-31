@@ -23,8 +23,7 @@ const AddReservation = ({open = false, handleClose}) => {
 
     const dispatch = useDispatch();
     const [reservation, setReservation] = useState(initialReservationState);
-    const editorList = useSelector(state => state.EditorList);
-    const gameTypeList = useSelector(state => state.GameTypeList);
+    const exhibitorList = useSelector(state => state.ExhibitorList);
 
     React.useEffect(() => {
         const fetchData = () => {
