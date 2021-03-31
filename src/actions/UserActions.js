@@ -1,3 +1,4 @@
+import createBreakpoints from "@material-ui/core/styles/createBreakpoints";
 import axios from "axios";
 import servURL from "../servUrl";
 
@@ -62,7 +63,7 @@ export const deleteUser = (id) => async dispatch => {
 
 export const patchUser = (user) => async dispatch => {
     try {
-
+        console.log(user)
         const res = await axios.patch(`${servURL}/user/${user._id}`, user);
 
         dispatch({
