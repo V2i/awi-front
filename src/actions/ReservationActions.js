@@ -67,6 +67,7 @@ export const deleteReservation = (id) => async dispatch => {
 };
 
 export const postReservation = (reservation) => async dispatch => {
+
     try {
 
         dispatch({
@@ -75,24 +76,20 @@ export const postReservation = (reservation) => async dispatch => {
 
         const initialTracking = {
             trackingWorkflow: "Pas encore contacté",
-            trackingContact1: null,
-            trackingContact2: null,
             trackingCR: false
         };
 
         const initialBilling = {
             billingStatus: "Pas faite",
-            billingAmount: 0,
-            billingSendDate: null,
-            billingPaidDate: null
+            billingAmount: 0
         };
 
         const tracking = await axios.post(`${servURL}/tracking`, initialTracking,{headers: authHeader()})
 
         const billing = await axios.post(`${servURL}/billing`, initialBilling,{headers: authHeader()})
 
-        reservation.reservationTracking = tracking.data;
-        reservation.reservationBilling = billing.data;
+        reservation.reservationTracking = tracking.data._id;
+        reservation.reservationBilling = billing.data._id;
 
         const res = await axios.post(`${servURL}/reservation`, reservation,{headers: authHeader()});
 

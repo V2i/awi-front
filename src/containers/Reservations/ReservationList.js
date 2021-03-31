@@ -36,7 +36,6 @@ const ReservationList = () => {
 
     const showData = () => {
         if(!_.isEmpty(reservationList.data)) {
-            console.log(reservationList);
             return (
                 <Table aria-label="simple table">
                     <TableHead>
