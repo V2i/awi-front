@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import {postReservation} from "../../actions/ReservationActions";
 import {Add} from "@material-ui/icons";
-import AddEditor from "../Editors/AddEditor";
+import AddExhibitor from "../Exhibitors/AddExhibitor";
 
 const AddReservation = ({open = false, handleClose}) => {
 
@@ -82,7 +82,7 @@ const AddReservation = ({open = false, handleClose}) => {
                                 <Add/>
                             </IconButton>
                             {
-                                addExhibitor && <AddEditor open={addExhibitor} handleClose={() => setAddExhibitor(false)}/>
+                                addExhibitor && <AddExhibitor open={addExhibitor} handleClose={() => setAddExhibitor(false)}/>
                             }
                         </Grid>
                         }

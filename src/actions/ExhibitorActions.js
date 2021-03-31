@@ -47,7 +47,8 @@ export const getExhibitorByID = (id) => async dispatch => {
 export const postExhibitor = (exhibitor) => async dispatch => {
     try {
 
-        const res = await axios.post(`${servURL}/exhibitor`, exhibitor);
+        console.log(exhibitor)
+        const res = await axios.post(`${servURL}/exhibitor`, exhibitor, {headers: authHeader()});
 
         dispatch({
             type: "EXHIBITOR_ADD_SUCCESS",
@@ -65,7 +66,7 @@ export const postExhibitor = (exhibitor) => async dispatch => {
 export const deleteExhibitor = (id) => async dispatch => {
     try {
 
-        const res = await axios.delete(`${servURL}/exhibitor/${id}`);
+        const res = await axios.delete(`${servURL}/exhibitor/${id}`, {headers: authHeader()});
 
         dispatch({
             type: "EXHIBITOR_DELETE_SUCCESS",
@@ -82,7 +83,7 @@ export const deleteExhibitor = (id) => async dispatch => {
 export const patchExhibitor = (exhibitor) => async dispatch => {
     try {
 
-        const res = await axios.patch(`${servURL}/exhibitor/${exhibitor._id}`, exhibitor);
+        const res = await axios.patch(`${servURL}/exhibitor/${exhibitor._id}`, exhibitor, {headers: authHeader()});
 
         dispatch({
             type: "EXHIBITOR_UPDATED_SUCCESS",
