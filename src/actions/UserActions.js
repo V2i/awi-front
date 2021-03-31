@@ -66,7 +66,7 @@ export const patchUser = (user) => async dispatch => {
     try {
 
         const res = await axios.patch(`${servURL}/user/${user._id}`, user,{headers: authHeader()});
-
+        
         dispatch({
             type: "USER_UPDATED_SUCCESS",
             payload: res.data
