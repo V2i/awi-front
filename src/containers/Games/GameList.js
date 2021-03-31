@@ -1,5 +1,5 @@
-import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import React,{useState} from 'react';
+import {useDispatch, useSelector,} from "react-redux";
 import _ from 'lodash';
 import { getGameList, deleteGame, patchGame } from "../../actions/GameActions";
 import { getGameTypeList } from "../../actions/GameTypeActions";
@@ -8,7 +8,7 @@ import AddGame from "./AddGame";
 import { Add, Visibility, Create, Delete, Save } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import { TextField, FormControl, FormControlLabel, Checkbox, InputLabel, Select, MenuItem,
-    Table, TableBody, TableCell, TableRow, TableHead,  Grid, Typography, Paper, TableContainer
+    Table, TableBody, TableCell, TableRow, TableHead,  Grid, Typography, Paper, TableContainer,InputBase 
  } from "@material-ui/core";
 import {green} from "@material-ui/core/colors";
 import {Link} from 'react-router-dom';
@@ -22,6 +22,12 @@ const GameList = () => {
     const gameList = useSelector(state => state.GameList);
     const user = useSelector(state => state.User);
     const gameTypeList = useSelector(state => state.GameTypeList);
+
+    const searchInitialState ={
+        search: "",
+    }
+
+    const [searchState, setState] = useState(searchInitialState);
 
     React.useEffect(() => {
         const fetchData = () => {
@@ -48,6 +54,11 @@ const GameList = () => {
         setGame({})
     }
 
+    const searchSpace = (event)=>{
+        let keyword = event.target.value;
+        setState({search:keyword})
+      }
+
     const showData = () => {
         if(!_.isEmpty(gameList.data)) {
             return (
@@ -67,7 +78,14 @@ const GameList = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                        {gameList.data.map((row) => (
+                        {gameList.data.filter((data) => {
+                        if(searchState.search == null)
+                            return data
+                        else if(data.gameName.toLowerCase().includes(searchState.search.toLowerCase())){
+                            return data
+                        }
+                        })
+                        .map((row) => (
                             <TableRow key={row._id}>
                                 <TableCell>
                                     {selectedGame._id === row._id ? <TextField name="gameName" label="Nom" value={selectedGame.gameName} onChange={handleChange}/> : row.gameName }
@@ -172,20 +190,23 @@ const GameList = () => {
         <Grid container spacing={3}>
             <Grid item xs={9}>
                 <Grid container spacing={4}>
-                <Grid item xs={4}>
-                    <Typography variant="h4"><b>Liste des Jeux</b></Typography>
+                    <Grid item xs={4}>
+                        <Typography variant="h4"><b>Liste des Jeux</b></Typography>
+                    </Grid>
+                    <Grid item xs={3}>
+                        {user.isLoggedIn
+                            ? <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
+                            : <></>
+                        }
+                        <AddGame open={open} handleClose={() => changeValueOpen(false)}/>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        {showData()}
+                    </Grid>
                 </Grid>
-                <Grid item xs={3}>
-                    {user.isLoggedIn
-                        ? <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
-                        : <></>
-                    }
-                    <AddGame open={open} handleClose={() => changeValueOpen(false)}/>
-                </Grid>
-                <Grid item xs={12}>
-                    {showData()}
-                </Grid>
-            </Grid>
             </Grid>
 
             <Grid item xs={3}>
