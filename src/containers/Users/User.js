@@ -14,22 +14,23 @@ const User = () => {
         userPassword: "",
     };
 
-    const [userState, setState] = useState(initialUser);
+
+    const [userState, setUser] = useState(initialUser);
     const dispatch = useDispatch();
     const handleSubmit = () => {
-        console.log(userState._id)
         dispatch(patchUser(userState))
+        setUser(initialUser)
     };
+    
 
     const handleChange = (event) => {
         if(event.target) {
             const { name, value } = event.target;
-            setState({ ...userState, [name]: value });
+            setUser({ ...userState, [name]: value });
         } 
     };
 
     const showData = () => {
-        console.log(user);
         if(user.isLoggedIn) {
             return (
                 <>

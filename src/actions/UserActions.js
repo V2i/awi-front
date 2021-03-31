@@ -63,9 +63,8 @@ export const deleteUser = (id) => async dispatch => {
 
 export const patchUser = (user) => async dispatch => {
     try {
-        console.log(user)
         const res = await axios.patch(`${servURL}/user/${user._id}`, user);
-
+        
         dispatch({
             type: "USER_UPDATED_SUCCESS",
             payload: res.data
@@ -74,6 +73,7 @@ export const patchUser = (user) => async dispatch => {
         console.log(err);
     }
 };
+
 
 export const login = (user) => async dispatch => {
     try {

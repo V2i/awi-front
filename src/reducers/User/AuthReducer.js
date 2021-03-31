@@ -22,6 +22,7 @@ const UserListReducer = (state = DefaultState, action) => {
         case "USER_UPDATED_SUCCESS":
             return {
                 ...state,
+                isLoggedIn: true,
                 user: action.payload
             }
         default:
