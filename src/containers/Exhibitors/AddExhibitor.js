@@ -49,7 +49,6 @@ const AddExhibitor = ({open = false, handleClose}) => {
     };
 
     const saveExhibitor = () => {
-        console.log(exhibitor)
         handleClose()
         dispatch(postExhibitor(exhibitor));
         setExhibitor(initialExhibitorState);

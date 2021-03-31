@@ -47,7 +47,6 @@ export const getExhibitorByID = (id) => async dispatch => {
 export const postExhibitor = (exhibitor) => async dispatch => {
     try {
 
-        console.log(exhibitor)
         const res = await axios.post(`${servURL}/exhibitor`, exhibitor, {headers: authHeader()});
 
         dispatch({
