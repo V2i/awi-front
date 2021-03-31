@@ -9,6 +9,9 @@ import {
 import {postReservation} from "../../actions/ReservationActions";
 import {Add} from "@material-ui/icons";
 import AddExhibitor from "../Exhibitors/AddExhibitor";
+import {getFestivalList} from "../../actions/FestivalActions";
+import AddFestival from "../Festivals/AddFestival";
+import {getExhibitorList} from "../../actions/ExhibitorActions";
 
 const AddReservation = ({open = false, handleClose}) => {
 
@@ -30,11 +33,13 @@ const AddReservation = ({open = false, handleClose}) => {
 
     const [reservation, setReservation] = useState(initialReservationState);
     const [addExhibitor, setAddExhibitor] = useState(false);
+    const [addFestival, setAddFestival] = useState(false);
+
 
     React.useEffect(() => {
         const fetchData = () => {
-            dispatch(getEditorList());
-            dispatch(getGameTypeList());
+            dispatch(getExhibitorList());
+            dispatch(getFestivalList());
         };
         fetchData();
     }, [dispatch]);
@@ -66,7 +71,7 @@ const AddReservation = ({open = false, handleClose}) => {
                         { exhibitorList.data &&
                         <Grid item xs={6}>
                             <FormControl>
-                                <InputLabel id="gameEditor">Exhibitor</InputLabel>
+                                <InputLabel id="reservationExhibitor">Exposant</InputLabel>
                                 <Select
                                     labelId="reservationExhibitor"
                                     id="reservationExhibitorSelect"
@@ -83,6 +88,30 @@ const AddReservation = ({open = false, handleClose}) => {
                             </IconButton>
                             {
                                 addExhibitor && <AddExhibitor open={addExhibitor} handleClose={() => setAddExhibitor(false)}/>
+                            }
+                        </Grid>
+                        }
+
+                        { festivalList.data &&
+                        <Grid item xs={6}>
+                            <FormControl>
+                                <InputLabel id="reservationFestival">Festival</InputLabel>
+                                <Select
+                                    labelId="reservationFestival"
+                                    id="reservationFestivalSelect"
+                                    name="reservationFestival"
+                                    value={festivalList.data.find(f => f._id === reservation.reservationFestival)}
+                                    onChange={handleInputChange}
+                                    displayEmpty
+                                >
+                                    {festivalList.data.map(f => <MenuItem value={f._id} key={f._id}>{f.festivalName}</MenuItem>)}
+                                </Select>
+                            </FormControl>
+                            <IconButton onClick={() => setAddFestival(true)}>
+                                <Add/>
+                            </IconButton>
+                            {
+                                addFestival && <AddFestival open={addFestival} handleClose={() => setAddFestival(false)}/>
                             }
                         </Grid>
                         }
