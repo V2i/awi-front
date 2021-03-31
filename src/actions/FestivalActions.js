@@ -82,12 +82,27 @@ export const deleteFestival = (id) => async dispatch => {
 export const patchFestival = (festival) => async dispatch => {
     try {
 
+        if(festival.isCurrent === true) {
+            const festivalCurrent = await axios.get(`${servURL}/festival/current`,{headers: authHeader()});
+            if(festivalCurrent.data._id !== festival._id) {
+                const festivalUpdated = await axios.patch(`${servURL}/festival/${festivalCurrent.data._id}`, {
+                    isCurrent: false,
+                },{headers: authHeader()});
+
+                dispatch({
+                    type: "FESTIVAL_UPDATED_SUCCESS",
+                    payload: festivalUpdated.data
+                });
+            }
+        }
+
         const res = await axios.patch(`${servURL}/festival/${festival._id}`, festival,{headers: authHeader()});
 
         dispatch({
             type: "FESTIVAL_UPDATED_SUCCESS",
             payload: res.data
         });
+
     } catch (err) {
         // dispatch({
         //     type: "FESTIVAL_FAIL",
