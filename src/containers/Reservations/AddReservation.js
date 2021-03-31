@@ -66,7 +66,7 @@ const AddReservation = ({open = false, handleClose}) => {
                         { exhibitorList.data &&
                         <Grid item xs={6}>
                             <FormControl>
-                                <InputLabel id="gameEditor">Exhibitor</InputLabel>
+                                <InputLabel id="reservationExhibitor">Exhibitor</InputLabel>
                                 <Select
                                     labelId="reservationExhibitor"
                                     id="reservationExhibitorSelect"
