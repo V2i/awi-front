@@ -1,33 +1,30 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-import { postEditor} from "../../actions/EditorActions";
+import { postGameType } from "../../actions/GameTypeActions";
 import { Button, TextField, Grid,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
  } from "@material-ui/core";
 
-const AddEditor = ({open = true, handleClose}) => {
+const AddGameType = ({open = true, handleClose}) => {
 
-    const initialEditorState = {
-        editorName: ""
+    const initialState = {
+        gameTypeName: ""
     };
 
     const dispatch = useDispatch();
-    const [editor, setEditor] = useState(initialEditorState);
+    const [type, setType] = useState(initialState);
 
     const handleInputChange = event => {
         if(event.target) {
             const { name, value } = event.target;
-            setEditor({ ...editor, [name]: value });
+            setType({ ...type, [name]: value });
         } 
     };
 
-    const saveEditor = () => {
+    const saveGameType = () => {
         handleClose()
-        const data = {
-            editorName: editor.editorName,
-        };
-        dispatch(postEditor(data));
-        setEditor(initialEditorState);
+        dispatch(postGameType(type));
+        setType(initialState);
     };
 
     return(
@@ -37,20 +34,20 @@ const AddEditor = ({open = true, handleClose}) => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogTitle id="alert-dialog-title">{"Ajouter un nouvel éditeur"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{"Ajouter une nouvelle Catégorie de Jeux"}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
                 
                     <Grid container spacing={3}>
                         <Grid item xs={6}>
-                        <TextField name="editorName" label="Nom" value={editor.editorName} onChange={handleInputChange}/>
+                        <TextField name="gameTypeName" label="Nom" value={type.gameTypeName} onChange={handleInputChange}/>
                         </Grid>
                     </Grid>
                 
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-            <Button variant="contained" color="primary" onClick={saveEditor}>Ajouter</Button>
+            <Button variant="contained" color="primary" onClick={saveGameType}>Ajouter</Button>
             <Button onClick={handleClose} color="primary" autoFocus>
                 Annuler
             </Button>
@@ -60,4 +57,4 @@ const AddEditor = ({open = true, handleClose}) => {
     );
 }
 
-export default AddEditor;
+export default AddGameType;

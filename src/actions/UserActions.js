@@ -1,5 +1,6 @@
 import axios from "axios";
 import servURL from "../servUrl";
+import {authHeader} from "../utils";
 
 export const getUserList = () => async dispatch => {
     try {
@@ -8,7 +9,7 @@ export const getUserList = () => async dispatch => {
             type: "USER_LIST_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/user/list`);
+        const res = await axios.get(`${servURL}/user/list`, {headers: authHeader()});
 
         dispatch({
             type: "USER_LIST_SUCCESS",
@@ -30,7 +31,7 @@ export const postUser = (user) => async dispatch => {
             type: "USER_LIST_LOADING",
         });
 
-        const res = await axios.post(`${servURL}/user`, user);
+        const res = await axios.post(`${servURL}/user`, user, {headers: authHeader()});
 
         dispatch({
             type: "USER_ADD_SUCCESS",
@@ -49,7 +50,7 @@ export const deleteUser = (id) => async dispatch => {
             type: "USER_LIST_LOADING",
         });
 
-        const res = await axios.delete(`${servURL}/user/${id}`);
+        const res = await axios.delete(`${servURL}/user/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "USER_DELETE_SUCCESS",
@@ -63,7 +64,7 @@ export const deleteUser = (id) => async dispatch => {
 export const patchUser = (user) => async dispatch => {
     try {
 
-        const res = await axios.patch(`${servURL}/user/${user._id}`, user);
+        const res = await axios.patch(`${servURL}/user/${user._id}`, user,{headers: authHeader()});
 
         dispatch({
             type: "USER_UPDATED_SUCCESS",
@@ -77,7 +78,7 @@ export const patchUser = (user) => async dispatch => {
 export const login = (user) => async dispatch => {
     try {
 
-        const res = await axios.post(`${servURL}/login`, user);
+        const res = await axios.post(`${servURL}/login`, user, {headers: authHeader()});
 
         if(res.data.authToken) {
             localStorage.setItem("user", JSON.stringify(res.data));

@@ -75,7 +75,8 @@ const EditorList = () => {
                     <></>
             }
             {showData()}
-            <AddEditor open={open} handleClose={() => changeValueOpen(false)}/>
+            { open && <AddEditor/>}
+            
         </div>
     )
 }

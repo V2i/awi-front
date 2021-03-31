@@ -1,5 +1,6 @@
 import axios from "axios";
 import servURL from "../servUrl";
+import {authHeader} from "../utils";
 
 export const getEditorList = () => async dispatch => {
     try {
@@ -8,7 +9,7 @@ export const getEditorList = () => async dispatch => {
             type: "EDITOR_LIST_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/editor/list`);
+        const res = await axios.get(`${servURL}/editor/list`, {headers: authHeader()});
 
         dispatch({
             type: "EDITOR_LIST_SUCCESS",
@@ -30,7 +31,7 @@ export const getEditorListByFestivalID = (id) => async dispatch => {
             type: "EDITOR_LIST_EDITOR_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/editor/list/festival/${id}`);
+        const res = await axios.get(`${servURL}/editor/list/festival/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "EDITOR_LIST_EDITOR_SUCCESS",
@@ -52,7 +53,7 @@ export const getEditorByID = (id) => async dispatch => {
             type: "EDITOR_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/editor/${id}`);
+        const res = await axios.get(`${servURL}/editor/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "EDITOR_SUCCESS",
@@ -70,7 +71,7 @@ export const getEditorByID = (id) => async dispatch => {
 export const postEditor = (editor) => async dispatch => {
     try {
 
-        const res = await axios.post(`${servURL}/editor`, editor);
+        const res = await axios.post(`${servURL}/editor`, editor,{headers: authHeader()});
 
         dispatch({
             type: "EDITOR_ADD_SUCCESS",
@@ -88,7 +89,7 @@ export const postEditor = (editor) => async dispatch => {
 export const deleteEditor = (id) => async dispatch => {
     try {
 
-        const res = await axios.delete(`${servURL}/editor/${id}`);
+        const res = await axios.delete(`${servURL}/editor/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "EDITOR_DELETE_SUCCESS",
@@ -105,7 +106,7 @@ export const deleteEditor = (id) => async dispatch => {
 export const patchEditor = (editor) => async dispatch => {
     try {
 
-        const res = await axios.patch(`${servURL}/editor/${editor._id}`, editor);
+        const res = await axios.patch(`${servURL}/editor/${editor._id}`, editor,{headers: authHeader()});
 
         dispatch({
             type: "EDITOR_UPDATED_SUCCESS",
