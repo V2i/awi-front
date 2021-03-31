@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {Link} from 'react-router-dom';
@@ -7,7 +7,7 @@ import Loading from "../Loading";
 import AddEditor from "./AddEditor";
 import AddIcon from '@material-ui/icons/Add';
 import { IconButton, Button,
-    Table, TableBody, TableCell, TableRow, TableHead, 
+    Table, TableBody, TableCell, TableRow, TableHead, InputBase, Grid
 } from "@material-ui/core";
 
 const EditorList = () => {
@@ -17,6 +17,11 @@ const EditorList = () => {
     const editorList = useSelector(state => state.EditorList);
     const user = useSelector(state => state.User);
 
+    const searchInitialState ={
+        search: "",
+    }
+
+    const [searchState, setState] = useState(searchInitialState);
 
     React.useEffect(() => {
         const fetchData = () => {
@@ -29,6 +34,11 @@ const EditorList = () => {
         setOpen(value)
     }
 
+    const searchSpace = (event)=>{
+        let keyword = event.target.value;
+        setState({search:keyword})
+      }
+
     const showData = () => {
         if(!_.isEmpty(editorList.data)) {
             return (
@@ -40,7 +50,15 @@ const EditorList = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                {editorList.data.map((row) => (
+                {editorList.data.filter((data) => {
+                        if(searchState.search == null)
+                            return data
+                        else if(data.editorName.toLowerCase().includes(searchState.search.toLowerCase())){
+                            return data
+                        }
+                        })
+                
+                .map((row) => (
                     <TableRow key={row._id}>
                     <TableCell component="th" scope="row">
                         {row.editorName}
@@ -65,6 +83,7 @@ const EditorList = () => {
 
     return(
         <div>
+            <Grid container direction="column" justify="center"alignItems="center">
             <h1>Liste des Editeurs</h1>
             {user.isLoggedIn
                 ?
@@ -74,8 +93,12 @@ const EditorList = () => {
                 :
                     <></>
             }
+            
+            <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
+            
             {showData()}
             { open && <AddEditor/>}
+            </Grid>
             
         </div>
     )

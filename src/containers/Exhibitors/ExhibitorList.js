@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import Loading from "../Loading";
 import {getExhibitorList, deleteExhibitor} from "../../actions/ExhibitorActions";
 import { 
     Table, TableBody, TableCell, TableRow, TableHead, TableContainer,
-    Paper, Button, IconButton
+    Paper, Button, IconButton, Grid, InputBase
   } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import AddExhibitor from "./AddExhibitor";
@@ -17,6 +17,11 @@ const ExhibitorList = () => {
     const [open, setOpen ] = React.useState(false);
     const dispatch = useDispatch();
     const exhibitorList = useSelector(state => state.ExhibitorList);
+    const searchInitialState ={
+        search: "",
+    }
+
+    const [searchState, setState] = useState(searchInitialState);
 
     React.useEffect(() => {
         const fetchData = () => {
@@ -28,6 +33,11 @@ const ExhibitorList = () => {
     const removeExhibitor = (id) => {
         dispatch(deleteExhibitor(id));
     }
+
+    const searchSpace = (event)=>{
+        let keyword = event.target.value;
+        setState({search:keyword})
+      }
 
     const showData = () => {
         if(!_.isEmpty(exhibitorList.data)) {
@@ -42,7 +52,14 @@ const ExhibitorList = () => {
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {exhibitorList.data.map(row => (
+                        {exhibitorList.data.filter((data) => {
+                        if(searchState.search == null)
+                            return data
+                        else if(data.exhibitorName.toLowerCase().includes(searchState.search.toLowerCase())){
+                            return data
+                        }
+                        })
+                        .map(row => (
                             <TableRow key={row._id}>
                                 <TableCell component="th" scope="row">
                                     {row.exhibitorName}
@@ -76,12 +93,16 @@ const ExhibitorList = () => {
 
     return(
         <div>
-            <h1>Liste des Exposants</h1>
-            <IconButton aria-label="add" color="primary" onClick={() => setOpen(true)}>
-                <AddIcon />
-            </IconButton>
-            {showData()}
-            {open && <AddExhibitor open={open} handleClose={() => setOpen(false)} />}
+            <Grid container direction="column" justify="center"alignItems="center">
+                <h1>Liste des Exposants</h1>
+                <IconButton aria-label="add" color="primary" onClick={() => setOpen(true)}>
+                    <AddIcon />
+                </IconButton>
+                <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
+                {showData()}
+                {open && <AddExhibitor open={open} handleClose={() => setOpen(false)} />}
+            </Grid>
+
         </div>
     )
 }
