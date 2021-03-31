@@ -8,7 +8,7 @@ import AddGame from "./AddGame";
 import { Add, Visibility, Create, Delete, Save } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import { TextField, FormControl, FormControlLabel, Checkbox, InputLabel, Select, MenuItem,
-    Table, TableBody, TableCell, TableRow, TableHead,  Grid
+    Table, TableBody, TableCell, TableRow, TableHead,  Grid, Typography, Paper, TableContainer
  } from "@material-ui/core";
 import {green} from "@material-ui/core/colors";
 import {Link} from 'react-router-dom';
@@ -51,8 +51,7 @@ const GameList = () => {
     const showData = () => {
         if(!_.isEmpty(gameList.data)) {
             return (
-                <Grid container spacing={3}>
-                    <Grid item xs={8}>
+                <TableContainer component={Paper}>
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -107,7 +106,13 @@ const GameList = () => {
                                 }
                                 </TableCell>
                                 <TableCell>
-                                    {selectedGame._id === row._id ? <TextField name="gameNotice" label="Notice" value={selectedGame.gameNotice} onChange={handleChange}/> : row.gameNotice }
+                                    {
+                                    selectedGame._id === row._id 
+                                    ? <TextField name="gameNotice" label="Notice" value={selectedGame.gameNotice} onChange={handleChange}/> 
+                                    : ( row.gameNotice.length > 0
+                                        ? <a href={row.gameNotice}>Notice</a>
+                                        : "")
+                                    }
                                 </TableCell>
                                 <TableCell>
                                     {
@@ -148,11 +153,7 @@ const GameList = () => {
                         ))}
                         </TableBody>
                     </Table>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <GameTypeList />
-                    </Grid>
-                </Grid>
+                </TableContainer>
                 
             )
             
@@ -168,15 +169,30 @@ const GameList = () => {
     };
 
     return(
-        <div>
-            <h1>Liste des Jeux</h1>
-            {user.isLoggedIn
-                ? <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
-                : <></>
-            }
-            {showData()}
-            <AddGame open={open} handleClose={() => changeValueOpen(false)}/>
-        </div>
+        <Grid container spacing={3}>
+            <Grid item xs={9}>
+                <Grid container spacing={4}>
+                <Grid item xs={4}>
+                    <Typography variant="h4"><b>Liste des Jeux</b></Typography>
+                </Grid>
+                <Grid item xs={3}>
+                    {user.isLoggedIn
+                        ? <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
+                        : <></>
+                    }
+                    <AddGame open={open} handleClose={() => changeValueOpen(false)}/>
+                </Grid>
+                <Grid item xs={12}>
+                    {showData()}
+                </Grid>
+            </Grid>
+            </Grid>
+
+            <Grid item xs={3}>
+                <GameTypeList />
+            </Grid>
+            
+        </Grid>
     )
 }
 
