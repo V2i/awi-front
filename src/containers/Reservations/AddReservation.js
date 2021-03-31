@@ -2,28 +2,34 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import { getEditorList } from "../../actions/EditorActions";
 import { getGameTypeList } from "../../actions/GameTypeActions";
-import { Button, TextField, Grid, FormControl, Select, InputLabel, MenuItem,
-    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+import {
+    Button, TextField, Grid, FormControl, Select, InputLabel, MenuItem,
+    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton,
 } from "@material-ui/core";
 import {postReservation} from "../../actions/ReservationActions";
+import {Add} from "@material-ui/icons";
+import AddEditor from "../Editors/AddEditor";
 
 const AddReservation = ({open = false, handleClose}) => {
 
+    const dispatch = useDispatch();
+    const exhibitorList = useSelector(state => state.ExhibitorList);
+    const festivalList = useSelector( state => state.FestivalList);
+
     const initialReservationState = {
-        gameName: "",
-        gameMinimumAge: 0,
-        gameDuration: 0,
-        gameMinimumPlayers: 0,
-        gameMaximumPlayers: 0,
-        isPrototype: false,
-        gameType:"",
-        gameEditor: "",
-        gameNotice: "",
+        reservationExhibitor: "",
+        reservationReservedSpace: [],
+        reservationFestival: festivalList.data.find(f => f.isCurrent === true),
+        reservationTracking: "",
+        reservationComment: "",
+        reservationReservedGame: [],
+        reservationBilling: "",
+        exhibitorVolunteerNeeded: false,
+        exhibitorIsMoving: false,
     };
 
-    const dispatch = useDispatch();
     const [reservation, setReservation] = useState(initialReservationState);
-    const exhibitorList = useSelector(state => state.ExhibitorList);
+    const [addExhibitor, setAddExhibitor] = useState(false);
 
     React.useEffect(() => {
         const fetchData = () => {
@@ -56,9 +62,30 @@ const AddReservation = ({open = false, handleClose}) => {
             <DialogTitle id="alert-dialog-title">Ajouter une reservation</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-
                     <Grid container spacing={3}>
-
+                        { exhibitorList.data &&
+                        <Grid item xs={6}>
+                            <FormControl>
+                                <InputLabel id="gameEditor">Exhibitor</InputLabel>
+                                <Select
+                                    labelId="reservationExhibitor"
+                                    id="reservationExhibitorSelect"
+                                    name="reservationExhibitor"
+                                    value={exhibitorList.data.find(e => e._id === reservation.reservationExhibitor)}
+                                    onChange={handleInputChange}
+                                    displayEmpty
+                                >
+                                    {exhibitorList.data.map(e => <MenuItem value={e._id} key={e._id}>{e.exhibitorName}</MenuItem>)}
+                                </Select>
+                            </FormControl>
+                            <IconButton onClick={() => setAddExhibitor(true)}>
+                                <Add/>
+                            </IconButton>
+                            {
+                                addExhibitor && <AddEditor open={addExhibitor} handleClose={() => setAddExhibitor(false)}/>
+                            }
+                        </Grid>
+                        }
                     </Grid>
                 </DialogContentText>
             </DialogContent>
