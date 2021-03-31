@@ -1,5 +1,6 @@
 import axios from "axios";
 import servURL from "../servUrl";
+import {authHeader} from "../utils";
 
 export const getFestivalList = () => async dispatch => {
     try {
@@ -8,7 +9,7 @@ export const getFestivalList = () => async dispatch => {
             type: "FESTIVAL_LIST_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/festival/list`);
+        const res = await axios.get(`${servURL}/festival/list`,{headers: authHeader()});
 
         dispatch({
             type: "FESTIVAL_LIST_SUCCESS",
@@ -29,7 +30,7 @@ export const getFestivalByID = (id) => async dispatch => {
             type: "FESTIVAL_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/festival/${id}`);
+        const res = await axios.get(`${servURL}/festival/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "FESTIVAL_SUCCESS",
@@ -46,7 +47,7 @@ export const getFestivalByID = (id) => async dispatch => {
 export const postFestival = (festival) => async dispatch => {
     try {
 
-        const res = await axios.post(`${servURL}/festival`, festival);
+        const res = await axios.post(`${servURL}/festival`, festival,{headers: authHeader()});
 
         dispatch({
             type: "FESTIVAL_ADD_SUCCESS",
@@ -64,7 +65,7 @@ export const postFestival = (festival) => async dispatch => {
 export const deleteFestival = (id) => async dispatch => {
     try {
 
-        const res = await axios.delete(`${servURL}/festival/${id}`);
+        const res = await axios.delete(`${servURL}/festival/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "FESTIVAL_DELETE_SUCCESS",
@@ -81,7 +82,7 @@ export const deleteFestival = (id) => async dispatch => {
 export const patchFestival = (festival) => async dispatch => {
     try {
 
-        const res = await axios.patch(`${servURL}/festival/${festival._id}`, festival);
+        const res = await axios.patch(`${servURL}/festival/${festival._id}`, festival,{headers: authHeader()});
 
         dispatch({
             type: "FESTIVAL_UPDATED_SUCCESS",

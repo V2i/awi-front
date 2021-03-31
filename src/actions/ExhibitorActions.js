@@ -1,5 +1,6 @@
 import axios from "axios";
 import servURL from "../servUrl";
+import {authHeader} from "../utils";
 
 export const getExhibitorList = () => async dispatch => {
     try {
@@ -8,7 +9,7 @@ export const getExhibitorList = () => async dispatch => {
             type: "EXHIBITOR_LIST_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/exhibitor/list`);
+        const res = await axios.get(`${servURL}/exhibitor/list`,{headers: authHeader()});
 
         dispatch({
             type: "EXHIBITOR_LIST_SUCCESS",
@@ -29,7 +30,7 @@ export const getExhibitorByID = (id) => async dispatch => {
             type: "EXHIBITOR_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/exhibitor/${id}`);
+        const res = await axios.get(`${servURL}/exhibitor/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "EXHIBITOR_SUCCESS",

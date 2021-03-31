@@ -1,5 +1,6 @@
 import axios from "axios";
 import servURL from "../servUrl";
+import {authHeader} from "../utils";
 
 export const getGameList = () => async dispatch => {
     try {
@@ -8,7 +9,7 @@ export const getGameList = () => async dispatch => {
             type: "GAME_LIST_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/game/list`);
+        const res = await axios.get(`${servURL}/game/list`,{headers: authHeader()});
 
         dispatch({
             type: "GAME_LIST_SUCCESS",
@@ -29,7 +30,7 @@ export const getGameByID = (id) => async dispatch => {
             type: "GAME_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/game/${id}`);
+        const res = await axios.get(`${servURL}/game/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "GAME_SUCCESS",
@@ -50,7 +51,7 @@ export const getGameListByEditorID = (id) => async dispatch => {
             type: "GAME_LIST_EDITOR_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/game/list/editor/${id}`);
+        const res = await axios.get(`${servURL}/game/list/editor/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "GAME_LIST_EDITOR_SUCCESS",
@@ -67,7 +68,7 @@ export const getGameListByEditorID = (id) => async dispatch => {
 export const postGame = (game) => async dispatch => {
     try {
 
-        const res = await axios.post(`${servURL}/game`, game);
+        const res = await axios.post(`${servURL}/game`, game,{headers: authHeader()});
 
         dispatch({
             type: "GAME_ADD_SUCCESS",
@@ -85,7 +86,7 @@ export const postGame = (game) => async dispatch => {
 export const deleteGame = (id) => async dispatch => {
     try {
 
-        const res = await axios.delete(`${servURL}/game/${id}`);
+        const res = await axios.delete(`${servURL}/game/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "GAME_DELETE_SUCCESS",
@@ -102,7 +103,7 @@ export const deleteGame = (id) => async dispatch => {
 export const patchGame = (game) => async dispatch => {
     try {
 
-        const res = await axios.patch(`${servURL}/game/${game._id}`, game);
+        const res = await axios.patch(`${servURL}/game/${game._id}`, game,{headers: authHeader()});
 
         dispatch({
             type: "GAME_UPDATED_SUCCESS",
