@@ -83,6 +83,7 @@ const NavBar = () => {
                             <Button color="inherit" component={Link} to="/exhibitor/list" className={classes.menuButton}>Exposants</Button>
                             <Button color="inherit" component={Link} to="/reservation/list" className={classes.menuButton}>Réservations</Button>
                             <Button color="inherit" component={Link} to="/user/list" className={classes.menuButton}>Utilisateurs</Button>
+                            <Button color="inherit" component={Link} to="/contact/list" className={classes.menuButton}>Contacts</Button>
                         </div>
                     :
                         <div>

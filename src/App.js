@@ -22,6 +22,8 @@ import UserList from "./containers/Users/UserList";
 import Login from "./containers/Users/Login";
 import User from "./containers/Users/User";
 
+import ContactList from "./containers/Contacts/ContactList";
+
 import NavBar from "./containers/Navbar";
 
 function App() {
@@ -50,6 +52,7 @@ function App() {
                 <Route path={"/login"} exact component={Login}/>
                 <Route path={"/profile"} exact component={User}/>
 
+                <Route path={"/contact/list"} exact component={ContactList}/>
                 <Redirect to={"/"}/>
             </Switch>
         </div>
