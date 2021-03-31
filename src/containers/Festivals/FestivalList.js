@@ -38,7 +38,7 @@ const FestivalList = () => {
                         
                         { festivalList.data.map(f => 
                             <Grid item xs={10} key={f._id}>
-                                <FestivalCard festival = {f} /> 
+                                <FestivalCard festival = {f} />
                             </Grid>
                         )}
                 </Grid>

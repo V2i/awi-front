@@ -11,8 +11,8 @@ export const generatePassword = (length) => {
 export const authHeader = () => {
     const user = JSON.parse(localStorage.getItem('user'));
 
-    if (user && user.accessToken) {
-        return { 'x-access-token': user.accessToken };
+    if (user && user.authToken) {
+        return { 'auth-token': user.authToken };
     } else {
         return {};
     }

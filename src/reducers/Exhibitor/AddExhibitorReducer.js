@@ -1,32 +1,33 @@
 const DefaultState = {
     loading: false,
-    data: [],
+    data: {},
     errorMsg: "",
 };
 
-const EditorListFestivalReducer = (state = DefaultState, action) => {
+const AddExhibitorReducer = (state = DefaultState, action) => {
     switch (action.type) {
-        case "EDITOR_LIST_FESTIVAL_LOADING":
+        case "EXHIBITOR_POST_LOADING":
             return {
                 ...state,
                 loading: true,
                 errorMsg: ""
             };
-        case "EDITOR_LIST_FESTIVAL_SUCCESS":
+        case "EXHIBITOR_POST_SUCCESS":
             return {
                 ...state,
                 loading: false,
-                data: action.payload,
+                errorMsg: "",
+                data: action.payload
             };
-        case "EDITOR_LIST_FESTIVAL_FAIL":
+        case "EXHIBITOR_POST_FAIL":
             return {
                 ...state,
                 loading: false,
-                errorMsg: action.err,
+                errorMsg: action.err
             }
         default:
             return state;
     }
 }
 
-export default EditorListFestivalReducer;
+export default AddExhibitorReducer;

@@ -1,5 +1,6 @@
 import axios from "axios";
 import servURL from "../servUrl";
+import {authHeader} from "../utils";
 
 export const getGameTypeList = () => async dispatch => {
     try {
@@ -8,7 +9,7 @@ export const getGameTypeList = () => async dispatch => {
             type: "GAME_TYPE_LIST_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/gameType/list`);
+        const res = await axios.get(`${servURL}/gameType/list`,{headers: authHeader()});
 
         dispatch({
             type: "GAME_TYPE_LIST_SUCCESS",
@@ -29,7 +30,7 @@ export const getGameTypeByID = (id) => async dispatch => {
             type: "GAME_TYPE_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/gameType/${id}`);
+        const res = await axios.get(`${servURL}/gameType/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "GAME_STYPE_UCCESS",
@@ -46,7 +47,7 @@ export const getGameTypeByID = (id) => async dispatch => {
 export const postGameType = (type) => async dispatch => {
     try {
 
-        const res = await axios.post(`${servURL}/gameType`, type);
+        const res = await axios.post(`${servURL}/gameType`, type,{headers: authHeader()});
 
         dispatch({
             type: "GAME_TYPE_ADD_SUCCESS",
@@ -64,7 +65,7 @@ export const postGameType = (type) => async dispatch => {
 export const deleteGameType = (id) => async dispatch => {
     try {
 
-        const res = await axios.delete(`${servURL}/gameType/${id}`);
+        const res = await axios.delete(`${servURL}/gameType/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "GAME_TYPE_DELETE_SUCCESS",
@@ -81,7 +82,7 @@ export const deleteGameType = (id) => async dispatch => {
 export const patchGameType = (type) => async dispatch => {
     try {
 
-        const res = await axios.patch(`${servURL}/gameType/${type._id}`, type);
+        const res = await axios.patch(`${servURL}/gameType/${type._id}`, type,{headers: authHeader()});
 
         dispatch({
             type: "GAME_TYPE_UPDATED_SUCCESS",

@@ -2,7 +2,6 @@ const DefaultState = {
     loading: false,
     data: [],
     errorMsg: "",
-    count: 0
 };
 
 const ReservationListReducer = (state = DefaultState, action) => {
@@ -24,7 +23,21 @@ const ReservationListReducer = (state = DefaultState, action) => {
                 ...state,
                 loading: false,
                 errorMsg: action.err,
-            }
+            };
+        case "RESERVATION_ADD_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                errorMsg: "",
+                data: [...state.data, action.payload]
+            };
+        case "RESERVATION_DELETE_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                errorMsg: "",
+                data: state.data.filter(d => d._id !== action.payload._id)
+            };
         default:
             return state;
     }

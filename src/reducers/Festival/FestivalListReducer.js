@@ -2,7 +2,6 @@ const DefaultState = {
     loading: false,
     data: [],
     errorMsg: "",
-    count: 0
 };
 
 const FestivalListReducer = (state = DefaultState, action) => {
@@ -40,6 +39,7 @@ const FestivalListReducer = (state = DefaultState, action) => {
                 data: state.data.filter(d => d._id !== action.payload._id)
             }
         case "FESTIVAL_UPDATED_SUCCESS":
+            console.log()
             return {
                 ...state,
                 loading: false,

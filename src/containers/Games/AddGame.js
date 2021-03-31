@@ -3,10 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import { postGame } from "../../actions/GameActions";
 import { getEditorList } from "../../actions/EditorActions";
 import { getGameTypeList } from "../../actions/GameTypeActions";
-import { Button, TextField, Grid, FormControl, Select, InputLabel, MenuItem,
+import { Button, TextField, Grid, FormControl, Select, InputLabel, MenuItem, IconButton,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
  } from "@material-ui/core";
-
+ import { Add} from '@material-ui/icons';
+ import AddEditor from "../Editors/AddEditor";
+ 
 const AddGame = ({open = false, handleClose}) => {
 
     const initialGameState = {
@@ -23,6 +25,8 @@ const AddGame = ({open = false, handleClose}) => {
 
     const dispatch = useDispatch();
     const [game, setGame] = useState(initialGameState);
+    const [addEditor, setAddEditor] = useState(false);
+    const [addGameType, setGameType] = useState(false);
     const editorList = useSelector(state => state.EditorList);
     const gameTypeList = useSelector(state => state.GameTypeList);
 
@@ -74,8 +78,31 @@ const AddGame = ({open = false, handleClose}) => {
                         <Grid item xs={4}>
                             <TextField name="gameMaximumPlayers" label="Nb Joueurs max" value={game.gameMaximumPlayers} onChange={handleInputChange}/>
                         </Grid>
-                        { editorList.data && 
+                        
+                            
                         <Grid item xs={4}>
+                            
+                            <FormControl>
+                                <InputLabel id="prototype">Prototype ?</InputLabel>
+                                <Select
+                                labelId="prototype"
+                                id="prototypeSelect"
+                                name="isPrototype"
+                                value={game.isPrototype}
+                                onChange={handleInputChange}
+                                >
+                                    <MenuItem value={true}>Oui</MenuItem>
+                                    <MenuItem value={false}>Non</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <TextField name="gameNotice" label="Notice" value={game.gameNotice} onChange={handleInputChange}/>
+                        </Grid>
+
+                        { editorList.data && 
+                        <Grid item xs={6}>
                             <FormControl>
                                 <InputLabel id="gameEditor">Editeur</InputLabel>
                                 <Select
@@ -84,16 +111,22 @@ const AddGame = ({open = false, handleClose}) => {
                                 name="gameEditor"
                                 value={editorList.data.find(e => e._id === game.gameEditor)}
                                 onChange={handleInputChange}
+                                displayEmpty
                                 >
                                 {editorList.data.map(e => <MenuItem value={e._id} key={e._id}>{e.editorName}</MenuItem>)}
                                 </Select>
                             </FormControl>
+                            <IconButton onClick={() => setAddEditor(true)}>
+                                <Add/>
+                            </IconButton>
+                            {
+                                addEditor && <AddEditor open={addEditor} handleClose={() => setAddEditor(false)}/>
+                            }
                         </Grid>
                         }
-                        
-                        
+
                         { gameTypeList.data && 
-                        <Grid item xs={4}>
+                        <Grid item xs={6}>
                             <FormControl>
                                 <InputLabel id="gameType">Catégorie</InputLabel>
                                 <Select
@@ -106,17 +139,12 @@ const AddGame = ({open = false, handleClose}) => {
                                 {gameTypeList.data.map(t => <MenuItem value={t._id} key={t._id}>{t.gameTypeName}</MenuItem>)}
                                 </Select>
                             </FormControl>
+                            <IconButton onClick={() => setGameType(true)}>
+                                <Add/>
+                            </IconButton>
                         </Grid>
                         }
-                            
-                        <Grid item xs={4}>
-                            <TextField name="isPrototype" label="Prototype ?" value={game.isPrototype} onChange={handleInputChange}/>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <TextField name="gameNotice" label="Notice" value={game.gameNotice} onChange={handleInputChange}/>
-                        </Grid>
                     </Grid>
-                    
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -125,8 +153,7 @@ const AddGame = ({open = false, handleClose}) => {
                 Annuler
             </Button>
             </DialogActions>
-      </Dialog>
-        
+        </Dialog>
     );
 }
 

@@ -8,7 +8,7 @@ import {
     IconButton,
 } from "@material-ui/core";
 import {patchFestival, deleteFestival} from "../../actions/FestivalActions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import AddIcon from "@material-ui/icons/Add";
 import {postSpace} from "../../actions/SpaceActions";
@@ -33,8 +33,12 @@ const FestivalCard = ({festival}) => {
 
     const handleChange = (event) => {
         if(event.target) {
-            const { name, value } = event.target;
-            setFestival({ ...newFestival, [name]: value });
+            const { name, value, checked } = event.target;
+            if(name === "isCurrent") {
+                setFestival({ ...newFestival, [name]: checked });
+            } else {
+                setFestival({ ...newFestival, [name]: value });
+            }
         } else {
             setFestival({...newFestival, festivalDate: event});
         }
@@ -78,11 +82,18 @@ const FestivalCard = ({festival}) => {
                         'aria-label': 'change date',
                     }}
                 />
-
                 <FormControlLabel
-                    control={<Checkbox checked={newFestival.isCurrent} onChange={handleChange} name="isCurrent" />}
+                    control={
+                    <Checkbox
+                    checked={newFestival.isCurrent}
+                        onChange={handleChange}
+                        name="isCurrent"
+                        color="primary"
+                    />
+                    }
                     label="Courant ?"
                 />
+                
 
                 <IconButton variant="contained" color="primary" component={Link} to={`/festival/${festival._id}`}>
                     <Visibility />
