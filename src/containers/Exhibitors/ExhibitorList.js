@@ -2,15 +2,19 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import Loading from "../Loading";
-import {getExhibitorList} from "../../actions/ExhibitorActions";
+import {getExhibitorList, deleteExhibitor} from "../../actions/ExhibitorActions";
 import { 
     Table, TableBody, TableCell, TableRow, TableHead, TableContainer,
-    Paper, Button
+    Paper, Button, IconButton
   } from "@material-ui/core";
+import AddIcon from '@material-ui/icons/Add';
+import AddExhibitor from "./AddExhibitor";
+import { Visibility, Delete} from '@material-ui/icons';
 import {Link} from 'react-router-dom';
 
 const ExhibitorList = () => {
 
+    const [open, setOpen ] = React.useState(false);
     const dispatch = useDispatch();
     const exhibitorList = useSelector(state => state.ExhibitorList);
 
@@ -20,6 +24,10 @@ const ExhibitorList = () => {
         };
         fetchData();
     }, [dispatch]);
+
+    const removeExhibitor = (id) => {
+        dispatch(deleteExhibitor(id));
+    }
 
     const showData = () => {
         if(!_.isEmpty(exhibitorList.data)) {
@@ -40,7 +48,15 @@ const ExhibitorList = () => {
                                     {row.exhibitorName}
                                 </TableCell>
                                 <TableCell align="right">{row.exhibitorEditor ? <Link to={`/editor/${row.exhibitorEditor._id}`}><Button variant="outlined">{row.exhibitorEditor.editorName}</Button></Link>: 'Non'}</TableCell>
-                                <TableCell><Button component={Link} to={`/exhibitor/${row._id}`}>Détails</Button></TableCell>
+                                <TableCell>
+                                    <IconButton component={Link} variant="contained" color="primary" to={`/exhibitor/${row._id}`}>
+                                        <Visibility />
+                                    </IconButton>
+
+                                    <IconButton variant="contained" color="secondary" onClick={() => removeExhibitor(row._id)}>
+                                        <Delete />
+                                    </IconButton>
+                                </TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
@@ -61,7 +77,11 @@ const ExhibitorList = () => {
     return(
         <div>
             <h1>Liste des Exposants</h1>
+            <IconButton aria-label="add" color="primary" onClick={() => setOpen(true)}>
+                <AddIcon />
+            </IconButton>
             {showData()}
+            {open && <AddExhibitor open={open} handleClose={() => setOpen(false)} />}
         </div>
     )
 }
