@@ -1,4 +1,3 @@
-
 const user = JSON.parse(localStorage.getItem("user"));
 
 const DefaultState = user
@@ -19,6 +18,16 @@ const UserListReducer = (state = DefaultState, action) => {
                 isLoggedIn: false,
                 user: null,
             };
+        case "USER_UPDATED_SUCCESS":
+            const patchedUser = {
+                authToken: user.authToken, 
+                userInfo: action.payload,
+            }
+            return {
+                ...state,
+                isLoggedIn: true,
+                user: patchedUser,
+            }
         default:
             return state;
     }

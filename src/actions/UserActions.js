@@ -1,3 +1,4 @@
+import createBreakpoints from "@material-ui/core/styles/createBreakpoints";
 import axios from "axios";
 import servURL from "../servUrl";
 import {authHeader} from "../utils";
@@ -65,7 +66,7 @@ export const patchUser = (user) => async dispatch => {
     try {
 
         const res = await axios.patch(`${servURL}/user/${user._id}`, user,{headers: authHeader()});
-
+        
         dispatch({
             type: "USER_UPDATED_SUCCESS",
             payload: res.data
@@ -74,6 +75,7 @@ export const patchUser = (user) => async dispatch => {
         console.log(err);
     }
 };
+
 
 export const login = (user) => async dispatch => {
     try {
