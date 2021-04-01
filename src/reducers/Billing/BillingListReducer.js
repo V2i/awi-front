@@ -44,7 +44,7 @@ const BillingListReducer = (state = DefaultState, action) => {
                 loading: false,
                 errorMsg: "",
                 data: state.data.map(d => {
-                    if(d._id === action.payload._id) {
+                    if( d.reservationBilling._id === action.payload._id) {
                         d = action.payload;
                     }
                     return d;

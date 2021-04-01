@@ -5,6 +5,7 @@ import _ from "lodash";
 import Loading from "../Loading";
 import ReservedGameList from "../ReservedGames/ReservedGameList";
 import ReservedSpaceList from "../ReservedSpaces/ReservedSpaceList";
+import BillingCard from "../Billings/BillingCard";
 
 import {Grid} from '@material-ui/core';
 
@@ -30,6 +31,9 @@ const Reservation = (props) => {
                     </Grid>
                     <Grid item xs={6}>
                         <ReservedSpaceList reservationId={reservationId} />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <BillingCard billing={reservation.data.reservationBilling} />
                     </Grid>
                 </Grid>
             )

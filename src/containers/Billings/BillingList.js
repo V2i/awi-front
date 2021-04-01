@@ -6,7 +6,7 @@ import {getBillingListByFestival, patchBilling} from "../../actions/BillingActio
 
 import Loading from "../Loading";
 import AddIcon from '@material-ui/icons/Add';
-import { IconButton, Paper, TextField,
+import { IconButton, Paper, TextField, FormControl, Select, MenuItem,
     Table, TableBody, TableCell, TableRow, TableHead, Grid, TableContainer
 } from "@material-ui/core";
 import { Create, Save, Visibility } from '@material-ui/icons';
@@ -14,7 +14,7 @@ import moment from 'moment';
 import {KeyboardDatePicker} from "@material-ui/pickers";
 
 const BillingList = ({festivalId}) => {
-
+    
     const [open, setOpen] = React.useState(false);
     const [selectedBilling, setBilling] = React.useState(false);
     const dispatch = useDispatch();
@@ -69,7 +69,17 @@ const BillingList = ({festivalId}) => {
                             <TableRow key={row._id}>
                                 <TableCell component="th" scope="row">
                                     {selectedBilling._id === row.reservationBilling._id 
-                                    ? <TextField name="editorName" label="Nom" value={selectedBilling.editorName} onChange={handleChange}/> 
+                                    ? <FormControl>
+                                        <Select
+                                        labelId="prototype"
+                                        id="billingStatus"
+                                        name="billingStatus"
+                                        value={selectedBilling.billingStatus || row.reservationBilling.billingStatus}
+                                        onChange={handleChange}
+                                        >
+                                            {billingStatus.map((s, index)=> <MenuItem key={index} value={s}>{s}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
                                     : row.reservationBilling.billingStatus }
                                 </TableCell>
                                 <TableCell component="th" scope="row">
@@ -141,22 +151,11 @@ const BillingList = ({festivalId}) => {
     };
 
     return(
-        <div>
-            <Grid container direction="column" justify="center" alignItems="center">
+        <Paper>
             <h1>Factures</h1>
-            {user.isLoggedIn
-                ?
-                    <IconButton aria-label="add" color="primary" onClick={() => changeValueOpen(true)}>
-                        <AddIcon />
-                    </IconButton>
-                :
-                    <></>
-            }
             
             {showData()}
-            </Grid>
-            
-        </div>
+        </Paper>
     )
 }
 

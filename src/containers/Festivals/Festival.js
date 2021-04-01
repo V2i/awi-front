@@ -13,33 +13,36 @@ import BillingList from "../Billings/BillingList";
 const Festival = (props) => {
 
     const festivalId = props.match.params.id;
-    const dispatch = useDispatch();
     const festival = useSelector(state => state.Festival);
-
-    React.useEffect(() => {
-        dispatch(getFestivalByID(festivalId));
-    }, [dispatch, festivalId]);
+    const user = useSelector(state => state.User);
 
     const showData = () => {
         if(!_.isEmpty(festival.data)) {
             return (
-                <Grid container spacing={3}>
-                    <Grid item xs ={8}>
-                    <FestivalCard festival={festival.data} />
+                <div>
+                { user.isLoggedIn
+                    ?
+                    <Grid container spacing={3}>
+                        <Grid item xs ={8}>
+                            <FestivalCard festival={festival.data} />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <ReservedGameByFestival festivalId={festivalId} />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <ReservationList festivalId={festivalId} />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <ZoneList festivalId={festivalId} />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <BillingList festivalId={festivalId} />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={4}>
-                        <ReservedGameByFestival festivalId={festival.data._id} />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <ReservationList festivalId={festival.data._id} />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <ZoneList festivalId={festival.data._id} />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <BillingList festivalId={festival.data._id} />
-                    </Grid>
-                </Grid>
+                    : <ReservedGameByFestival festivalId={festivalId} />
+                }
+                </div>
+                
             )
         }
         if(festival.loading) {
