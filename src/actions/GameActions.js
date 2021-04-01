@@ -65,6 +65,27 @@ export const getGameListByEditorID = (id) => async dispatch => {
     }
 }
 
+export const getGameListByZoneID = (id) => async dispatch => {
+    try {
+
+        dispatch({
+            type: "GAME_LIST_ZONE_LOADING",
+        });
+
+        const res = await axios.get(`${servURL}/game/list/zone/${id}`,{headers: authHeader()});
+
+        dispatch({
+            type: "GAME_LIST_ZONE_SUCCESS",
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: "GAME_LIST_ZONE_FAIL",
+            err: err,
+        });
+    }
+}
+
 export const postGame = (game) => async dispatch => {
     try {
 
