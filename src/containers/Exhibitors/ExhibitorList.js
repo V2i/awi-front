@@ -133,49 +133,6 @@ const ExhibitorList = () => {
                 />
                 </Paper>
             </>
-                
-                
-                // <TableContainer component={Paper}>
-                //     <Table size="small" aria-label="simple table">
-                //         <TableHead>
-                //         <TableRow>
-                //             <TableCell>Nom</TableCell>
-                //             <TableCell align="right">Est Editeur ?</TableCell>
-                //             <TableCell> </TableCell>
-                //         </TableRow>
-                //         </TableHead>
-                //         <TableBody>
-                        // {exhibitorList.data.filter((data) => {
-                        // if(searchState.search == null)
-                        //     return data
-                        // else if(data.exhibitorName.toLowerCase().includes(searchState.search.toLowerCase())){
-                        //     return data
-                        // }
-                        // })
-                        // .map(row => (
-                        //     <TableRow key={row._id}>
-                        //         <TableCell component="th" scope="row">
-                        //             {selectedExhibitor._id === row._id ? <TextField name="exhibitorName" label="Nom" value={selectedExhibitor.exhibitorName} onChange={handleChange}/> : row.exhibitorName }
-                        //         </TableCell>
-                        //         <TableCell align="right">{row.exhibitorEditor ? <Link to={`/editor/${row.exhibitorEditor._id}`}><Button variant="outlined">{row.exhibitorEditor.editorName}</Button></Link>: 'Non'}</TableCell>
-                        //         {user.isLoggedIn
-                        //         ?
-                        //             <TableCell>
-                        //                 <IconButton variant="outlined" color="primary" component={Link} to={`/exhibitor/${row._id}`}><Visibility /></IconButton>
-                        //                 { selectedExhibitor._id === row._id
-                        //                     ? <IconButton variant="outlined" onClick={() => saveExhibitor(selectedExhibitor)}><Save /></IconButton>
-                        //                     : <IconButton variant="outlined" onClick={() => setExhibitor(row)}><Create /></IconButton>
-                        //                 }
-                        //                 <IconButton variant="outlined" color="secondary" onClick={() => removeExhibitor(row._id)}><Delete /></IconButton>
-                        //             </TableCell>
-                        //         :
-                        //             <></>
-                        //     }
-                        //     </TableRow>
-                        // ))}
-                //         </TableBody>
-                //     </Table>
-                // </TableContainer>
             )
         }
         if(exhibitorList.loading) {
