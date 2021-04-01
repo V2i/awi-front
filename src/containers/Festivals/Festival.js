@@ -9,6 +9,7 @@ import ReservationList from "../Reservations/ReservationList";
 import Grid from "@material-ui/core/Grid"
 import ZoneList from "../Zones/ZoneList";
 import TrackingList from "../Trackings/TrackingList";
+import BillingList from "../Billings/BillingList";
 
 const Festival = (props) => {
 
@@ -35,6 +36,9 @@ const Festival = (props) => {
                     </Grid>
                     <Grid item xs={4}>
                         <ZoneList festivalId={festival.data._id} />
+                    </Grid>
+                    <Grid item xs={8}>
+                        <BillingList festivalId={festival.data._id} />
                     </Grid>
                     <Grid item xs={4}>
                         <TrackingList festivalId={festival.data._id} />

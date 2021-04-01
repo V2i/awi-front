@@ -44,6 +44,9 @@ import ReservedSpaceListReducer from "./ReservedSpace/ReservedSpaceListReducer";
 // TRACKING REDUCERS
 import TrackingListReducer from "./Tracking/TrackingListReducer";
 
+// BILLING REDUCERS
+import BillingListReducer from "./Billing/BillingListReducer";
+
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
     Festival: FestivalReducer,
@@ -74,6 +77,8 @@ const RootReducer = combineReducers({
     ContactList: ContactListReducer,
 
     ReservedSpaceList: ReservedSpaceListReducer,
+
+    BillingList: BillingListReducer,
 
     TrackingList: TrackingListReducer
 });
