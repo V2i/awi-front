@@ -9,23 +9,16 @@ import {
   } from "@material-ui/core";
 import {Link} from 'react-router-dom';
 import ExhibitorContact from "./ExhibitorContact";
-import {patchContact} from "../../actions/ContactActions";
 
 const Exhibitor = (props) => {
 
-    const [open, setOpen ] = React.useState(false);
     const exhibitorId = props.match.params.id;
     const dispatch = useDispatch();
     const exhibitor = useSelector(state => state.Exhibitor);
-    const contactList = useSelector(state => state.ContactList);
 
     React.useEffect(() => {
         dispatch(getExhibitorByID(exhibitorId));
     }, [dispatch, exhibitorId]);
-
-    const saveContact = (selectedContact) => {
-        dispatch(patchContact(selectedContact));
-    };
 
     const showData = () => {
         if(!_.isEmpty(exhibitor.data)) {

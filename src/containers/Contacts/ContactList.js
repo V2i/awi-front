@@ -27,10 +27,6 @@ const ContactList = () => {
         fetchData();
     }, [dispatch]);
 
-    const changeValueOpen = (value) => {
-        setOpen(value)
-    };
-
     const removeContact = (id) => {
         dispatch(deleteContact(id));
     };
@@ -113,7 +109,7 @@ const ContactList = () => {
                                                             color="primary"
                                                         />
                                                     }
-                                                 />
+                                                  label=""/>
                                                 : <Checkbox
                                                     checked={row.contactMain}
                                                     disabled

@@ -19,7 +19,6 @@ import {
 import {Add} from "@material-ui/icons";
 import AddEditor from "../Editors/AddEditor";
 import {getEditorList} from "../../actions/EditorActions";
-import {getGameTypeList} from "../../actions/GameTypeActions";
 
 const AddExhibitor = ({open = false, handleClose}) => {
 
@@ -49,7 +48,7 @@ const AddExhibitor = ({open = false, handleClose}) => {
     };
 
     const saveExhibitor = () => {
-        handleClose()
+        handleClose("")
         dispatch(postExhibitor(exhibitor));
         setExhibitor(initialExhibitorState);
     };

@@ -58,6 +58,7 @@ const ExhibitorList = () => {
                         else if(data.exhibitorName.toLowerCase().includes(searchState.search.toLowerCase())){
                             return data
                         }
+                        return <></>
                         })
                         .map(row => (
                             <TableRow key={row._id}>
@@ -93,7 +94,7 @@ const ExhibitorList = () => {
 
     return(
         <div>
-            <Grid container direction="column" justify="center"alignItems="center">
+            <Grid container direction="column" justify="center" alignItems="center">
                 <h1>Liste des Exposants</h1>
                 <IconButton aria-label="add" color="primary" onClick={() => setOpen(true)}>
                     <AddIcon />

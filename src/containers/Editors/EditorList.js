@@ -51,13 +51,13 @@ const EditorList = () => {
                 </TableHead>
                 <TableBody>
                 {editorList.data.filter((data) => {
-                        if(searchState.search == null)
-                            return data
-                        else if(data.editorName.toLowerCase().includes(searchState.search.toLowerCase())){
-                            return data
-                        }
-                        })
-                
+                    if(searchState.search == null)
+                        return data
+                    else if(data.editorName.toLowerCase().includes(searchState.search.toLowerCase())){
+                        return data
+                    }
+                    return <></>
+                })
                 .map((row) => (
                     <TableRow key={row._id}>
                     <TableCell component="th" scope="row">
@@ -83,7 +83,7 @@ const EditorList = () => {
 
     return(
         <div>
-            <Grid container direction="column" justify="center"alignItems="center">
+            <Grid container direction="column" justify="center" alignItems="center">
             <h1>Liste des Editeurs</h1>
             {user.isLoggedIn
                 ?
