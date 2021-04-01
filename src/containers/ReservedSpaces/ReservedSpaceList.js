@@ -1,18 +1,17 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
-import {getReservationList, deleteReservedSpace} from "../../actions/ReservedSpaceActions";
 import {
-    Table, TableBody, TableCell, TableRow, TableHead, TextField,
+    Table, TableBody, TableCell, TableRow, TableHead, TextField, TableContainer, Paper
 } from "@material-ui/core";
-import {Link} from "react-router-dom";
 import Loading from "../Loading";
 import IconButton from "@material-ui/core/IconButton";
-import {Add, Create, Delete, Visibility} from "@material-ui/icons";
+import {Add, Create, Delete, Save} from "@material-ui/icons";
 import {green} from "@material-ui/core/colors";
-import {getReservedSpaceList} from "../../actions/ReservedSpaceActions";
+import {deleteReservedSpace, getReservedSpaceListByReservation, patchReservedSpace} from "../../actions/ReservedSpaceActions";
+import AddReservedSpace from "./AddReservedSpace";
 
-const ReservedSpaceList = () => {
+const ReservedSpaceList = ({reservationId}) => {
 
     const [open, setOpen] = useState(false);
     const [selectedReservedSpace, setReservedSpace] = useState(false);
@@ -23,13 +22,18 @@ const ReservedSpaceList = () => {
 
     React.useEffect(() => {
         const fetchData = () => {
-            dispatch(getReservedSpaceList());
+            dispatch(getReservedSpaceListByReservation(reservation.data));
         };
         fetchData();
-    }, [dispatch]);
+    }, [dispatch, reservation.data, reservationId]);
 
     const removeReservedSpace = (id) => {
-        dispatch(deleteReservedSpace(id));
+        dispatch(deleteReservedSpace(id, reservation));
+    };
+
+    const saveReservedSpace = (selectedReservedSpace) => {
+        dispatch(patchReservedSpace(selectedReservedSpace, reservation))
+        setReservedSpace(false)
     };
 
     const changeValueOpen = (value) => {
@@ -44,47 +48,54 @@ const ReservedSpaceList = () => {
     const showData = () => {
         if(!_.isEmpty(reservation.data)) {
             return (
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Espace</TableCell>
-                            <TableCell>Nombre de table</TableCell>
-                            <TableCell>Surface (m²)</TableCell>
-                            <TableCell>Reduction</TableCell>
-                            <TableCell> </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {reservedSpaceList.data.map(row => (
-                            <TableRow key={row._id}>
-                                <TableCell>{row.reservedSpace.spaceName}</TableCell>
-                                <TableCell>
-                                    { selectedReservedSpace._id === row._id
-                                        ? <TextField name="reservedSpaceNbTable" label="Nombre de table" value={selectedReservedSpace.reservedSpaceNbTable} onChange={handleChange}/>
-                                        : row.reservedSpaceNbTable
-                                    }
-                                </TableCell>
-                                <TableCell>
-                                    { selectedReservedSpace._id === row._id
-                                        ? <TextField name="reservedSpaceSurface" label="Surface" value={selectedReservedSpace.reservedSpaceSurface} onChange={handleChange}/>
-                                        : row.reservedSpaceSurface
-                                    }
-                                </TableCell>
-                                <TableCell>
-                                    { selectedReservedSpace._id === row._id
-                                        ? <TextField name="reservedSpaceDiscount" label="Nom" value={selectedReservedSpace.reservedSpaceDiscount} onChange={handleChange}/>
-                                        : row.reservedSpaceDiscount
-                                    }
-                                </TableCell>
-                                <TableCell>
-                                    <IconButton variant="outlined" color="primary" component={Link} to={`/reservation/${row._id}`}><Visibility /></IconButton>
-                                    <IconButton variant="outlined" style={{ color: green[500] }} ><Create /></IconButton>
-                                    <IconButton variant="outlined" color="secondary" onClick={() => removeReservedSpace(row._id)}><Delete /></IconButton>
-                                </TableCell>
+                <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Espace</TableCell>
+                                <TableCell>Nombre de table</TableCell>
+                                <TableCell>Surface (m²)</TableCell>
+                                <TableCell>Reduction</TableCell>
+                                <TableCell> </TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                        </TableHead>
+                        <TableBody>
+                            {reservedSpaceList.data.map(row => (
+                                <TableRow key={row._id}>
+                                    <TableCell>{reservation.data.reservationFestival.festivalSpace.map(s => {
+                                        if (s._id === row.reservedSpace) return s.spaceName
+                                        else return ""
+                                    })}</TableCell>
+                                    <TableCell>
+                                        { selectedReservedSpace._id === row._id
+                                            ? <TextField name="reservedSpaceNbTable" label="Nombre de table" value={selectedReservedSpace.reservedSpaceNbTable} onChange={handleChange}/>
+                                            : row.reservedSpaceNbTable
+                                        }
+                                    </TableCell>
+                                    <TableCell>
+                                        { selectedReservedSpace._id === row._id
+                                            ? <TextField name="reservedSpaceSurface" label="Surface" value={selectedReservedSpace.reservedSpaceSurface} onChange={handleChange}/>
+                                            : row.reservedSpaceSurface
+                                        }
+                                    </TableCell>
+                                    <TableCell>
+                                        { selectedReservedSpace._id === row._id
+                                            ? <TextField name="reservedSpaceDiscount" label="Nom" value={selectedReservedSpace.reservedSpaceDiscount} onChange={handleChange}/>
+                                            : row.reservedSpaceDiscount
+                                        }
+                                    </TableCell>
+                                    <TableCell>
+                                        { selectedReservedSpace._id === row._id
+                                            ? <IconButton variant="outlined" onClick={() => saveReservedSpace(selectedReservedSpace)}><Save /></IconButton>
+                                            : <IconButton variant="outlined" style={{ color: green[500] }} onClick={() => setReservedSpace(row)}><Create /></IconButton>
+                                        }
+                                        <IconButton variant="outlined" color="secondary" onClick={() => removeReservedSpace(row._id)}><Delete /></IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             )
         }
         if(reservation.loading) {
@@ -104,7 +115,7 @@ const ReservedSpaceList = () => {
                     <h1>Liste des Espaces Réservés</h1>
                     <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
                     {showData()}
-                    {/*<AddReservation open={open} handleClose={() => changeValueOpen(false)}/>*/}
+                    <AddReservedSpace open={open} handleClose={() => changeValueOpen(false)}/>
                 </div>
                 :<p>Vous n'avez pas la permission requise!</p>
             }

@@ -39,16 +39,18 @@ const ReservedSpacelListReducer = (state = DefaultState, action) => {
                 data: state.data.filter(d => d._id !== action.payload._id)
             }
         case "RESERVED_SPACE_UPDATED_SUCCESS":
-            console.log()
             return {
                 ...state,
                 loading: false,
                 errorMsg: "",
-                data: state.data.map(d => {
-                    if(d._id === action.payload._id) {
-                        d = action.payload;
-                    }
-                    return d;
+                data: state.data.map(da => {
+                    da.reservationReservedSpace = da.reservationReservedSpace.map(d => {
+                        if(d._id === action.payload._id) {
+                            d = action.payload;
+                        }
+                        return d;
+                    })
+                    return da
                 })
             }
         default:
