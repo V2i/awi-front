@@ -33,12 +33,14 @@ import AuthReducer from "./User/AuthReducer";
 // RESERVED GAME REDUCERS
 import ReservedGameListReducer from "./ReservedGame/ReservedGameListReducer";
 
-// RESERVED GAME REDUCERS
+// ZONE REDUCERS
 import ZoneListReducer from "./Zone/ZoneListReducer";
 
 // CONTACT REDUCERS
 import ContactListReducer from "./Contact/ContactListReducer";
 
+//RESERVED GAME REDUCERS
+import ReservedSpaceListReducer from "./ReservedSpace/ReservedSpaceListReducer";
 
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
@@ -63,13 +65,13 @@ const RootReducer = combineReducers({
     UserList: UserListReducer,
     User: AuthReducer,
 
-
     ReservedGameList: ReservedGameListReducer,
 
     ZoneList: ZoneListReducer,
 
-    ContactList: ContactListReducer
+    ContactList: ContactListReducer,
 
+    ReservedSpaceList: ReservedSpaceListReducer
 
 });
 

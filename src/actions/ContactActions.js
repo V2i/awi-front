@@ -32,7 +32,9 @@ export const postContact = (contact, exhibitor) => async dispatch => {
 
         updatedExhibitor.data.exhibitorContact.push(newContact.data._id);
 
-        const res = await axios.patch(`${servURL}/exhibitor/${exhibitor._id}`, updatedExhibitor.data.exhibitorContact.map(c => c._id),{headers: authHeader()});
+        const res = await axios.patch(`${servURL}/exhibitor/${exhibitor._id}`, {
+            exhibitorContact: updatedExhibitor.data.exhibitorContact.map(c => c._id)
+        },{headers: authHeader()});
 
         dispatch({
             type: "CONTACT_ADD_SUCCESS",

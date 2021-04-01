@@ -38,7 +38,7 @@ const ContactList = () => {
 
     const saveContact = (selectedContact) => {
         dispatch(patchContact(selectedContact));
-        setContact({});
+        setContact(false);
     };
 
     const showData = () => {
