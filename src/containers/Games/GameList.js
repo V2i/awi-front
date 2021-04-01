@@ -3,6 +3,7 @@ import {useDispatch, useSelector,} from "react-redux";
 import _ from 'lodash';
 import { getGameList, deleteGame, patchGame } from "../../actions/GameActions";
 import { getGameTypeList } from "../../actions/GameTypeActions";
+import {getEditorList} from "../../actions/EditorActions"
 import Loading from "../Loading";
 import AddGame from "./AddGame";
 import { Add, Visibility, Create, Delete, Save } from '@material-ui/icons';
@@ -11,7 +12,6 @@ import { TextField, FormControl, FormControlLabel, Checkbox, InputLabel, Select,
     Table, TableBody, TableCell, TableRow, TableHead,  Grid, Typography, Paper, TableContainer,InputBase 
  } from "@material-ui/core";
 import {green} from "@material-ui/core/colors";
-import {Link} from 'react-router-dom';
 import GameTypeList from "../GameTypes/GameTypeList"
 
 const GameList = () => {
@@ -22,6 +22,7 @@ const GameList = () => {
     const gameList = useSelector(state => state.GameList);
     const user = useSelector(state => state.User);
     const gameTypeList = useSelector(state => state.GameTypeList);
+    const editorList = useSelector(state => state.EditorList)
 
     const searchInitialState ={
         search: "",
@@ -33,6 +34,7 @@ const GameList = () => {
         const fetchData = () => {
             dispatch(getGameList());
             dispatch(getGameTypeList());
+            dispatch(getEditorList())
         };
         fetchData();
     }, [dispatch]);
@@ -67,6 +69,7 @@ const GameList = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Nom</TableCell>
+                                <TableCell>Editeur</TableCell>
                                 <TableCell>Age Min</TableCell>
                                 <TableCell>Durée (en min)</TableCell>
                                 <TableCell>Min Joueurs</TableCell>
@@ -89,6 +92,22 @@ const GameList = () => {
                             <TableRow key={row._id}>
                                 <TableCell>
                                     {selectedGame._id === row._id ? <TextField name="gameName" label="Nom" value={selectedGame.gameName} onChange={handleChange}/> : row.gameName }
+                                </TableCell>
+                                <TableCell>
+                                    {selectedGame._id === row._id ?
+                                     <FormControl>
+                                     <InputLabel id="gameEditor">Editeurs</InputLabel>
+                                     <Select
+                                     labelId="gameEditor"
+                                     id="gameEditorSelect"
+                                     name="gameEditor"
+                                     value={editorList.data.find(t => t._id === selectedGame.gameEditor._id)}
+                                     onChange={handleChange}
+                                     >
+                                     {editorList.data.map(t => <MenuItem value={t._id} key={t._id}>{t.editorName}</MenuItem>)}
+                                     </Select>
+                                 </FormControl>
+                                   : row.gameEditor.editorName}
                                 </TableCell>
                                 <TableCell>
                                     {selectedGame._id === row._id ? <TextField name="gameMinimumAge" label="Age Min" value={selectedGame.gameMinimumAge} onChange={handleChange}/> : row.gameMinimumAge }
@@ -157,7 +176,6 @@ const GameList = () => {
                                 {user.isLoggedIn
                                     ?
                                         <TableCell>
-                                            <IconButton variant="outlined" color="primary" component={Link} to={`/game/${row._id}`}><Visibility /></IconButton>
                                             { selectedGame._id === row._id
                                                 ? <IconButton variant="outlined" onClick={() => saveGame(selectedGame)}><Save /></IconButton>
                                                 : <IconButton variant="outlined" style={{ color: green[500] }} onClick={() => setGame(row)}><Create /></IconButton>
