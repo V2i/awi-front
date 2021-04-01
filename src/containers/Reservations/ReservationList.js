@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {getReservationList, deleteReservation} from "../../actions/ReservationActions";
 import {
-    Table, TableBody, TableCell, TableRow, TableHead,
+    Table, TableBody, TableCell, TableRow, TableHead, Grid, InputBase
 } from "@material-ui/core";
 import {Link} from "react-router-dom";
 import Loading from "../Loading";
@@ -19,6 +19,12 @@ const ReservationList = () => {
     const reservationList = useSelector(state => state.ReservationList);
     const user = useSelector(state => state.User);
 
+    const searchInitialState ={
+        search: "",
+    }
+
+    const [searchState, setState] = useState(searchInitialState);
+
     React.useEffect(() => {
         const fetchData = () => {
             dispatch(getReservationList());
@@ -33,6 +39,11 @@ const ReservationList = () => {
     const changeValueOpen = (value) => {
         setOpen(value)
     };
+
+    const searchSpace = (event)=>{
+        let keyword = event.target.value;
+        setState({search:keyword})
+      }
 
     const showData = () => {
         if(!_.isEmpty(reservationList.data)) {
@@ -50,7 +61,15 @@ const ReservationList = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {reservationList.data.map(row => (
+                        {reservationList.data.filter((data) => {
+                        if(searchState.search == null)
+                            return data
+                        else if(data.reservationExhibitor.exhibitorName.toLowerCase().includes(searchState.search.toLowerCase())){
+                            return data
+                        }
+                        })
+                        
+                        .map(row => (
                             <TableRow key={row._id}>
                                 <TableCell>{row.reservationExhibitor.exhibitorName}</TableCell>
                                 <TableCell>{row.exhibitorIsMoving}</TableCell>
@@ -84,6 +103,9 @@ const ReservationList = () => {
             {user.isLoggedIn
                 ? <div>
                     <h1>Liste des Reservations</h1>
+                    <Grid item xs={6}>
+                        <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
+                    </Grid>
                     <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
                     {showData()}
                     <AddReservation open={open} handleClose={() => changeValueOpen(false)}/>
