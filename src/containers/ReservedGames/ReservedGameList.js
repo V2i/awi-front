@@ -8,9 +8,10 @@ import AddReservedGame from "./AddReservedGame";
 import { Add, Create, Delete, Save } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import { TextField, FormControlLabel, Checkbox,
-    Table, TableBody, TableCell, TableRow, TableHead, Paper, TableContainer
+    Table, TableBody, TableCell, TableRow, TableHead, Paper, TableContainer,TablePagination
  } from "@material-ui/core";
 import {green} from "@material-ui/core/colors";
+import { makeStyles } from '@material-ui/core/styles';
 
 
 const ReservedGameList = ({reservationId}) => {
@@ -50,30 +51,59 @@ const ReservedGameList = ({reservationId}) => {
         setGame(false)
     }
 
+    const useStyles = makeStyles({
+        root: {
+          width: '100%',
+        },
+        container: {
+          maxHeight: 500,
+        },
+      });
+
+    const classes = useStyles();
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    };
+  
+    const handleChangeRowsPerPage = (event) => {
+      setRowsPerPage(+event.target.value);
+      setPage(0);
+    };
+
+    
+
     const showData = () => {
         if(!_.isEmpty(reservation.data)) {
             return (
-                <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Nom</TableCell>
-                                <TableCell>Editeur</TableCell>
-                                <TableCell>Exposant</TableCell>
-                                <TableCell>Joueurs</TableCell>
-                                <TableCell>Durée (en min)</TableCell>
-                                <TableCell>Type</TableCell>
-                                <TableCell>Zone</TableCell>
-                                <TableCell>Quantité</TableCell>
-                                <TableCell>Avant 1ère</TableCell>
-                                <TableCell>Placé?</TableCell>
-                                <TableCell>Reçu?</TableCell>
-                                <TableCell>A animer?</TableCell>
+                <>
+                <Paper className={classes.root}>
+                <TableContainer className={classes.container}>
+                    <Table stickyHeader size="small" aria-label="a dense table">
+                    <TableHead>
+                        <TableRow>
+                       
+                                <TableCell style={{'font-weight':'bold'}}>Nom</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Editeur</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Exposant</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Joueurs</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Durée (en min)</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Type</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Zone</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Quantité</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Avant 1ère</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Placé?</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Reçu?</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>A animer?</TableCell>
                                 <TableCell> </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        {reservedGameList.map(row => 
+                            
+                        
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {reservedGameList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => 
                             <TableRow key={row._id}>
                                 <TableCell>
                                     { row.reservedGame.gameName }
@@ -141,9 +171,113 @@ const ReservedGameList = ({reservationId}) => {
                                 }
                             </TableRow>
                         )}
-                        </TableBody>
+                    </TableBody>
                     </Table>
                 </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={reservedGameList.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+                </Paper>
+            </>
+
+                
+                // <TableContainer component={Paper}>
+                //     <Table aria-label="simple table">
+                //         <TableHead>
+                //             <TableRow>
+                                // <TableCell>Nom</TableCell>
+                                // <TableCell>Editeur</TableCell>
+                                // <TableCell>Exposant</TableCell>
+                                // <TableCell>Joueurs</TableCell>
+                                // <TableCell>Durée (en min)</TableCell>
+                                // <TableCell>Type</TableCell>
+                                // <TableCell>Zone</TableCell>
+                                // <TableCell>Quantité</TableCell>
+                                // <TableCell>Avant 1ère</TableCell>
+                                // <TableCell>Placé?</TableCell>
+                                // <TableCell>Reçu?</TableCell>
+                                // <TableCell>A animer?</TableCell>
+                                // <TableCell> </TableCell>
+                //             </TableRow>
+                //         </TableHead>
+                //         <TableBody>
+                        // {reservedGameList.map(row => 
+                        //     <TableRow key={row._id}>
+                        //         <TableCell>
+                        //             { row.reservedGame.gameName }
+                        //         </TableCell>
+                        //         <TableCell>
+                        //             { row.reservedGame.gameEditor &&row.reservedGame.gameEditor.editorName }
+                        //         </TableCell>
+                        //         <TableCell>
+                        //             { reservation.data.reservationExhibitor && reservation.data.reservationExhibitor.exhibitorName }
+                        //         </TableCell>
+                        //         <TableCell>
+                        //             { row.reservedGame.gameMinimumPlayers } - { row.reservedGame.gameMaximumPlayers }
+                        //         </TableCell>
+                        //         <TableCell>
+                        //             { row.reservedGame.gameDuration } 
+                        //         </TableCell>
+                        //         <TableCell>
+                        //             { row.reservedGame.gameType && row.reservedGame.gameType.gameTypeName } 
+                        //         </TableCell>
+                        //         <TableCell>
+                        //             { row.reservedGameZone.zoneName } 
+                        //         </TableCell>
+                        //         <TableCell>
+                        //             {selectedGame._id === row._id ? <TextField name="reservedGameQuantity" value={selectedGame.reservedGameQuantity} onChange={handleChange}/> : row.reservedGameQuantity }
+                        //         </TableCell>
+                        //         {
+                        //             namesCheckBox.map((name, index) => 
+                        //                 <TableCell key={index}>
+                        //                     {
+                        //                         selectedGame._id === row._id 
+                        //                         ? <FormControlLabel
+                        //                             control={
+                        //                             <Checkbox
+                        //                                 checked={selectedGame[name]}
+                        //                                 onChange={handleChange}
+                        //                                 name={name}
+                        //                                 color="primary"
+                        //                             />
+                        //                             }
+                        //                          label=""/>
+                        //                         : <Checkbox
+                        //                                 checked={row[name]}
+                        //                                 disabled
+                        //                                 name={name}
+                        //                                 color="primary"
+                        //                             />
+                        //                     }
+                        //                     </TableCell>
+
+                        //             )
+                        //         }
+
+                        //         {user.isLoggedIn
+                        //             ?
+                        //                 <TableCell>
+                                            
+                        //                     { selectedGame._id === row._id
+                        //                         ? <IconButton variant="outlined" onClick={() => saveGame(selectedGame)}><Save /></IconButton>
+                        //                         : <IconButton variant="outlined" style={{ color: green[500] }} onClick={() => setGame(row)}><Create /></IconButton>
+                        //                     }
+                        //                     <IconButton variant="outlined" color="secondary" onClick={() => removeGame(row._id)}><Delete /></IconButton>
+                        //                 </TableCell>
+                        //             :
+                        //                 <></>
+                        //         }
+                        //     </TableRow>
+                        // )}
+                //         </TableBody>
+                //     </Table>
+                // </TableContainer>
                 
             )
             
