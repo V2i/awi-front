@@ -16,7 +16,6 @@ const ZoneList = (props) => {
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
     const zoneList = useSelector(state => state.ZoneList);
-    const user = useSelector(state => state.User);
 
     const searchInitialState ={
         search: "",
@@ -59,12 +58,12 @@ const ZoneList = (props) => {
                                 return data
                             }
                             })
-                    .map((row, index) => (
+                    .map((row) => (
                         <TableRow key={row.zone._id}>
                         <TableCell component="th" scope="row">
                             {row.zone.zoneName}
                         </TableCell>
-                        {/* <TableCell><Link to={`/zone/${row.zone._id}/index/${index}`}><Button variant="outlined" color="primary">Détails</Button></Link></TableCell> */}
+                        <TableCell><Link to={`/festival/${festivalId}/zone/${row.zone._id}`}><Button variant="outlined" color="primary">Détails</Button></Link></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
@@ -85,14 +84,7 @@ const ZoneList = (props) => {
         <div>
              <Grid container direction="column" justify="center"alignItems="center">
             <h1>Liste des zones</h1>
-            {user.isLoggedIn
-                ?
-                    <IconButton aria-label="add" color="primary" onClick={() => changeValueOpen(true)}>
-                        <AddIcon />
-                    </IconButton>
-                :
-                    <></>
-            }
+
             
             <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
             

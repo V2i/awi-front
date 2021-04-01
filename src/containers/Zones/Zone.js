@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getGameListByZoneID } from "../../actions/GameActions";
 import _ from "lodash";
@@ -12,19 +12,26 @@ import { Grid, Button, TextField, Typography,
 import {Link} from 'react-router-dom';
 import AddGame from "../Games/AddGame";
 import {green} from "@material-ui/core/colors";
+import {getZoneList} from "../../actions/ZoneActions";
 
 const Zone = (props) => {
 
     const zoneId = props.match.params.id;
-    const stateIndex = props.match.params.index;
+    const festivalId = props.match.params.festivalId;
     const dispatch = useDispatch();
-    const zoneList = useSelector(state => state.ZoneList);
-    const zone = zoneList.data[stateIndex].zone;
-    const gameList = zoneList.data[stateIndex].gameList
+    const zoneList = useSelector(state => state.ZoneList.data.filter(z => z.zone._id === zoneId));
+    console.log(zoneList)
+     const zone = zoneList[0].zone;
+     const gameList = zoneList[0].gameList
     const user = useSelector(state => state.User);
 
 
-
+    useEffect(() => {
+        const fetchData = () => {
+            dispatch(getZoneList(festivalId));
+        };
+        fetchData();
+    }, [dispatch]);
 
     const initialZoneState = {
         _id: zoneId,
@@ -57,7 +64,7 @@ const Zone = (props) => {
     }
 
     const showData = () => {
-        if(!_.isEmpty(zone.data)) {
+        if(!_.isEmpty(gameList)) {
             if(user.isLoggedIn) {
                 return(
                     <Grid container spacing={3}>
@@ -79,7 +86,6 @@ const Zone = (props) => {
                         </Grid>
                         <Grid item xs={9}>
                             <Typography><h3>Liste des jeux</h3></Typography>
-                            <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
                             <Table aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
@@ -95,20 +101,17 @@ const Zone = (props) => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {gameList.data.map((row) => (
+                                    {gameList.map((row) => (
                                         <TableRow key={row._id}>
-                                            <TableCell>{row.gameName}</TableCell>
-                                            <TableCell>{row.gameMinimumAge}</TableCell>
-                                            <TableCell>{row.gameDuration}</TableCell>
-                                            <TableCell>{row.gameMinimumPlayers}</TableCell>
-                                            <TableCell>{row.gameMaximumPlayers}</TableCell>
-                                            <TableCell>{row.gameType.gameTypeName}</TableCell>
-                                            <TableCell>{row.gameNotice}</TableCell>
-                                            <TableCell>{row.isPrototype ? 'Oui' : 'Non'}</TableCell>
+                                            <TableCell>{row.reservedGame.gameName}</TableCell>
+                                            <TableCell>{row.reservedGame.gameMinimumAge}</TableCell>
+                                            <TableCell>{row.reservedGame.gameDuration}</TableCell>
+                                            <TableCell>{row.reservedGame.gameMinimumPlayers}</TableCell>
+                                            <TableCell>{row.reservedGame.gameMaximumPlayers}</TableCell>
+                                            <TableCell>{row.reservedGame.gameType.gameTypeName}</TableCell>
+                                            <TableCell>{row.reservedGame.gameNotice}</TableCell>
+                                            <TableCell>{row.reservedGame.isPrototype ? 'Oui' : 'Non'}</TableCell>
                                             <TableCell>
-                                                <IconButton variant="outlined" color="primary" component={Link} to={`/game/${row._id}`}><Visibility /></IconButton>
-                                                <IconButton variant="outlined" style={{ color: green[500] }} ><Create /></IconButton>
-                                                <IconButton variant="outlined" color="secondary" ><Delete /></IconButton>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -140,14 +143,14 @@ const Zone = (props) => {
                                 <TableBody>
                                     {zone.gameList.data.map((row) => (
                                         <TableRow key={row._id}>
-                                            <TableCell>{row.gameName}</TableCell>
-                                            <TableCell>{row.gameMinimumAge}</TableCell>
-                                            <TableCell>{row.gameDuration}</TableCell>
-                                            <TableCell>{row.gameMinimumPlayers}</TableCell>
-                                            <TableCell>{row.gameMaximumPlayers}</TableCell>
-                                            <TableCell>{row.gameType.gameTypeName}</TableCell>
-                                            <TableCell>{row.gameNotice}</TableCell>
-                                            <TableCell>{row.isPrototype ? 'Oui' : 'Non'}</TableCell>
+                                            <TableCell>{row.reservedGame.gameName}</TableCell>
+                                            <TableCell>{row.reservedGame.gameMinimumAge}</TableCell>
+                                            <TableCell>{row.reservedGame.gameDuration}</TableCell>
+                                            <TableCell>{row.reservedGame.gameMinimumPlayers}</TableCell>
+                                            <TableCell>{row.reservedGame.gameMaximumPlayers}</TableCell>
+                                            <TableCell>{row.reservedGame.gameType.gameTypeName}</TableCell>
+                                            <TableCell>{row.reservedGame.gameNotice}</TableCell>
+                                            <TableCell>{row.reservedGame.isPrototype ? 'Oui' : 'Non'}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

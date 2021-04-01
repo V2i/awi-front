@@ -40,7 +40,7 @@ function App() {
                 <Route path={"/game/list"} exact component={GameList}/>
                 <Route path={"/game/:id"} exact component={Game}/>
 
-                <Route path={"/zone/:id/index/:index"} exact component={Zone}/>
+                <Route path={"/festival/:festivalId/zone/:id"} exact component={Zone}/>
 
                 <Route path={"/editor/list"} exact component={EditorList}/>
                 <Route path={"/editor/:id"} exact component={Editor}/>
