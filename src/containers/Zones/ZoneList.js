@@ -6,8 +6,8 @@ import {Link} from 'react-router-dom';
 import Loading from "../Loading";
 import AddIcon from '@material-ui/icons/Add';
 import AddZone from "./AddZone";
-import { IconButton, Button,
-    Table, TableBody, TableCell, TableRow, TableHead, InputBase, Grid
+import { IconButton, Button, Paper,
+    Table, TableBody, TableCell, TableRow, TableHead, InputBase
 } from "@material-ui/core";
 
 
@@ -82,15 +82,15 @@ const ZoneList = (props) => {
 
     return (
         <div>
-             <Grid container direction="column" justify="center"alignItems="center">
-            <h1>Liste des zones</h1>
+             <Paper>
+            <h3>Liste des zones</h3>
 
             
             <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
             
             {showData()}
             { open && <AddZone open={open} handleClose={() => changeValueOpen(false)}/>}
-            </Grid>
+            </Paper>
            
         </div>
     )

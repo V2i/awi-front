@@ -147,13 +147,10 @@ const ReservationList = ({festivalID = false}) => {
 
     return(
         <div>
-             <Grid container direction="column" justify="center" alignItems="center">
+             <Paper>
             {user.isLoggedIn
                 ? <div>
-                    <h1>Liste des Reservations</h1>
-                    
-                        
-                    
+                    <h3>Liste des Reservations</h3>
                     <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
                     <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
                     {showData()}
@@ -161,7 +158,7 @@ const ReservationList = ({festivalID = false}) => {
                 </div>
                 :<p>Vous n'avez pas la permission requise!</p>
             }
-            </Grid>
+            </Paper>
         </div>
     )
 }

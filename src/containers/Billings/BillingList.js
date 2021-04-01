@@ -152,7 +152,7 @@ const BillingList = ({festivalId}) => {
 
     return(
         <Paper>
-            <h1>Factures</h1>
+            <h3>Factures</h3>
             
             {showData()}
         </Paper>

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import Loading from "../Loading";
-import { IconButton, Paper, TextField,
+import { Paper,
     Table, TableBody, TableCell, TableRow, TableHead, Grid, TableContainer
 } from "@material-ui/core";
 import {getTrackingListByFestival} from "../../actions/TrackingActions";
@@ -58,10 +58,10 @@ const TrackingList = ({festivalId}) => {
 
     return(
         <div>
-            <Grid container direction="column" justify="center" alignItems="center">
-                <h1>Suivis</h1>
+            <Paper>
+                <h3>Suivis</h3>
                 {showData()}
-            </Grid>
+            </Paper>
         </div>
     )
 }
