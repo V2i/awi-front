@@ -3,11 +3,19 @@ import {
     TableCell, TableRow, IconButton,
 } from "@material-ui/core";
 import {patchSpace, deleteSpace} from "../../actions/SpaceActions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import {Delete, Save} from "@material-ui/icons";
+import {getReservationByFestivalID} from "../../actions/ReservationActions";
 
 const FestivalSpace = ({space, festival}) => {
+    const reservations = useSelector(state => state.ReservationList);
+
+    const dispatch = useDispatch();
+    
+    React.useEffect(() => {
+        dispatch(getReservationByFestivalID(festival._id));
+    }, [dispatch, festival._id]);
 
     const initialSpace = {
         _id: space._id,
@@ -20,7 +28,6 @@ const FestivalSpace = ({space, festival}) => {
 
     const [newSpace, setSpace] = useState(initialSpace);
 
-    const dispatch = useDispatch();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -34,6 +41,27 @@ const FestivalSpace = ({space, festival}) => {
     const updateSpace = (space) => {
         dispatch(patchSpace(space));
     };
+
+    const getData = () => {
+        var nbTables = 0;
+        var nbSurface = 0;
+        var restant = 0;
+
+        reservations.data.forEach(r => {
+            r.reservationReservedSpace.forEach(s => {
+                if (s.reservedSpace._id === space._id){
+                    nbTables += s.reservedSpaceNbTable
+                    nbSurface += s.reservedSpaceSurface
+                }
+            })
+        })
+
+        const rest = festival.festivalSpace.find(s => s._id === space._id)
+        restant = Math.round((rest.spaceNbTable - nbTables) - nbSurface/6)
+        return { nbTables, nbSurface, restant }
+    }
+
+    const restants = getData();
 
     return(
         <TableRow key={newSpace._id}>
@@ -49,9 +77,9 @@ const FestivalSpace = ({space, festival}) => {
             <TableCell align="right">
                 <TextField value={newSpace.spacePriceSurface} onChange={handleChange} name="spacePriceSurface"/>
             </TableCell>
-            <TableCell align="right">Res</TableCell>
-            <TableCell align="right">Res</TableCell>
-            <TableCell align="right">Res</TableCell>
+            <TableCell align="right">{restants.nbTables}</TableCell>
+            <TableCell align="right">{restants.nbSurface}</TableCell>
+            <TableCell align="right">{restants.restant}</TableCell>
             <TableCell align="right">
                 <IconButton aria-label="delete" color="default" onClick={() => updateSpace(newSpace)}>
                     <Save />
