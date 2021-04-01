@@ -5,7 +5,9 @@ import _ from "lodash";
 import Loading from "../Loading";
 import FestivalCard from './FestivalCard';
 import ReservedGameByFestival from "../ReservedGames/ReservedGameByFestival";
+import ReservationList from "../Reservations/ReservationList";
 import Grid from "@material-ui/core/Grid"
+import ZoneList from "../Zones/ZoneList";
 
 const Festival = (props) => {
 
@@ -21,16 +23,20 @@ const Festival = (props) => {
         if(!_.isEmpty(festival.data)) {
             return (
                 <Grid container spacing={3}>
-                    <Grid item xs ={5}>
+                    <Grid item xs ={8}>
                     <FestivalCard festival={festival.data} />
                     </Grid>
-                    <Grid item xs={5}>
+                    <Grid item xs={4}>
                         <ReservedGameByFestival festivalId={festival.data._id} />
                     </Grid>
+                    <Grid item xs={8}>
+                        <ReservationList festivalId={festival.data._id} />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <ZoneList festivalId={festival.data._id} />
+                    </Grid>
                 </Grid>
-                
-
-            );
+            )
         }
         if(festival.loading) {
             return <Loading color={'lightblue'} type={'bubbles'} />

@@ -2,20 +2,22 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import Loading from "../Loading";
-import {getExhibitorList, deleteExhibitor} from "../../actions/ExhibitorActions";
+import {getExhibitorList, deleteExhibitor, patchExhibitor} from "../../actions/ExhibitorActions";
 import { 
     Table, TableBody, TableCell, TableRow, TableHead, TableContainer,
-    Paper, Button, IconButton, Grid, InputBase
+    Paper, Button, IconButton, Grid, InputBase, TextField
   } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import AddExhibitor from "./AddExhibitor";
-import { Visibility, Delete} from '@material-ui/icons';
+import { Visibility, Create, Delete, Save } from '@material-ui/icons';
 import {Link} from 'react-router-dom';
 
 const ExhibitorList = () => {
 
     const [open, setOpen ] = React.useState(false);
     const dispatch = useDispatch();
+    const [selectedExhibitor, setExhibitor] = React.useState(false);
+    const user = useSelector(state => state.User);
     const exhibitorList = useSelector(state => state.ExhibitorList);
     const searchInitialState ={
         search: "",
@@ -37,7 +39,17 @@ const ExhibitorList = () => {
     const searchSpace = (event)=>{
         let keyword = event.target.value;
         setState({search:keyword})
-      }
+    }
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setExhibitor({...selectedExhibitor, [name] : value})
+    }
+
+    const saveExhibitor = (exhibitorSelected) => {
+        dispatch(patchExhibitor(exhibitorSelected))
+        setExhibitor({})
+    }
 
     const showData = () => {
         if(!_.isEmpty(exhibitorList.data)) {
@@ -63,18 +75,22 @@ const ExhibitorList = () => {
                         .map(row => (
                             <TableRow key={row._id}>
                                 <TableCell component="th" scope="row">
-                                    {row.exhibitorName}
+                                    {selectedExhibitor._id === row._id ? <TextField name="exhibitorName" label="Nom" value={selectedExhibitor.exhibitorName} onChange={handleChange}/> : row.exhibitorName }
                                 </TableCell>
                                 <TableCell align="right">{row.exhibitorEditor ? <Link to={`/editor/${row.exhibitorEditor._id}`}><Button variant="outlined">{row.exhibitorEditor.editorName}</Button></Link>: 'Non'}</TableCell>
-                                <TableCell>
-                                    <IconButton component={Link} variant="contained" color="primary" to={`/exhibitor/${row._id}`}>
-                                        <Visibility />
-                                    </IconButton>
-
-                                    <IconButton variant="contained" color="secondary" onClick={() => removeExhibitor(row._id)}>
-                                        <Delete />
-                                    </IconButton>
-                                </TableCell>
+                                {user.isLoggedIn
+                                ?
+                                    <TableCell>
+                                        <IconButton variant="outlined" color="primary" component={Link} to={`/exhibitor/${row._id}`}><Visibility /></IconButton>
+                                        { selectedExhibitor._id === row._id
+                                            ? <IconButton variant="outlined" onClick={() => saveExhibitor(selectedExhibitor)}><Save /></IconButton>
+                                            : <IconButton variant="outlined" onClick={() => setExhibitor(row)}><Create /></IconButton>
+                                        }
+                                        <IconButton variant="outlined" color="secondary" onClick={() => removeExhibitor(row._id)}><Delete /></IconButton>
+                                    </TableCell>
+                                :
+                                    <></>
+                            }
                             </TableRow>
                         ))}
                         </TableBody>

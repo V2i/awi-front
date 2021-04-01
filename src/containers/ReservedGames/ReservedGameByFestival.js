@@ -13,7 +13,6 @@ import {
 
 
 const ReservedGameByFestival = ({festivalId}) => {
-    console.log(festivalId)
     const dispatch = useDispatch();
     const user = useSelector(state => state.User);
     const reservedGameList = useSelector(state => state.ReservedGameList);

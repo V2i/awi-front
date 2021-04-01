@@ -46,12 +46,12 @@ const ReservedGameList = ({reservationId}) => {
     }
 
     const saveGame = (gameSelected) => {
-        dispatch(patchReservedGame(gameSelected))
+        dispatch(patchReservedGame(gameSelected, reservation.data))
         setGame(false)
     }
 
     const showData = () => {
-        if(!_.isEmpty(reservedGameList)) {
+        if(!_.isEmpty(reservation.data)) {
             return (
                 <TableContainer component={Paper}>
                     <Table aria-label="simple table">

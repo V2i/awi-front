@@ -134,7 +134,7 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
                                 <Add/>
                             </IconButton>
                             {
-                               /* addGame && <AddReservedGame open={addGame} handleClose={() => setAddGame(false)}/> */
+                                addGame && <AddGame open={addGame} handleClose={() => setAddGame(false)}/> 
                             }
                         </Grid>
                         }
