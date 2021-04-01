@@ -4,13 +4,15 @@ import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {Link} from 'react-router-dom';
 import Loading from "../Loading";
+import AddIcon from '@material-ui/icons/Add';
+import AddZone from "./AddZone";
 import { IconButton, Button,
     Table, TableBody, TableCell, TableRow, TableHead, InputBase, Grid
 } from "@material-ui/core";
 
 
 const ZoneList = () => {
-    
+    const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
     const zoneList = useSelector(state => state.ZoneList);
     const user = useSelector(state => state.User);
@@ -32,6 +34,10 @@ const ZoneList = () => {
     const searchSpace = (event)=>{
         let keyword = event.target.value;
         setState({search:keyword})
+    }
+
+    const changeValueOpen = (value) => {
+        setOpen(value)
     }
 
     const showData = () => {
@@ -76,7 +82,22 @@ const ZoneList = () => {
 
     return (
         <div>
+             <Grid container direction="column" justify="center"alignItems="center">
+            <h1>Liste des zones</h1>
+            {user.isLoggedIn
+                ?
+                    <IconButton aria-label="add" color="primary" onClick={() => changeValueOpen(true)}>
+                        <AddIcon />
+                    </IconButton>
+                :
+                    <></>
+            }
+            
+            <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
+            
             {showData()}
+            { open && <AddZone open={open} handleClose={() => changeValueOpen(false)}/>}
+            </Grid>
            
         </div>
     )

@@ -97,7 +97,7 @@ const EditorList = () => {
             <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
             
             {showData()}
-            { open && <AddEditor/>}
+            { open && <AddEditor open={open} handleClose={() => changeValueOpen(false)}/>}
             </Grid>
             
         </div>

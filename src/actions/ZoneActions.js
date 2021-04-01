@@ -23,3 +23,21 @@ export const getZoneList = () => async dispatch => {
         });
     }
 };
+
+export const postZone = (zone) => async dispatch => {
+    try {
+
+        const res = await axios.post(`${servURL}/zone`, zone,{headers: authHeader()});
+
+        dispatch({
+            type: "ZONE_ADD_SUCCESS",
+            payload: res.data
+        });
+
+    } catch (err) {
+        // dispatch({
+        //     type: "ZONE_POST_FAIL",
+        //     err: err,
+        // });
+    }
+}
