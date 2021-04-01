@@ -6,6 +6,7 @@ import {
     Card,
     FormControlLabel,
     IconButton,
+    Grid,
 } from "@material-ui/core";
 import {patchFestival, deleteFestival} from "../../actions/FestivalActions";
 import {useDispatch, useSelector} from "react-redux";
@@ -67,8 +68,11 @@ const FestivalCard = ({festival}) => {
     return(
         <Card>
             <form>
+            <Grid container direction="row" justify="space-around" alignItems="flex-start" style={{ padding: 10 }}>
+                <Grid container item xs={3}>
                 <TextField name="festivalName" label="Nom" value={newFestival.festivalName} onChange={handleChange}/>
-
+                </Grid> 
+                <Grid container item xs={3}>
                 <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
@@ -82,6 +86,9 @@ const FestivalCard = ({festival}) => {
                         'aria-label': 'change date',
                     }}
                 />
+                </Grid>
+                
+                <Grid container item xs={3}>
                 <FormControlLabel
                     control={
                     <Checkbox
@@ -93,18 +100,21 @@ const FestivalCard = ({festival}) => {
                     }
                     label="Courant ?"
                 />
+                </Grid>
                 
+                <Grid container item xs={3}>  
+                    <IconButton variant="contained" color="primary" component={Link} to={`/festival/${festival._id}`}>
+                        <Visibility />
+                    </IconButton>
+                    <IconButton variant="contained" color="default" onClick={() => updateFestival(newFestival)}>
+                        <Save />
+                    </IconButton>
+                    <IconButton variant="contained" color="secondary" onClick={() => removeFestival(festival._id)}>
+                        <Delete />
+                    </IconButton>
+                </Grid>
 
-                <IconButton variant="contained" color="primary" component={Link} to={`/festival/${festival._id}`}>
-                    <Visibility />
-                </IconButton>
-                <IconButton variant="contained" color="default" onClick={() => updateFestival(newFestival)}>
-                    <Save />
-                </IconButton>
-                <IconButton variant="contained" color="secondary" onClick={() => removeFestival(festival._id)}>
-                    <Delete />
-                </IconButton>
-
+                <Grid container item xs={12}>  
                 <TableContainer component={Paper}>
                     <Table size="small" aria-label="simple table">
                         <TableHead>
@@ -132,6 +142,8 @@ const FestivalCard = ({festival}) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                </Grid>
+                </Grid>
             </form>
         </Card>
     )
