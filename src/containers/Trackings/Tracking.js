@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {
-    TableCell, TableRow, IconButton
+    TableCell, TableRow, IconButton, InputLabel, Select, MenuItem, FormControl, FormControlLabel, Checkbox
 } from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import TextField from "@material-ui/core/TextField";
@@ -8,6 +8,7 @@ import { Save, Create} from '@material-ui/icons';
 import {KeyboardDatePicker} from "@material-ui/pickers";
 import {patchTracking} from "../../actions/TrackingActions";
 import moment from "moment";
+import {green} from "@material-ui/core/colors";
 
 const Tracking = ({tracking}) => {
 
@@ -19,14 +20,19 @@ const Tracking = ({tracking}) => {
     };
 
     const [newTracking, setTracking] = useState(initTracking);
-    const trackingWorkflow = ['Pas encore contacté', 'Contacté', 'Discussion en cours', 'Réservation confirmée', 'Jeux demandés', 'Jeux confirmés'];
+    const trackingWorkflowArray = ['Pas encore contacté', 'Contacté', 'Discussion en cours', 'Réservation confirmée', 'Jeux demandés', 'Jeux confirmés'];
     const user = useSelector(state => state.User);
+    const reservationList = useSelector(state => state.ReservationList);
+    const reservation = reservationList.data.map(r => {
+        if(r.reservationTracking._id === tracking._id) return r;
+        else return null;
+    });
     const dispatch = useDispatch();
 
     const handleChange = (event) => {
         if (event.target){
-            const { name, value } = event.target;
-            setTracking({...newTracking, [name] : value})
+            const { name, value, checked } = event.target;
+            setTracking({...newTracking, [name] : (name === "trackingCR" ? checked : value)})
         }
     };
 
@@ -35,16 +41,34 @@ const Tracking = ({tracking}) => {
         setTracking({...newTracking, [name] : value})
     };
 
-    const saveTracking = (newTracking) => {
-        dispatch(patchTracking(newTracking));
+    const saveTracking = (newTracking, reservation) => {
+        dispatch(patchTracking(newTracking, reservation));
         setTracking(initTracking);
     };
 
     return(
         <TableRow key={newTracking._id}>
             <TableCell component="th" scope="row">
+                {reservationList.data.map(r => {
+                    if(r.reservationTracking._id === tracking._id) return r.reservationExhibitor.exhibitorName
+                    else return ""
+                })}
+            </TableCell>
+            <TableCell component="th" scope="row">
                 {newTracking._id === tracking._id
-                    ? <TextField name="trackingWorkflow" label="Work" value={newTracking.trackingWorkflow} onChange={handleChange}/>
+                    ? <FormControl>
+                        <InputLabel id="trackingWorkflow">Workflow</InputLabel>
+                        <Select
+                            labelId="trackingWorkflow"
+                            id="trackingWorkflowSelect"
+                            name="trackingWorkflow"
+                            value={newTracking.trackingWorkflow}
+                            onChange={handleChange}
+                            displayEmpty
+                        >
+                            {trackingWorkflowArray.map(t => <MenuItem value={t} key={t}>{t}</MenuItem>)}
+                        </Select>
+                    </FormControl>
                     : tracking.trackingWorkflow
                 }
             </TableCell>
@@ -63,7 +87,7 @@ const Tracking = ({tracking}) => {
                             'aria-label': 'change date',
                         }}
                     />
-                    : (!tracking.trackingContact1 ? "" : moment(tracking.trackingContact1).format("DD/MM/YYYY")) }
+                    : (!tracking.trackingContact1 ? "Pas contacté" : moment(tracking.trackingContact1).format("DD/MM/YYYY")) }
             </TableCell>
             <TableCell component="th" scope="row">
                 {newTracking._id === tracking._id
@@ -80,15 +104,34 @@ const Tracking = ({tracking}) => {
                             'aria-label': 'change date',
                         }}
                     />
-                    : (!tracking.trackingContact2 ? "" : moment(tracking.trackingContact2).format("DD/MM/YYYY")) }
+                    : (!tracking.trackingContact2 ? "Pas contacté" : moment(tracking.trackingContact2).format("DD/MM/YYYY")) }
             </TableCell>
-
+            <TableCell>
+                { newTracking._id === tracking._id
+                    ? <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={newTracking.trackingCR}
+                                onChange={handleChange}
+                                name="trackingCR"
+                                color="primary"
+                            />
+                        }
+                        label=""/>
+                    : <Checkbox
+                        checked={tracking.trackingCR}
+                        disabled
+                        name="trackingCR"
+                        color="primary"
+                    />
+                }
+            </TableCell>
             {user.isLoggedIn
                 ?
                 <TableCell>
                     { newTracking._id === tracking._id
                         ? <IconButton variant="outlined" onClick={() => saveTracking(newTracking)}><Save /></IconButton>
-                        : <IconButton variant="outlined" onClick={() => setTracking(tracking)}><Create /></IconButton>
+                        : <IconButton variant="outlined" style={{ color: green[500] }} onClick={() => setTracking(tracking)}><Create /></IconButton>
                     }
                 </TableCell>
                 :

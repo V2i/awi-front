@@ -7,23 +7,18 @@ import { IconButton, Paper, TextField,
 } from "@material-ui/core";
 import {getTrackingListByFestival} from "../../actions/TrackingActions";
 import Tracking from "./Tracking";
+import {getReservationByFestivalID} from "../../actions/ReservationActions";
 
 const TrackingList = ({festivalId}) => {
 
-    const initTracking = {
-        trackingWorkflow: "",
-        trackingContact1: "",
-        trackingContact2: "",
-        trackingCR: ""
-    };
-
-    const [selectedTracking, setTracking] = useState(initTracking);
     const dispatch = useDispatch();
+    const reservationList = useSelector(state => state.ReservationList);
     const trackingList = useSelector(state => state.TrackingList);
 
     React.useEffect(() => {
         const fetchData = () => {
             dispatch(getTrackingListByFestival(festivalId));
+            dispatch(getReservationByFestivalID(festivalId));
         };
         fetchData();
     }, [dispatch, festivalId]);
@@ -35,6 +30,7 @@ const TrackingList = ({festivalId}) => {
                     <Table aria-label="simple table">
                         <TableHead>
                             <TableRow>
+                                <TableCell>Exposant</TableCell>
                                 <TableCell>Workflow</TableCell>
                                 <TableCell>Contact 1</TableCell>
                                 <TableCell>Contact 2</TableCell>
@@ -44,13 +40,12 @@ const TrackingList = ({festivalId}) => {
                         </TableHead>
                         <TableBody>
                             {trackingList.data.map((row) => (
-                                <Tracking tracking={row} />
+                                <Tracking tracking={row} key={row._id}/>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
             )
-
         }
         if(trackingList.loading) {
             return <Loading color={'lightblue'} type={'bubbles'} />;

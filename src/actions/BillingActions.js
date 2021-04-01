@@ -15,6 +15,7 @@ export const getBillingList = () => async dispatch => {
             type: "BILLING_LIST_SUCCESS",
             payload: res.data,
         });
+
     } catch (err) {
         dispatch({
             type: "BILLING_LIST_FAIL",
@@ -30,7 +31,7 @@ export const getBillingListByFestival = (idFestival) => async dispatch => {
         });
 
         const res = await axios.get(`${servURL}/billing/list/festival/${idFestival}`,{headers: authHeader()});
-        console.log(res);
+
         dispatch({
             type: "BILLING_LIST_SUCCESS",
             payload: res.data,

@@ -37,10 +37,10 @@ const Festival = (props) => {
                     <Grid item xs={4}>
                         <ZoneList festivalId={festival.data._id} />
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={6}>
                         <BillingList festivalId={festival.data._id} />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={6}>
                         <TrackingList festivalId={festival.data._id} />
                     </Grid>
                 </Grid>
@@ -58,6 +58,7 @@ const Festival = (props) => {
 
     return(
         <div>
+            <h1>{festival.data.festivalName}</h1>
             {showData()}
         </div>
     )

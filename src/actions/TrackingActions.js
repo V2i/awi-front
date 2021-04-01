@@ -2,14 +2,14 @@ import axios from "axios";
 import servURL from "../servUrl";
 import {authHeader} from "../utils";
 
-export const getTrackingListByFestival = (festival) => async dispatch => {
+export const getTrackingListByFestival = (id) => async dispatch => {
     try {
 
         dispatch({
             type: "TRACKING_LIST_LOADING",
         });
 
-        const res = await axios.get(`${servURL}/reservation/list/festival/${festival._id}`,{headers: authHeader()});
+        const res = await axios.get(`${servURL}/reservation/list/festival/${id}`,{headers: authHeader()});
 
         dispatch({
             type: "TRACKING_LIST_SUCCESS",
@@ -47,12 +47,10 @@ export const getTrackingByID = (id) => async dispatch => {
     }
 };
 
-export const patchTracking = (tracking) => async dispatch => {
+export const patchTracking = (tracking, reservation) => async dispatch => {
     try {
 
-        const res = await axios.patch(`${servURL}/tracking/${tracking._id}`,{
-            tracking
-        },{headers: authHeader()});
+        const res = await axios.patch(`${servURL}/tracking/${tracking._id}`, tracking,{headers: authHeader()});
 
         dispatch({
             type: "TRACKING_UPDATED_SUCCESS",
