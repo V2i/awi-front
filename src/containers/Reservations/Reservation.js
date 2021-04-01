@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getReservationByID} from "../../actions/ReservationActions";
 import _ from "lodash";
 import Loading from "../Loading";
+import ReservedGameList from "../ReservedGames/ReservedGameList";
 
 const Reservation = (props) => {
 
@@ -16,7 +17,12 @@ const Reservation = (props) => {
 
     const showData = () => {
         if(!_.isEmpty(reservation.data)) {
-            return <h1>{reservation.data.reservationExhibitor.exhibitorName}</h1>
+            return (
+                <div>
+                    <h1>{reservation.data.reservationExhibitor.exhibitorName}</h1>
+                    <ReservedGameList reservationId={reservationId} />
+                </div>
+            )
         }
         if(reservation.loading) {
             return <Loading color={'lightblue'} type={'bubbles'} />
