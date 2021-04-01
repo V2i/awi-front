@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {getReservationList, deleteReservation, getReservationByFestivalID} from "../../actions/ReservationActions";
 import {
-    Table, TableBody, TableCell, TableRow, TableHead, TableContainer, Paper
+    Table, TableBody, TableCell, TableRow, TableHead, TableContainer, Paper, Grid, InputBase
 } from "@material-ui/core";
 import {Link} from "react-router-dom";
 import Loading from "../Loading";
@@ -18,6 +18,12 @@ const ReservationList = ({festivalID = false}) => {
     const dispatch = useDispatch();
     const reservationList = useSelector(state => state.ReservationList);
     const user = useSelector(state => state.User);
+
+    const searchInitialState ={
+        search: "",
+    }
+
+    const [searchState, setState] = useState(searchInitialState);
 
     React.useEffect(() => {
         const fetchData = () => {
@@ -40,6 +46,11 @@ const ReservationList = ({festivalID = false}) => {
         setOpen(value)
     };
 
+    const searchSpace = (event)=>{
+        let keyword = event.target.value;
+        setState({search:keyword})
+      }
+
     const showData = () => {
         if(!_.isEmpty(reservationList.data)) {
             return (
@@ -57,7 +68,15 @@ const ReservationList = ({festivalID = false}) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {reservationList.data.map(row => (
+                        {reservationList.data.filter((data) => {
+                        if(searchState.search == null)
+                            return data
+                        else if(data.reservationExhibitor.exhibitorName.toLowerCase().includes(searchState.search.toLowerCase())){
+                            return data
+                        }
+                        })
+                        
+                        .map(row => (
                             <TableRow key={row._id}>
                                 <TableCell>{row.reservationExhibitor.exhibitorName}</TableCell>
                                 <TableCell>{row.exhibitorIsMoving}</TableCell>
@@ -92,6 +111,9 @@ const ReservationList = ({festivalID = false}) => {
             {user.isLoggedIn
                 ? <div>
                     <h1>Liste des Reservations</h1>
+                    <Grid item xs={6}>
+                        <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
+                    </Grid>
                     <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
                     {showData()}
                     <AddReservation open={open} handleClose={() => changeValueOpen(false)}/>

@@ -68,6 +68,11 @@ const GameListReducer = (state = DefaultState, action) => {
                     return d;
                 })
             }
+            case "GAME_LIST_ZONE_SUCCESS":
+
+            case "GAME_LIST_ZONE_LOADING":
+
+            case "GAME_LIST_ZONE_FAIL":
         default:
             return state;
     }

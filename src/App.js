@@ -10,6 +10,7 @@ import GameList from "./containers/Games/GameList";
 import Game from "./containers/Games/Game";
 
 import ZoneList from "./containers/Zones/ZoneList"
+import Zone from "./containers/Zones/Zone"
 
 import EditorList from "./containers/Editors/EditorList";
 import Editor from "./containers/Editors/Editor";
@@ -41,7 +42,7 @@ function App() {
                 <Route path={"/game/list"} exact component={GameList}/>
                 <Route path={"/game/:id"} exact component={Game}/>
 
-                <Route path={"/zone/list"} exact component={ZoneList}/>
+                <Route path={"/festival/:festivalId/zone/:id"} exact component={Zone}/>
 
                 <Route path={"/editor/list"} exact component={EditorList}/>
                 <Route path={"/editor/:id"} exact component={Editor}/>
