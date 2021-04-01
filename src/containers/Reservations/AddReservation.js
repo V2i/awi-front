@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import { getEditorList } from "../../actions/EditorActions";
-import { getGameTypeList } from "../../actions/GameTypeActions";
 import {
-    Button, TextField, Grid, FormControl, Select, InputLabel, MenuItem,
+    Button, Grid, FormControl, Select, InputLabel, MenuItem,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton,
 } from "@material-ui/core";
 import {postReservation} from "../../actions/ReservationActions";

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {patchUser} from "../../actions/UserActions";
-import { Button, TextField,FormControl,FormHelperText } from "@material-ui/core";
+import { Button, TextField,FormControl } from "@material-ui/core";
 const User = () => {
 
     const user = useSelector(state => state.User);

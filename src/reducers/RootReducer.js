@@ -24,17 +24,21 @@ import ReservationReducer from "./Reservation/ReservationReducer";
 
 // GAME TYPE REDUCERS
 import GameTypeListReducer from "./GameType/GameTypeListReducer";
-import GameTypeReducer from "./GameType/GameTypeReducer";
 
-//USER REDUCERS
+// USER REDUCERS
 import UserListReducer from "./User/UserListReducer";
 import AuthReducer from "./User/AuthReducer";
+
 
 // RESERVED GAME REDUCERS
 import ReservedGameListReducer from "./ReservedGame/ReservedGameListReducer";
 
 // RESERVED GAME REDUCERS
 import ZoneListReducer from "./Zone/ZoneListReducer";
+
+// CONTACT REDUCERS
+import ContactListReducer from "./Contact/ContactListReducer";
+
 
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
@@ -55,14 +59,17 @@ const RootReducer = combineReducers({
     Reservation: ReservationReducer,
 
     GameTypeList: GameTypeListReducer,
-    GameType: GameTypeReducer,
 
     UserList: UserListReducer,
     User: AuthReducer,
 
+
     ReservedGameList: ReservedGameListReducer,
 
     ZoneList: ZoneListReducer,
+
+    ContactList: ContactListReducer
+
 
 });
 

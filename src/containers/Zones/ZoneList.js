@@ -4,8 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {Link} from 'react-router-dom';
 import Loading from "../Loading";
-import { IconButton, Button,
-    Table, TableBody, TableCell, TableRow, TableHead, InputBase, Grid
+import { Button,
+    Table, TableBody, TableCell, TableRow, TableHead
 } from "@material-ui/core";
 
 
@@ -13,7 +13,6 @@ const ZoneList = () => {
     
     const dispatch = useDispatch();
     const zoneList = useSelector(state => state.ZoneList);
-    const user = useSelector(state => state.User);
 
     const searchInitialState ={
         search: "",
