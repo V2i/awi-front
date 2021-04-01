@@ -109,7 +109,11 @@ const Zone = (props) => {
                                             <TableCell>{row.reservedGame.gameMinimumPlayers}</TableCell>
                                             <TableCell>{row.reservedGame.gameMaximumPlayers}</TableCell>
                                             <TableCell>{row.reservedGame.gameType.gameTypeName}</TableCell>
-                                            <TableCell>{row.reservedGame.gameNotice}</TableCell>
+                                            <TableCell>
+                                                {row.gameNotice.length > 0
+                                                ? <a href={row.gameNotice}>Notice</a>
+                                                : ""}
+                                            </TableCell>
                                             <TableCell>{row.reservedGame.isPrototype ? 'Oui' : 'Non'}</TableCell>
                                             <TableCell>
                                             </TableCell>
