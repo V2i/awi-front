@@ -59,12 +59,12 @@ const ZoneList = (props) => {
                                 return data
                             }
                             })
-                    .map((row) => (
+                    .map((row, index) => (
                         <TableRow key={row.zone._id}>
                         <TableCell component="th" scope="row">
                             {row.zone.zoneName}
                         </TableCell>
-                        <TableCell><Link to={`/zone/${row.zone._id}`}><Button variant="outlined" color="primary">Détails</Button></Link></TableCell>
+                        {/* <TableCell><Link to={`/zone/${row.zone._id}/index/${index}`}><Button variant="outlined" color="primary">Détails</Button></Link></TableCell> */}
                         </TableRow>
                     ))}
                     </TableBody>

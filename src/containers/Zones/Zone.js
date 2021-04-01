@@ -16,10 +16,11 @@ import {green} from "@material-ui/core/colors";
 const Zone = (props) => {
 
     const zoneId = props.match.params.id;
+    const stateIndex = props.match.params.index;
     const dispatch = useDispatch();
     const zoneList = useSelector(state => state.ZoneList);
-    const zone = zoneList.data[zoneId].zone;
-    const gameList = zoneList.data[zoneId].gameList
+    const zone = zoneList.data[stateIndex].zone;
+    const gameList = zoneList.data[stateIndex].gameList
     const user = useSelector(state => state.User);
 
 
@@ -27,7 +28,7 @@ const Zone = (props) => {
 
     const initialZoneState = {
         _id: zoneId,
-        zoneName: zone.zone.zoneName,
+        zoneName: zone.zoneName,
     }
 
     const [zoneSelected, setZone] = React.useState(initialZoneState);
@@ -168,6 +169,7 @@ const Zone = (props) => {
 
     return(
         <div>
+            <h1>{zone.zoneName}</h1>
             {showData()}
             <AddGame open={open} handleClose={() => changeValueOpen(false)}/>
         </div>
