@@ -3,7 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import _ from "lodash";
 import Loading from "../Loading";
 import {getBillingById, patchBilling} from "../../actions/BillingActions";
-import { Paper, Grid, TextField, Typography, FormControl, Select, MenuItem
+import { Paper, Grid, TextField, Typography, FormControl, Select, MenuItem, TableContainer,
+    Table, TableBody, TableCell, TableRow, TableHead, 
  } from "@material-ui/core";
  import IconButton from '@material-ui/core/IconButton';
  import { Create, Save } from '@material-ui/icons';
@@ -36,84 +37,96 @@ const Billing = ({billing}) => {
 
     
     return(
-        <Grid container spacing={3}>
-            <Grid item xs={6}>
-                <Typography> Statut : </Typography>
-                { billingChanged 
-                ? <FormControl>
-                    <Select
-                    labelId="prototype"
-                    id="billingStatus"
-                    name="billingStatus"
-                    value={billingUpdated.billingStatus || billing.billingStatus}
-                    onChange={handleChange}
-                    >
-                        {billingStatusList.map((s, index)=> <MenuItem key={index} value={s}>{s}</MenuItem>)}
-                    </Select>
-                </FormControl>
-                : <Typography>{ billing.billingStatus }</Typography>
-                }
-            </Grid>
-            <Grid item xs={6}>
-                <Typography> Montant : </Typography>
-                { billingChanged 
-                ? 
-                    <TextField
-                        name="billingAmount"
-                        value={billingUpdated.billingAmount || billing.billingAmount}
-                        onChange={handleChange}
+        <Paper>
+            <h4>Facture</h4>
+        <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Statut</TableCell>
+                        <TableCell>Montant (en €)</TableCell>
+                        <TableCell>Envoyée le</TableCell>
+                        <TableCell>Payée le</TableCell>
+                        <TableCell> </TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                <TableRow>
+                    <TableCell>
+                        {billingChanged 
+                            ? <FormControl>
+                                <Select
+                                labelId="prototype"
+                                id="billingStatus"
+                                name="billingStatus"
+                                value={billingUpdated.billingStatus || billing.billingStatus}
+                                onChange={handleChange}
+                                >
+                                    {billingStatusList.map((s, index)=> <MenuItem key={index} value={s}>{s}</MenuItem>)}
+                                </Select>
+                            </FormControl>
+                            : billing.billingStatus 
+                        }
+                    </TableCell>
+                    <TableCell>
+                        { billingChanged 
+                        ? 
+                            <TextField
+                                name="billingAmount"
+                                value={billingUpdated.billingAmount || billing.billingAmount}
+                                onChange={handleChange}
+                            />
+                        : billing.billingAmount
+                        }
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+                            { billingChanged 
+                            ? <KeyboardDatePicker
+                                disableToolbar
+                                variant="inline"
+                                format="DD/MM/YYYY"
+                                margin="normal"
+                                id="date-picker-send"
+                                name="billingSendDate"
+                                value={billingUpdated.billingSendDate}
+                                onChange={(evt) => handleChange({target : {name: "billingSendDate", value: evt}})}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                            />
+                            : billing.billingSendDate ? moment(billing.billingSendDate).format("DD/MM/YYYY") : ""
+                            }
+                        
+                    </TableCell>
+                    <TableCell>
+                    { billingChanged 
+                    ? <KeyboardDatePicker
+                        disableToolbar
+                        variant="inline"
+                        format="DD/MM/YYYY"
+                        margin="normal"
+                        id="date-picker-paid"
+                        name="billingPaidDate"
+                        value={billingUpdated.billingPaidDate}
+                        onChange={(evt) => handleChange({target : {name: "billingPaidDate", value: evt}})}
+                        KeyboardButtonProps={{
+                            'aria-label': 'change date',
+                        }}
                     />
-                : <Typography>{ billing.billingAmount } €</Typography>
-                }
-            </Grid>
-            <Grid item xs={5}>
-                <Typography> Envoyée le : </Typography>
-                { billingChanged 
-                ? <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    format="DD/MM/YYYY"
-                    margin="normal"
-                    id="date-picker-send"
-                    name="billingSendDate"
-                    value={billingUpdated.billingSendDate}
-                    onChange={(evt) => handleChange({target : {name: "billingSendDate", value: evt}})}
-                    KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                    }}
-                />
-                : <Typography>{ billing.billingSendDate ? moment(billing.billingSendDate).format("DD/MM/YYYY") : ""}</Typography>
-                }
-            </Grid>
-            <Grid item xs={5}>
-                <Typography> Payée le : </Typography>
-                { billingChanged 
-                ? <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    format="DD/MM/YYYY"
-                    margin="normal"
-                    id="date-picker-paid"
-                    name="billingPaidDate"
-                    value={billingUpdated.billingPaidDate}
-                    onChange={(evt) => handleChange({target : {name: "billingPaidDate", value: evt}})}
-                    KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                    }}
-                />
-                : <Typography>{ billing.billingPaidDate ?  moment(billing.billingPaidDate).format("DD/MM/YYYY") : ""}</Typography>
-                }
-            </Grid>
-            
-            <Grid item xs={2}>
-                
-                { billingChanged
+                    : billing.billingPaidDate ?  moment(billing.billingPaidDate).format("DD/MM/YYYY") : ""
+                    }
+                    </TableCell>
+                    
+                    { billingChanged
                     ? <IconButton variant="outlined" onClick={saveBilling}><Save /></IconButton>
                     : <IconButton variant="outlined" onClick={() => setUpdate(true)}><Create /></IconButton>
-                }
-            </Grid>
-                        
-        </Grid>
+                    }
+                    
+                </TableRow>
+                </TableBody>
+            </Table>
+        </TableContainer>
+        </Paper>
     )
            
      

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import Loading from "../Loading";
-import { IconButton, Paper, TextField,
+import { Paper,
     Table, TableBody, TableCell, TableRow, TableHead, Grid, TableContainer
 } from "@material-ui/core";
 import {getTrackingListByFestival} from "../../actions/TrackingActions";
@@ -27,15 +27,15 @@ const TrackingList = ({festivalId}) => {
         if(!_.isEmpty(trackingList.data)) {
             return (
                 <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
+                    <Table stickyHeader size="small" aria-label="a dense table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Exposant</TableCell>
-                                <TableCell>Workflow</TableCell>
-                                <TableCell>Contact 1</TableCell>
-                                <TableCell>Contact 2</TableCell>
-                                <TableCell>CR</TableCell>
-                                <TableCell> </TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Exposant</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Workflow</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Contact 1</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Contact 2</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>CR</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}> </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -58,10 +58,10 @@ const TrackingList = ({festivalId}) => {
 
     return(
         <div>
-            <Grid container direction="column" justify="center" alignItems="center">
-                <h1>Suivis</h1>
+            <Paper>
+                <h3>Suivis</h3>
                 {showData()}
-            </Grid>
+            </Paper>
         </div>
     )
 }

@@ -43,55 +43,54 @@ const ReservedGameByFestival = ({festivalId}) => {
     };
 
     return (
-        <>
-                <Paper className={classes.root}>
-                <TableContainer className={classes.container}>
-                    <Table stickyHeader size="small" aria-label="a dense table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell style={{'font-weight':'bold'}}>Nom</TableCell>
-                            <TableCell style={{'font-weight':'bold'}}>Editeur</TableCell>
-                            <TableCell> </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {reservedGameList.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(reserv => 
-                        reserv.reservationReservedGame.map(row => 
-                        <TableRow key={row._id}>
-                            <TableCell>
-                                { row.reservedGame.gameName }
-                            </TableCell>
-                            <TableCell>
-                                { row.reservedGame.gameEditor &&row.reservedGame.gameEditor.editorName }
-                            </TableCell>
-                            
-                            
+        <Paper className={classes.root}>
+            <h3>Jeux réservés</h3>
+        <TableContainer className={classes.container}>
+            <Table stickyHeader size="small" aria-label="a dense table">
+            <TableHead>
+                <TableRow>
+                    <TableCell style={{'font-weight':'bold'}}>Nom</TableCell>
+                    <TableCell style={{'font-weight':'bold'}}>Editeur</TableCell>
+                    <TableCell> </TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+            {reservedGameList.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(reserv => 
+                reserv.reservationReservedGame.map(row => 
+                <TableRow key={row._id}>
+                    <TableCell>
+                        { row.reservedGame.gameName }
+                    </TableCell>
+                    <TableCell>
+                        { row.reservedGame.gameEditor &&row.reservedGame.gameEditor.editorName }
+                    </TableCell>
+                    
+                    
 
-                            {user.isLoggedIn
-                                ?
-                                    <TableCell>
-                                        <IconButton variant="outlined" color="secondary" component={Link} to={`/reservation/${reserv._id}`}><Visibility /></IconButton>
-                                    </TableCell>
-                                :
-                                    <></>
-                            }
-                        </TableRow>
-                        )
-                    )}
-                    </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
-                    component="div"
-                    count={reservedGameList.data.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-                </Paper>
-            </>
+                    {user.isLoggedIn
+                        ?
+                            <TableCell>
+                                <IconButton variant="outlined" color="secondary" component={Link} to={`/reservation/${reserv._id}`}><Visibility /></IconButton>
+                            </TableCell>
+                        :
+                            <></>
+                    }
+                </TableRow>
+                )
+            )}
+            </TableBody>
+            </Table>
+        </TableContainer>
+        <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={reservedGameList.data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+        </Paper>
         
     )
             

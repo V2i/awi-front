@@ -49,14 +49,14 @@ const ReservedSpaceList = ({reservationId}) => {
         if(!_.isEmpty(reservation.data)) {
             return (
                 <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
+                    <Table stickyHeader size="small" aria-label="a dense table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Espace</TableCell>
-                                <TableCell>Nombre de table</TableCell>
-                                <TableCell>Surface (m²)</TableCell>
-                                <TableCell>Reduction</TableCell>
-                                <TableCell> </TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Espace</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Nombre de table</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Surface (m²)</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Reduction</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}> </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -109,17 +109,17 @@ const ReservedSpaceList = ({reservationId}) => {
     };
 
     return(
-        <div>
+        <Paper>
             {user.isLoggedIn
                 ? <div>
-                    <h1>Liste des Espaces Réservés</h1>
+                    <h4>Liste des Espaces Réservés</h4>
                     <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
                     {showData()}
                     <AddReservedSpace open={open} handleClose={() => changeValueOpen(false)}/>
                 </div>
                 :<p>Vous n'avez pas la permission requise!</p>
             }
-        </div>
+        </Paper>
     )
 }
 
