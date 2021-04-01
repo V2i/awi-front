@@ -8,16 +8,24 @@ import {
     Paper, Button, Typography, Grid,
   } from "@material-ui/core";
 import {Link} from 'react-router-dom';
+import ExhibitorContact from "./ExhibitorContact";
+import {patchContact} from "../../actions/ContactActions";
 
 const Exhibitor = (props) => {
 
+    const [open, setOpen ] = React.useState(false);
     const exhibitorId = props.match.params.id;
     const dispatch = useDispatch();
     const exhibitor = useSelector(state => state.Exhibitor);
+    const contactList = useSelector(state => state.ContactList);
 
     React.useEffect(() => {
         dispatch(getExhibitorByID(exhibitorId));
     }, [dispatch, exhibitorId]);
+
+    const saveContact = (selectedContact) => {
+        dispatch(patchContact(selectedContact));
+    };
 
     const showData = () => {
         if(!_.isEmpty(exhibitor.data)) {
@@ -40,24 +48,17 @@ const Exhibitor = (props) => {
                             <TableRow>
                                 <TableCell>Nom</TableCell>
                                 <TableCell>Prénom</TableCell>
-                                <TableCell>Téléphone 1</TableCell>
-                                <TableCell>Téléphone 2</TableCell>
+                                <TableCell>Fixe</TableCell>
+                                <TableCell>Portable</TableCell>
                                 <TableCell>Mail</TableCell>
                                 <TableCell>Fonction</TableCell>
                                 <TableCell>Principal ?</TableCell>
+                                <TableCell> </TableCell>
                             </TableRow>
                             </TableHead>
                             <TableBody>
-                            {exhibitor.data.exhibitorContact && exhibitor.data.exhibitorContact.map(row => (
-                                <TableRow key={row._id}>
-                                    <TableCell component="th" scope="row">{row.contactLastname}</TableCell>
-                                    <TableCell component="th" scope="row">{row.contactFirstname}</TableCell>
-                                    <TableCell component="th" scope="row">{row.contactPhone}</TableCell>
-                                    <TableCell component="th" scope="row">{row.contactMobilePhone}</TableCell>
-                                    <TableCell component="th" scope="row">{row.contactMail}</TableCell>
-                                    <TableCell component="th" scope="row">{row.contactFunction}</TableCell>
-                                    <TableCell component="th" scope="row">{row.contactMain ? 'Oui' : 'Non'}</TableCell>
-                                </TableRow>
+                            {exhibitor.data.exhibitorContact && exhibitor.data.exhibitorContact.map(contact => (
+                                <ExhibitorContact contact={contact} exhibitor={exhibitor} key={contact._id}/>
                             ))}
                             </TableBody>
                         </Table>

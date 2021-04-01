@@ -4,41 +4,41 @@ const DefaultState = {
     errorMsg: "",
 };
 
-const ExhibitorListReducer = (state = DefaultState, action) => {
+const ContactListReducer = (state = DefaultState, action) => {
     switch (action.type) {
-        case "EXHIBITOR_LIST_LOADING":
+        case "CONTACT_LIST_LOADING":
             return {
                 ...state,
                 loading: true,
                 errorMsg: ""
             };
-        case "EXHIBITOR_LIST_SUCCESS":
+        case "CONTACT_LIST_SUCCESS":
             return {
                 ...state,
                 loading: false,
                 data: action.payload,
             };
-        case "EXHIBITOR_LIST_FAIL":
+        case "CONTACT_LIST_FAIL":
             return {
                 ...state,
                 loading: false,
                 errorMsg: action.err,
             }
-        case "EXHIBITOR_ADD_SUCCESS":
+        case "CONTACT_ADD_SUCCESS":
             return {
                 ...state,
                 loading: false,
                 errorMsg: "",
                 data: [...state.data, action.payload]
             }
-        case "EXHIBITOR_DELETE_SUCCESS":
+        case "CONTACT_DELETE_SUCCESS":
             return {
                 ...state,
                 loading: false,
                 errorMsg: "",
                 data: state.data.filter(d => d._id !== action.payload._id)
             }
-        case "EXHIBITOR_UPDATED_SUCCESS":
+        case "CONTACT_UPDATED_SUCCESS":
             return {
                 ...state,
                 loading: false,
@@ -53,6 +53,6 @@ const ExhibitorListReducer = (state = DefaultState, action) => {
         default:
             return state;
     }
-}
+};
 
-export default ExhibitorListReducer;
+export default ContactListReducer;
