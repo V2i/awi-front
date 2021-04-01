@@ -29,7 +29,6 @@ import GameTypeListReducer from "./GameType/GameTypeListReducer";
 import UserListReducer from "./User/UserListReducer";
 import AuthReducer from "./User/AuthReducer";
 
-
 // RESERVED GAME REDUCERS
 import ReservedGameListReducer from "./ReservedGame/ReservedGameListReducer";
 
@@ -39,8 +38,11 @@ import ZoneListReducer from "./Zone/ZoneListReducer";
 // CONTACT REDUCERS
 import ContactListReducer from "./Contact/ContactListReducer";
 
-//RESERVED GAME REDUCERS
+// RESERVED GAME REDUCERS
 import ReservedSpaceListReducer from "./ReservedSpace/ReservedSpaceListReducer";
+
+// TRACKING REDUCERS
+import TrackingListReducer from "./Tracking/TrackingListReducer";
 
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
@@ -71,8 +73,9 @@ const RootReducer = combineReducers({
 
     ContactList: ContactListReducer,
 
-    ReservedSpaceList: ReservedSpaceListReducer
+    ReservedSpaceList: ReservedSpaceListReducer,
 
+    TrackingList: TrackingListReducer
 });
 
 export default RootReducer;
