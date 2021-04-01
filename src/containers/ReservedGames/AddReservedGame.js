@@ -8,9 +8,10 @@ import { Button, TextField, Grid, FormControl, Select, InputLabel, MenuItem, Ico
  } from "@material-ui/core";
  import { Add} from '@material-ui/icons';
  import AddGame from "../Games/AddGame";
+import { getReservationByID } from '../../actions/ReservationActions';
 
  
-const AddReservedGame = ({open = false, handleClose, reservation}) => {
+const AddReservedGame = ({open = false, handleClose, reservationId}) => {
     
     const dispatch = useDispatch();
     const [game, setGame] = useState({});
@@ -18,11 +19,13 @@ const AddReservedGame = ({open = false, handleClose, reservation}) => {
     
     const gameList = useSelector(state => state.GameList);
     const zoneList = useSelector(state => state.ZoneList);
+    const reservation = useSelector(state => state.Reservation);
 
     React.useEffect(() => {
         const fetchData = () => {
             dispatch(getGameList());
             dispatch(getZoneList());
+            dispatch(getReservationByID(reservationId));
         };
         fetchData();
     }, [dispatch]);
@@ -37,7 +40,7 @@ const AddReservedGame = ({open = false, handleClose, reservation}) => {
     const saveGame = () => {
         console.log(game)
         handleClose()
-        dispatch(postReservedGame(game, reservation));
+        dispatch(postReservedGame(game, reservation.data));
         setGame({});
     };
 

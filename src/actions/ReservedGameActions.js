@@ -92,7 +92,7 @@ export const postReservedGame = (game, reservation) => async dispatch => {
     }
 };
 
-export const deleteReservedGame = (id) => async dispatch => {
+export const deleteReservedGame = (id, reservation) => async dispatch => {
     try {
 
         const res = await axios.delete(`${servURL}/reservedGame/${id}`,{headers: authHeader()});
@@ -100,6 +100,13 @@ export const deleteReservedGame = (id) => async dispatch => {
         dispatch({
             type: "RESERVED_GAME_DELETE_SUCCESS",
             payload: res.data
+        });
+
+        const resUpdated = await axios.patch(`${servURL}/reservation/${reservation._id}`, {reservationReservedGame: reservation.reservationReservedGame.filter(g => g._id !== res.data._id).map(g => g._id)},{headers: authHeader()});
+
+        dispatch({
+            type: "RESERVATION_UPDATED_SUCCESS",
+            payload: resUpdated.data
         });
     } catch (err) {
         // dispatch({

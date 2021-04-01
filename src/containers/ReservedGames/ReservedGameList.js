@@ -31,7 +31,7 @@ const ReservedGameList = ({reservationId}) => {
         setOpen(value)
     }
     const removeGame = (id) => {
-        dispatch(deleteReservedGame(id));
+        dispatch(deleteReservedGame(id, reservation));
     }
 
     const handleChange = (event) => {
@@ -49,8 +49,6 @@ const ReservedGameList = ({reservationId}) => {
         dispatch(patchReservedGame(gameSelected))
         setGame(false)
     }
-    
-    console.log(reservedGameList)
 
     const showData = () => {
         if(!_.isEmpty(reservedGameList)) {
@@ -82,6 +80,9 @@ const ReservedGameList = ({reservationId}) => {
                                 </TableCell>
                                 <TableCell>
                                     { row.reservedGame.gameEditor &&row.reservedGame.gameEditor.editorName }
+                                </TableCell>
+                                <TableCell>
+                                    { reservation.data.reservationExhibitor && reservation.data.reservationExhibitor.exhibitorName }
                                 </TableCell>
                                 <TableCell>
                                     { row.reservedGame.gameMinimumPlayers } - { row.reservedGame.gameMaximumPlayers }
@@ -169,7 +170,7 @@ const ReservedGameList = ({reservationId}) => {
                     ? <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
                     : <></>
                 }
-                {open && <AddReservedGame open={open} handleClose={() => changeValueOpen(false)} reservation={reservation.data}/> }
+                {open && <AddReservedGame open={open} handleClose={() => changeValueOpen(false)} reservation={reservation.data._id}/> }
             </Grid>
             <Grid item xs={12}>
                 {showData()}
