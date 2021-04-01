@@ -57,6 +57,7 @@ function App() {
                 <Route path={"/profile"} exact component={User}/>
 
                 <Route path={"/contact/list"} exact component={ContactList}/>
+
                 <Redirect to={"/"}/>
             </Switch>
         </div>

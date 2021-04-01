@@ -31,6 +31,7 @@ const Reservation = (props) => {
     return(
         <div>
             {showData()}
+
         </div>
     )
 }

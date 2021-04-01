@@ -35,6 +35,9 @@ import AuthReducer from "./User/AuthReducer";
 // CONTACT REDUCERS
 import ContactListReducer from "./Contact/ContactListReducer";
 
+//RESERVED GAME REDUCERS
+import ReservedSpaceListReducer from "./ReservedSpace/ReservedSpaceListReducer";
+
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
     Festival: FestivalReducer,
@@ -60,7 +63,9 @@ const RootReducer = combineReducers({
     UserList: UserListReducer,
     User: AuthReducer,
 
-    ContactList: ContactListReducer
+    ContactList: ContactListReducer,
+
+    ReservedSpaceList: ReservedSpaceListReducer
 
 });
 
