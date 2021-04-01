@@ -5,12 +5,13 @@ import Loading from "../Loading";
 import {deleteContact, getContactList, patchContact} from "../../actions/ContactActions";
 import {
     Table, TableBody, TableCell, TableRow, TableHead, TableContainer,
-    Paper, IconButton, TextField, FormControlLabel, Checkbox,InputBase, Grid
+    Paper, IconButton, TextField, FormControlLabel, Checkbox,InputBase, Grid,TablePagination
 } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import {Delete, Save, Create} from '@material-ui/icons';
 import AddContact from "./AddContact";
 import {green} from "@material-ui/core/colors";
+import { makeStyles } from '@material-ui/core/styles';
 
 const ContactList = () => {
 
@@ -50,26 +51,50 @@ const ContactList = () => {
         setState({search:keyword})
     }
 
+    const useStyles = makeStyles({
+        root: {
+          width: '100%',
+        },
+        container: {
+          maxHeight: 500,
+        },
+      });
+
+    const classes = useStyles();
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    };
+  
+    const handleChangeRowsPerPage = (event) => {
+      setRowsPerPage(+event.target.value);
+      setPage(0);
+    };
+
     const showData = () => {
         if(!_.isEmpty(contactList.data)) {
             if(user.isLoggedIn) {
                 return (
-                    <TableContainer component={Paper}>
-                        <Table size="small" aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Nom</TableCell>
-                                    <TableCell>Prénom</TableCell>
-                                    <TableCell>Fixe</TableCell>
-                                    <TableCell>Portable</TableCell>
-                                    <TableCell>Mail</TableCell>
-                                    <TableCell>Fonction</TableCell>
-                                    <TableCell>Principal ?</TableCell>
-                                    <TableCell> </TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {contactList.data.filter((data) => {
+                    <>
+                    <Paper className={classes.root}>
+                    <TableContainer className={classes.container}>
+                        <Table stickyHeader size="small" aria-label="a dense table">
+                        <TableHead>
+                            <TableRow>
+                            <TableCell style={{'font-weight':'bold'}}>Nom</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Prénom</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Fixe</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Portable</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Mail</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Fonction</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Principal ?</TableCell>
+                            <TableCell> </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {contactList.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((data) => {
                                     if(searchState.search == null)
                                         return data
                                     else if(data.contactLastname.toLowerCase().includes(searchState.search.toLowerCase()) || data.contactFirstname.toLowerCase().includes(searchState.search.toLowerCase()) || data.contactMail.toLowerCase().includes(searchState.search.toLowerCase())){
@@ -146,9 +171,117 @@ const ContactList = () => {
                                         </TableCell>
                                     </TableRow>
                                 ))}
-                            </TableBody>
+                        </TableBody>
                         </Table>
                     </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[10, 25, 100]}
+                        component="div"
+                        count={contactList.data.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onChangePage={handleChangePage}
+                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
+                    </Paper>
+                </>
+                    
+                    
+                    // <TableContainer component={Paper}>
+                    //     <Table size="small" aria-label="simple table">
+                    //         <TableHead>
+                    //             <TableRow>
+                    //                 <TableCell>Nom</TableCell>
+                    //                 <TableCell>Prénom</TableCell>
+                    //                 <TableCell>Fixe</TableCell>
+                    //                 <TableCell>Portable</TableCell>
+                    //                 <TableCell>Mail</TableCell>
+                    //                 <TableCell>Fonction</TableCell>
+                    //                 <TableCell>Principal ?</TableCell>
+                    //                 <TableCell> </TableCell>
+                    //             </TableRow>
+                    //         </TableHead>
+                    //         <TableBody>
+                                // {contactList.data.filter((data) => {
+                                //     if(searchState.search == null)
+                                //         return data
+                                //     else if(data.contactLastname.toLowerCase().includes(searchState.search.toLowerCase()) || data.contactFirstname.toLowerCase().includes(searchState.search.toLowerCase()) || data.contactMail.toLowerCase().includes(searchState.search.toLowerCase())){
+                                //         return data
+                                //     }
+                                // })
+                                // .map(row => (
+                                //     <TableRow key={row._id}>
+                                //         <TableCell component="th" scope="row">
+                                //             { selectedContact._id === row._id
+                                //             ? <TextField name="contactLastname" label="Nom" value={selectedContact.contactLastname} onChange={handleChange}/>
+                                //             : row.contactLastname
+                                //             }
+                                //         </TableCell>
+                                //         <TableCell component="th" scope="row">
+                                //             { selectedContact._id === row._id
+                                //                 ? <TextField name="contactFirstname" label="Prénom" value={selectedContact.contactFirstname} onChange={handleChange}/>
+                                //                 : row.contactFirstname
+                                //             }
+                                //         </TableCell>
+                                //         <TableCell component="th" scope="row">
+                                //             { selectedContact._id === row._id
+                                //                 ? <TextField name="contactPhone" label="Fixe" value={selectedContact.contactPhone} onChange={handleChange}/>
+                                //                 : row.contactPhone
+                                //             }
+                                //         </TableCell>
+                                //         <TableCell component="th" scope="row">
+                                //             { selectedContact._id === row._id
+                                //                 ? <TextField name="contactMobilePhone" label="Portable" value={selectedContact.contactMobilePhone} onChange={handleChange}/>
+                                //                 : row.contactMobilePhone
+                                //             }
+                                //         </TableCell>
+                                //         <TableCell component="th" scope="row">
+                                //             { selectedContact._id === row._id
+                                //                 ? <TextField name="contactMail" label="Mél" value={selectedContact.contactMail} onChange={handleChange}/>
+                                //                 : row.contactMail
+                                //             }
+                                //         </TableCell>
+                                //         <TableCell component="th" scope="row">
+                                //             { selectedContact._id === row._id
+                                //                 ? <TextField name="contactFunction" label="Fonction" value={selectedContact.contactFunction} onChange={handleChange}/>
+                                //                 : row.contactFunction
+                                //             }
+                                //         </TableCell>
+                                //         <TableCell>
+                                //             {selectedContact._id === row._id
+                                //                 ? <FormControlLabel
+                                //                     control={
+                                //                         <Checkbox
+                                //                             checked={selectedContact.contactMain}
+                                //                             onChange={handleChange}
+                                //                             name="contactMain"
+                                //                             color="primary"
+                                //                         />
+                                //                     }
+                                //                   label=""/>
+                                //                 : <Checkbox
+                                //                     checked={row.contactMain}
+                                //                     disabled
+                                //                     name="contactMain"
+                                //                     color="primary"
+                                //                 />
+                                //             }
+                                //         </TableCell>
+
+                                //         <TableCell align="right">
+                                //             { selectedContact._id === row._id
+                                //                 ? <IconButton variant="outlined" onClick={() => saveContact(selectedContact)}><Save /></IconButton>
+                                //                 : <IconButton variant="outlined" style={{ color: green[500] }} onClick={() => setContact(row)}><Create /></IconButton>
+                                //             }
+                                //             <IconButton aria-label="delete" color="secondary" onClick={() => removeContact(row._id)}>
+                                //                 <Delete />
+                                //             </IconButton>
+                                //         </TableCell>
+                                //     </TableRow>
+                                // ))}
+                    //         </TableBody>
+                    //     </Table>
+                    // </TableContainer>
                 )
             } else {
                 return <p>Vous n'etes pas connecté</p>;
