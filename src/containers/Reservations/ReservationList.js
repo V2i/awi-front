@@ -78,12 +78,12 @@ const ReservationList = ({festivalID = false}) => {
                         
                         .map(row => (
                             <TableRow key={row._id}>
-                                <TableCell>{row.reservationExhibitor.exhibitorName}</TableCell>
+                                <TableCell>{row.reservationExhibitor && row.reservationExhibitor.exhibitorName}</TableCell>
                                 <TableCell>{row.exhibitorIsMoving}</TableCell>
                                 <TableCell>{row.exhibitorVolunteerNeeded}</TableCell>
-                                <TableCell>{row.reservationBilling.billingAmount}</TableCell>
-                                <TableCell>{row.reservationBilling.billingStatus}</TableCell>
-                                <TableCell>{row.reservationTracking.trackingWorkflow}</TableCell>
+                                <TableCell>{row.reservationBilling && row.reservationBilling.billingAmount}</TableCell>
+                                <TableCell>{row.reservationBilling && row.reservationBilling.billingStatus}</TableCell>
+                                <TableCell>{row.reservationBilling && row.reservationTracking.trackingWorkflow}</TableCell>
                                 <TableCell>
                                     <IconButton variant="outlined" color="primary" component={Link} to={`/reservation/${row._id}`}><Visibility /></IconButton>
                                     <IconButton variant="outlined" style={{ color: green[500] }} ><Create /></IconButton>

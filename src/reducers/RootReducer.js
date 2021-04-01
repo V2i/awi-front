@@ -42,6 +42,9 @@ import ContactListReducer from "./Contact/ContactListReducer";
 //RESERVED GAME REDUCERS
 import ReservedSpaceListReducer from "./ReservedSpace/ReservedSpaceListReducer";
 
+//BILLINGREDUCERS
+import BillingListReducer from "./Billing/BillingListReducer";
+
 const RootReducer = combineReducers({
     FestivalList: FestivalListReducer,
     Festival: FestivalReducer,
@@ -71,7 +74,9 @@ const RootReducer = combineReducers({
 
     ContactList: ContactListReducer,
 
-    ReservedSpaceList: ReservedSpaceListReducer
+    ReservedSpaceList: ReservedSpaceListReducer,
+
+    BillingList: BillingListReducer
 
 });
 
