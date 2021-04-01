@@ -38,14 +38,10 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
     };
 
     const saveGame = () => {
-        console.log(game)
         handleClose()
         dispatch(postReservedGame(game, reservation.data));
         setGame({});
     };
-
-    console.log(gameList)
-    console.log(zoneList)
 
     return(
         <Dialog
@@ -138,7 +134,7 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
                                 <Add/>
                             </IconButton>
                             {
-                               /* addGame && <AddReservedGame open={addGame} handleClose={() => setAddGame(false)}/> */
+                                addGame && <AddGame open={addGame} handleClose={() => setAddGame(false)}/> 
                             }
                         </Grid>
                         }
