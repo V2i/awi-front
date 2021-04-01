@@ -70,7 +70,6 @@ const ExhibitorList = () => {
                         else if(data.exhibitorName.toLowerCase().includes(searchState.search.toLowerCase())){
                             return data
                         }
-                        return <></>
                         })
                         .map(row => (
                             <TableRow key={row._id}>

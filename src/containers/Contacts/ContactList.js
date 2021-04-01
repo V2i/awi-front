@@ -1,11 +1,11 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import Loading from "../Loading";
 import {deleteContact, getContactList, patchContact} from "../../actions/ContactActions";
 import {
     Table, TableBody, TableCell, TableRow, TableHead, TableContainer,
-    Paper, IconButton, TextField, FormControlLabel, Checkbox
+    Paper, IconButton, TextField, FormControlLabel, Checkbox,InputBase, Grid
 } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import {Delete, Save, Create} from '@material-ui/icons';
@@ -19,7 +19,11 @@ const ContactList = () => {
     const dispatch = useDispatch();
     const contactList = useSelector(state => state.ContactList);
     const user = useSelector(state => state.User);
+    const searchInitialState ={
+        search: "",
+    }
 
+    const [searchState, setState] = useState(searchInitialState);
     React.useEffect(() => {
         const fetchData = () => {
             dispatch(getContactList());
@@ -41,6 +45,11 @@ const ContactList = () => {
         setContact(false);
     };
 
+    const searchSpace = (event)=>{
+        let keyword = event.target.value;
+        setState({search:keyword})
+    }
+
     const showData = () => {
         if(!_.isEmpty(contactList.data)) {
             if(user.isLoggedIn) {
@@ -60,7 +69,14 @@ const ContactList = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {contactList.data.map(row => (
+                                {contactList.data.filter((data) => {
+                                    if(searchState.search == null)
+                                        return data
+                                    else if(data.contactLastname.toLowerCase().includes(searchState.search.toLowerCase()) || data.contactFirstname.toLowerCase().includes(searchState.search.toLowerCase()) || data.contactMail.toLowerCase().includes(searchState.search.toLowerCase())){
+                                        return data
+                                    }
+                                })
+                                .map(row => (
                                     <TableRow key={row._id}>
                                         <TableCell component="th" scope="row">
                                             { selectedContact._id === row._id
@@ -151,14 +167,18 @@ const ContactList = () => {
 
     return(
         <div>
+            
+             <Grid container direction="column" justify="center" alignItems="center">
             <h1>Liste des Contacts</h1>
             {
                 user.isLoggedIn
                 ?<IconButton aria-label="add" color="primary" onClick={() => setOpen(true)}><AddIcon /></IconButton>
                 :<></>
             }
+            <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
             {showData()}
             {open && <AddContact open={open} handleClose={() => setOpen(false)} />}
+            </Grid>
         </div>
     )
 }

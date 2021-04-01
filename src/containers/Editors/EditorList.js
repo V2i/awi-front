@@ -40,6 +40,7 @@ const EditorList = () => {
     const searchSpace = (event)=>{
         let keyword = event.target.value;
         setState({search:keyword})
+        console.log(searchState.search)
     }
 
     const removeEditor = (id) => {
@@ -74,7 +75,6 @@ const EditorList = () => {
                             else if(data.editorName.toLowerCase().includes(searchState.search.toLowerCase())){
                                 return data
                             }
-                            return <></>
                         })
                         .map((row) => (
                             <TableRow key={row._id}>
