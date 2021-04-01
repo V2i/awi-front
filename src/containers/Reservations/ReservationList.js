@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {getReservationList, deleteReservation, getReservationByFestivalID} from "../../actions/ReservationActions";
 import {
-    Table, TableBody, TableCell, TableRow, TableHead, TableContainer, Paper, Grid, InputBase
+    Table, TableBody, TableCell, TableRow, TableHead, TableContainer, Paper, Grid, InputBase, TablePagination
 } from "@material-ui/core";
 import {Link} from "react-router-dom";
 import Loading from "../Loading";
@@ -11,6 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import {Add, Create, Delete, Visibility} from "@material-ui/icons";
 import {green} from "@material-ui/core/colors";
 import AddReservation from "./AddReservation";
+import { makeStyles } from '@material-ui/core/styles';
 
 const ReservationList = ({festivalID = false}) => {
 
@@ -51,24 +52,49 @@ const ReservationList = ({festivalID = false}) => {
         setState({search:keyword})
       }
 
+      
+    const useStyles = makeStyles({
+        root: {
+          width: '100%',
+        },
+        container: {
+          maxHeight: 500,
+        },
+      });
+
+    const classes = useStyles();
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    };
+  
+    const handleChangeRowsPerPage = (event) => {
+      setRowsPerPage(+event.target.value);
+      setPage(0);
+    };
+
     const showData = () => {
         if(!_.isEmpty(reservationList.data)) {
             return (
-                <TableContainer component={Paper}>
-                <Table aria-label="simple table">
+                <>
+                <Paper className={classes.root}>
+                <TableContainer className={classes.container}>
+                    <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Exposant</TableCell>
-                            <TableCell>Se Deplace?</TableCell>
-                            <TableCell>Besoin de Volontaire?</TableCell>
-                            <TableCell>Montant €</TableCell>
-                            <TableCell>Facturation</TableCell>
-                            <TableCell>Suivi</TableCell>
-                            <TableCell> </TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Exposant</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Se Deplace?</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Besoin de Volontaire?</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Montant €</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Facturation</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Suivi</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}> </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {reservationList.data.filter((data) => {
+                    {reservationList.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((data) => {
                         if(searchState.search == null)
                             return data
                         else if(data.reservationExhibitor.exhibitorName.toLowerCase().includes(searchState.search.toLowerCase())){
@@ -92,8 +118,60 @@ const ReservationList = ({festivalID = false}) => {
                             </TableRow>
                         ))}
                     </TableBody>
-                </Table>
+                    </Table>
                 </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={reservationList.data.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+                </Paper>
+            </>
+
+                // <TableContainer component={Paper}>
+                // <Table aria-label="simple table">
+                //     <TableHead>
+                //         <TableRow>
+                            // <TableCell>Exposant</TableCell>
+                            // <TableCell>Se Deplace?</TableCell>
+                            // <TableCell>Besoin de Volontaire?</TableCell>
+                            // <TableCell>Montant €</TableCell>
+                            // <TableCell>Facturation</TableCell>
+                            // <TableCell>Suivi</TableCell>
+                            // <TableCell> </TableCell>
+                //         </TableRow>
+                //     </TableHead>
+                //     <TableBody>
+                        // {reservationList.data.filter((data) => {
+                        // if(searchState.search == null)
+                        //     return data
+                        // else if(data.reservationExhibitor.exhibitorName.toLowerCase().includes(searchState.search.toLowerCase())){
+                        //     return data
+                        // }
+                        // })
+                        
+                        // .map(row => (
+                        //     <TableRow key={row._id}>
+                        //         <TableCell>{row.reservationExhibitor && row.reservationExhibitor.exhibitorName}</TableCell>
+                        //         <TableCell>{row.exhibitorIsMoving}</TableCell>
+                        //         <TableCell>{row.exhibitorVolunteerNeeded}</TableCell>
+                        //         <TableCell>{row.reservationBilling && row.reservationBilling.billingAmount}</TableCell>
+                        //         <TableCell>{row.reservationBilling && row.reservationBilling.billingStatus}</TableCell>
+                        //         <TableCell>{row.reservationBilling && row.reservationTracking.trackingWorkflow}</TableCell>
+                        //         <TableCell>
+                        //             <IconButton variant="outlined" color="primary" component={Link} to={`/reservation/${row._id}`}><Visibility /></IconButton>
+                        //             <IconButton variant="outlined" style={{ color: green[500] }} ><Create /></IconButton>
+                        //             <IconButton variant="outlined" color="secondary" onClick={() => removeReservation(row._id)}><Delete /></IconButton>
+                        //         </TableCell>
+                        //     </TableRow>
+                        // ))}
+                //     </TableBody>
+                // </Table>
+                // </TableContainer>
             )
         }
         if(reservationList.loading) {
@@ -108,18 +186,21 @@ const ReservationList = ({festivalID = false}) => {
 
     return(
         <div>
+             <Grid container direction="column" justify="center" alignItems="center">
             {user.isLoggedIn
                 ? <div>
                     <h1>Liste des Reservations</h1>
-                    <Grid item xs={6}>
-                        <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
-                    </Grid>
+                    
+                        
+                    
                     <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
+                    <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
                     {showData()}
                     <AddReservation open={open} handleClose={() => changeValueOpen(false)}/>
                 </div>
                 :<p>Vous n'avez pas la permission requise!</p>
             }
+            </Grid>
         </div>
     )
 }

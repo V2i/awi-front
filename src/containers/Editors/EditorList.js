@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
-import {Link} from 'react-router-dom';
 import {getEditorList, deleteEditor, patchEditor} from "../../actions/EditorActions";
-
+import { makeStyles } from '@material-ui/core/styles';
 import Loading from "../Loading";
 import AddEditor from "./AddEditor";
 import AddIcon from '@material-ui/icons/Add';
+import {Link} from 'react-router-dom';
+
+import {  Visibility, Create, Delete, Save } from '@material-ui/icons';
 import { IconButton, Paper, TextField,
-    Table, TableBody, TableCell, TableRow, TableHead, InputBase, Grid, TableContainer
+    Table, TableBody, TableCell, TableRow, TableHead, InputBase, Grid, TableContainer,TablePagination
 } from "@material-ui/core";
-import { Visibility, Create, Delete, Save } from '@material-ui/icons';
 
 const EditorList = () => {
 
@@ -56,50 +57,85 @@ const EditorList = () => {
         dispatch(patchEditor(editorSelected))
         setEditor({})
     }
+    const useStyles = makeStyles({
+        root: {
+          width: '100%',
+        },
+        container: {
+          maxHeight: 500,
+        },
+      });
+
+    const classes = useStyles();
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    };
+  
+    const handleChangeRowsPerPage = (event) => {
+      setRowsPerPage(+event.target.value);
+      setPage(0);
+    };
 
     const showData = () => {
         if(!_.isEmpty(editorList.data)) {
             return (
-                <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Nom</TableCell>
-                                <TableCell> </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        {editorList.data.filter((data) => {
+                <>
+                <Paper className={classes.root}>
+                <TableContainer className={classes.container}>
+                    <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                        <TableRow>
+                       
+                            <TableCell>
+                            <div style={{'font-weight':'bold'}}>Nom</div>
+                            </TableCell>
+                            <TableCell></TableCell>
+                        
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {editorList.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((data) => {
                             if(searchState.search == null)
                                 return data
                             else if(data.editorName.toLowerCase().includes(searchState.search.toLowerCase())){
                                 return data
                             }
                         })
-                        .map((row) => (
-                            <TableRow key={row._id}>
-                            <TableCell component="th" scope="row">
-                            {selectedEditor._id === row._id ? <TextField name="editorName" label="Nom" value={selectedEditor.editorName} onChange={handleChange}/> : row.editorName }
-                            </TableCell>
-                            
-                            {user.isLoggedIn
-                                ?
-                                    <TableCell>
+                        .map((row) => {
+                        return (
+                            <TableRow hover role="checkbox" tabIndex={-1}>
+                                <TableCell component="th" scope="row">
+                                    {selectedEditor._id === row._id ? <TextField name="editorName" label="Nom" value={selectedEditor.editorName} onChange={handleChange}/> : row.editorName }
+                                
+                                </TableCell>
+                                <TableCell>
                                         <IconButton variant="outlined" color="primary" component={Link} to={`/editor/${row._id}`}><Visibility /></IconButton>
                                         { selectedEditor._id === row._id
                                             ? <IconButton variant="outlined" onClick={() => saveEditor(selectedEditor)}><Save /></IconButton>
                                             : <IconButton variant="outlined" onClick={() => setEditor(row)}><Create /></IconButton>
                                         }
                                         <IconButton variant="outlined" color="secondary" onClick={() => removeEditor(row._id)}><Delete /></IconButton>
-                                    </TableCell>
-                                :
-                                    <></>
-                            }
+                                </TableCell>
                             </TableRow>
-                        ))}
-                        </TableBody>
+                        );
+                        })}
+                    </TableBody>
                     </Table>
-            </TableContainer>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={editorList.data.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+                </Paper>
+            </>
             )
             
         }
@@ -125,8 +161,9 @@ const EditorList = () => {
                 :
                     <></>
             }
-            
             <InputBase  type="text" placeholder="Recherche..." onChange={(e)=>searchSpace(e)} />
+            
+            
             
             {showData()}
             { open && <AddEditor open={open} handleClose={() => changeValueOpen(false)}/>}
