@@ -2,12 +2,11 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import { patchReservedGame, deleteReservedGame, getReservedGameListByFestival } from "../../actions/ReservedGameActions";
-import {getReservationByID} from "../../actions/ReservationActions";
-
+import { makeStyles } from '@material-ui/core/styles';
 import { Visibility } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import { 
-    Table, TableBody, TableCell, TableRow, TableHead,  Card, Paper, TableContainer, Typography
+    Table, TableBody, TableCell, TableRow, TableHead, Paper, TableContainer, TablePagination
  } from "@material-ui/core";
  import {Link} from 'react-router-dom';
 
@@ -21,22 +20,42 @@ const ReservedGameByFestival = ({festivalId}) => {
         dispatch(getReservedGameListByFestival(festivalId));
     }, [dispatch, festivalId]);
     
+    const useStyles = makeStyles({
+        root: {
+          width: '100%',
+        },
+        container: {
+          maxHeight: 500,
+        },
+      });
 
+    const classes = useStyles();
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    };
+  
+    const handleChangeRowsPerPage = (event) => {
+      setRowsPerPage(+event.target.value);
+      setPage(0);
+    };
 
     return (
-        <Card>
-            <Typography variant="h5"><b>Jeux réservés</b></Typography>
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
+        <>
+                <Paper className={classes.root}>
+                <TableContainer className={classes.container}>
+                    <Table stickyHeader size="small" aria-label="a dense table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Nom</TableCell>
-                            <TableCell>Editeur</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Nom</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Editeur</TableCell>
                             <TableCell> </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {reservedGameList.data.map(reserv => 
+                    {reservedGameList.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(reserv => 
                         reserv.reservationReservedGame.map(row => 
                         <TableRow key={row._id}>
                             <TableCell>
@@ -60,9 +79,19 @@ const ReservedGameByFestival = ({festivalId}) => {
                         )
                     )}
                     </TableBody>
-                </Table>
-            </TableContainer>
-        </Card>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={reservedGameList.data.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+                </Paper>
+            </>
         
     )
             

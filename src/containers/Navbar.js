@@ -4,12 +4,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import {IconButton, Menu, MenuItem, Typography} from '@material-ui/core';
+import {IconButton, Menu, MenuItem, Typography, Card, CardMedia} from '@material-ui/core';
 import Login from "./Users/Login";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../actions/UserActions";
 import {AccountCircle } from "@material-ui/icons";
 import {Link} from 'react-router-dom';
+import logo from "../static/logo.png"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
     },
 
     offset: theme.mixins.toolbar,
+
+    logo: {
+        maxWidth: 100,
+        marginRight: '10px'
+      }
 }));
 
 const NavBar = () => {
@@ -71,10 +77,12 @@ const NavBar = () => {
 
     return (
         <div className={classes.root}>
-            <AppBar position="fixed">
+            <AppBar position="fixed" style={{ background: '#739600' }}>
                 <Toolbar>
-                    <Typography variant="h6">Festival des Jeux</Typography>
-                    <ChevronRightIcon/>
+                    
+                    <img src={logo} className={classes.logo}/>
+
+                    
                     {user.isLoggedIn ?
                         <div>
                             <Button color="inherit" component={Link} to="/festival/list" className={classes.menuButton}>Festival</Button>

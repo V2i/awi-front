@@ -25,6 +25,7 @@ const Reservation = (props) => {
                 <div>
                     <h1>Réservation du festival : {reservation.data.reservationFestival.festivalName}</h1>
                     <h3>Par : {reservation.data.reservationExhibitor.exhibitorName}</h3>
+
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
                         <ReservedGameList reservationId={reservationId} />
@@ -37,6 +38,7 @@ const Reservation = (props) => {
                     </Grid>
                 </Grid>
                 </div>
+
             )
         }
         if(reservation.loading) {

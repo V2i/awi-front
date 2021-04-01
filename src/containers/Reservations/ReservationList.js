@@ -90,14 +90,15 @@ const ReservationList = ({festivalID = false}) => {
                             <TableCell style={{'font-weight':'bold'}}>Montant €</TableCell>
                             <TableCell style={{'font-weight':'bold'}}>Facturation</TableCell>
                             <TableCell style={{'font-weight':'bold'}}>Suivi</TableCell>
-                            <TableCell style={{'font-weight':'bold'}}> </TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Festival </TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                     {reservationList.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((data) => {
                         if(searchState.search == null)
                             return data
-                        else if(data.reservationExhibitor.exhibitorName.toLowerCase().includes(searchState.search.toLowerCase())){
+                        else if(data.reservationExhibitor.exhibitorName.toLowerCase().includes(searchState.search.toLowerCase()) || data.reservationFestival.festivalName.toLowerCase().includes(searchState.search.toLowerCase())){
                             return data
                         }
                         })
@@ -110,6 +111,7 @@ const ReservationList = ({festivalID = false}) => {
                                 <TableCell>{row.reservationBilling && row.reservationBilling.billingAmount}</TableCell>
                                 <TableCell>{row.reservationBilling && row.reservationBilling.billingStatus}</TableCell>
                                 <TableCell>{row.reservationBilling && row.reservationTracking.trackingWorkflow}</TableCell>
+                                <TableCell>{row.reservationFestival.festivalName}</TableCell>
                                 <TableCell>
                                     <IconButton variant="outlined" color="primary" component={Link} to={`/reservation/${row._id}`}><Visibility /></IconButton>
                                     <IconButton variant="outlined" style={{ color: green[500] }} ><Create /></IconButton>
@@ -131,47 +133,6 @@ const ReservationList = ({festivalID = false}) => {
                 />
                 </Paper>
             </>
-
-                // <TableContainer component={Paper}>
-                // <Table aria-label="simple table">
-                //     <TableHead>
-                //         <TableRow>
-                            // <TableCell>Exposant</TableCell>
-                            // <TableCell>Se Deplace?</TableCell>
-                            // <TableCell>Besoin de Volontaire?</TableCell>
-                            // <TableCell>Montant €</TableCell>
-                            // <TableCell>Facturation</TableCell>
-                            // <TableCell>Suivi</TableCell>
-                            // <TableCell> </TableCell>
-                //         </TableRow>
-                //     </TableHead>
-                //     <TableBody>
-                        // {reservationList.data.filter((data) => {
-                        // if(searchState.search == null)
-                        //     return data
-                        // else if(data.reservationExhibitor.exhibitorName.toLowerCase().includes(searchState.search.toLowerCase())){
-                        //     return data
-                        // }
-                        // })
-                        
-                        // .map(row => (
-                        //     <TableRow key={row._id}>
-                        //         <TableCell>{row.reservationExhibitor && row.reservationExhibitor.exhibitorName}</TableCell>
-                        //         <TableCell>{row.exhibitorIsMoving}</TableCell>
-                        //         <TableCell>{row.exhibitorVolunteerNeeded}</TableCell>
-                        //         <TableCell>{row.reservationBilling && row.reservationBilling.billingAmount}</TableCell>
-                        //         <TableCell>{row.reservationBilling && row.reservationBilling.billingStatus}</TableCell>
-                        //         <TableCell>{row.reservationBilling && row.reservationTracking.trackingWorkflow}</TableCell>
-                        //         <TableCell>
-                        //             <IconButton variant="outlined" color="primary" component={Link} to={`/reservation/${row._id}`}><Visibility /></IconButton>
-                        //             <IconButton variant="outlined" style={{ color: green[500] }} ><Create /></IconButton>
-                        //             <IconButton variant="outlined" color="secondary" onClick={() => removeReservation(row._id)}><Delete /></IconButton>
-                        //         </TableCell>
-                        //     </TableRow>
-                        // ))}
-                //     </TableBody>
-                // </Table>
-                // </TableContainer>
             )
         }
         if(reservationList.loading) {

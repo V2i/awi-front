@@ -51,7 +51,7 @@ export const getBillingListByFestival = (idFestival) => async dispatch => {
         });
 
         const res = await axios.get(`${servURL}/billing/list/festival/${idFestival}`,{headers: authHeader()});
-        
+
         dispatch({
             type: "BILLING_LIST_SUCCESS",
             payload: res.data,
@@ -69,7 +69,7 @@ export const patchBilling = (billing) => async dispatch => {
     try {
 
         const res = await axios.patch(`${servURL}/billing/${billing._id}`, billing,{headers: authHeader()});
-        console.log(res.data)
+
         dispatch({
             type: "BILLING_UPDATED_SUCCESS",
             payload: res.data

@@ -9,6 +9,7 @@ import AddFestival from "./AddFestival";
 import AddIcon from '@material-ui/icons/Add';
 
 const FestivalList = () => {
+
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
     const festivalList = useSelector(state => state.FestivalList);

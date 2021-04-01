@@ -8,7 +8,7 @@ import {
     IconButton,
     Grid,
 } from "@material-ui/core";
-import {patchFestival, deleteFestival, getFestivalByID } from "../../actions/FestivalActions";
+import {patchFestival, deleteFestival, getFestivalByID, changeFestival} from "../../actions/FestivalActions";
 import {useDispatch, useSelector} from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import AddIcon from "@material-ui/icons/Add";
@@ -56,10 +56,14 @@ const FestivalCard = ({festival}) => {
 
     const removeFestival = (id) => {
         dispatch(deleteFestival(id));
-    }
+    };
 
     const updateFestival = (festival) => {
         dispatch(patchFestival(festival));
+    };
+
+    const selectFestival = () => {
+        dispatch(changeFestival(festival));
     }
 
     const addSpace = () => {
@@ -112,7 +116,7 @@ const FestivalCard = ({festival}) => {
                 </Grid>
                 
                 <Grid container item xs={3}>  
-                    <IconButton variant="contained" color="primary" component={Link} to={`/festival/${festival._id}`}>
+                    <IconButton variant="contained" color="primary" component={Link} to={`/festival/${festival._id}`} onClick={selectFestival}>
                         <Visibility />
                     </IconButton>
                     <IconButton variant="contained" color="default" onClick={() => updateFestival(newFestival)}>

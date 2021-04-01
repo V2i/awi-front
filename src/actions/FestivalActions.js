@@ -110,3 +110,12 @@ export const patchFestival = (festival) => async dispatch => {
         // });
     }
 };
+
+export const changeFestival = (festival) => async dispatch => {
+
+    dispatch({
+        type: "FESTIVAL_SUCCESS",
+        payload: festival
+    });
+
+};
