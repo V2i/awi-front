@@ -38,6 +38,18 @@ const ContactListReducer = (state = DefaultState, action) => {
                 errorMsg: "",
                 data: state.data.filter(d => d._id !== action.payload._id)
             }
+        case "CONTACT_UPDATED_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                errorMsg: "",
+                data: state.data.map(d => {
+                    if(d._id === action.payload._id) {
+                        d = action.payload;
+                    }
+                    return d;
+                })
+            }
         default:
             return state;
     }
