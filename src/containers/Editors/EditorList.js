@@ -37,7 +37,7 @@ const EditorList = () => {
     const searchSpace = (event)=>{
         let keyword = event.target.value;
         setState({search:keyword})
-      }
+    }
 
     const showData = () => {
         if(!_.isEmpty(editorList.data)) {
