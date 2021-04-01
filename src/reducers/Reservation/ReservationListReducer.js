@@ -50,6 +50,12 @@ const ReservationListReducer = (state = DefaultState, action) => {
                     return d;
                 })
             }
+        case "RESERVATION_LIST_FESTIVAL_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                data: action.payload,
+            };
         default:
             return state;
     }

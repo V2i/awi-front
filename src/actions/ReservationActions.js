@@ -102,3 +102,24 @@ export const postReservation = (reservation) => async dispatch => {
         console.log(err)
     }
 };
+
+export const getReservationByFestivalID = (id) => async dispatch => {
+    try {
+
+        dispatch({
+            type: "RESERVATION_LIST_FESTIVAL_LOADING",
+        });
+
+        const res = await axios.get(`${servURL}/reservation/list/festival/${id}`,{headers: authHeader()});
+
+        dispatch({
+            type: "RESERVATION_LIST_FESTIVAL_SUCCESS",
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: "RESERVATION_LIST_FESTIVAL_FAIL",
+            err: err,
+        });
+    }
+};

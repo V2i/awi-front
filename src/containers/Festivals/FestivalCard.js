@@ -8,7 +8,7 @@ import {
     IconButton,
     Grid,
 } from "@material-ui/core";
-import {patchFestival, deleteFestival} from "../../actions/FestivalActions";
+import {patchFestival, deleteFestival, getFestivalByID } from "../../actions/FestivalActions";
 import {useDispatch, useSelector} from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import AddIcon from "@material-ui/icons/Add";
@@ -17,8 +17,10 @@ import FestivalSpace from "./FestivalSpace";
 import { Visibility, Save, Delete} from '@material-ui/icons';
 import {KeyboardDatePicker} from "@material-ui/pickers";
 import {Link} from 'react-router-dom';
+import {getReservationByFestivalID} from "../../actions/ReservationActions";
 
 const FestivalCard = ({festival}) => {
+    const reservations = useSelector(state => state.ReservationList);
 
     const initialFestival = {
         _id: festival._id,
@@ -27,10 +29,17 @@ const FestivalCard = ({festival}) => {
         festivalSpace: festival.festivalSpace,
         isCurrent: festival.isCurrent
     }
-
     const [newFestival, setFestival] = useState(initialFestival);
 
     const dispatch = useDispatch();
+    
+    React.useEffect(() => {
+        dispatch(getReservationByFestivalID(festival._id));
+        dispatch(getFestivalByID(festival._id));
+    }, [dispatch, festival._id]);
+
+    
+
 
     const handleChange = (event) => {
         if(event.target) {

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
-import {getReservationList, deleteReservation} from "../../actions/ReservationActions";
+import {getReservationList, deleteReservation, getReservationByFestivalID} from "../../actions/ReservationActions";
 import {
-    Table, TableBody, TableCell, TableRow, TableHead, Grid, InputBase
+    Table, TableBody, TableCell, TableRow, TableHead, TableContainer, Paper, Grid, InputBase
 } from "@material-ui/core";
 import {Link} from "react-router-dom";
 import Loading from "../Loading";
@@ -12,7 +12,7 @@ import {Add, Create, Delete, Visibility} from "@material-ui/icons";
 import {green} from "@material-ui/core/colors";
 import AddReservation from "./AddReservation";
 
-const ReservationList = () => {
+const ReservationList = ({festivalID = false}) => {
 
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
@@ -27,7 +27,13 @@ const ReservationList = () => {
 
     React.useEffect(() => {
         const fetchData = () => {
-            dispatch(getReservationList());
+            if (!festivalID){
+                dispatch(getReservationList());
+            }
+            else{
+                dispatch(getReservationByFestivalID(festivalID));
+            }
+            
         };
         fetchData();
     }, [dispatch]);
@@ -48,6 +54,7 @@ const ReservationList = () => {
     const showData = () => {
         if(!_.isEmpty(reservationList.data)) {
             return (
+                <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -86,6 +93,7 @@ const ReservationList = () => {
                         ))}
                     </TableBody>
                 </Table>
+                </TableContainer>
             )
         }
         if(reservationList.loading) {

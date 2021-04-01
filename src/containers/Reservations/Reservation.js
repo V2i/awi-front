@@ -19,7 +19,6 @@ const Reservation = (props) => {
         if(!_.isEmpty(reservation.data)) {
             return (
                 <div>
-                    <h1>{reservation.data.reservationExhibitor.exhibitorName}</h1>
                     <ReservedGameList reservationId={reservationId} />
                 </div>
             )
