@@ -22,10 +22,10 @@ const Reservation = (props) => {
     const showData = () => {
         if(!_.isEmpty(reservation.data)) {
             return (
+                <div>
+                    <h1>Réservation du festival : {reservation.data.reservationFestival.festivalName}</h1>
+                    <h3>Par : {reservation.data.reservationExhibitor.exhibitorName}</h3>
                 <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <h1>{reservation.data.reservationExhibitor.exhibitorName}</h1>
-                    </Grid>
                     <Grid item xs={6}>
                         <ReservedGameList reservationId={reservationId} />
                     </Grid>
@@ -36,6 +36,7 @@ const Reservation = (props) => {
                         <BillingCard billing={reservation.data.reservationBilling} />
                     </Grid>
                 </Grid>
+                </div>
             )
         }
         if(reservation.loading) {

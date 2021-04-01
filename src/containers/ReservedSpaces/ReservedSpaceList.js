@@ -109,17 +109,17 @@ const ReservedSpaceList = ({reservationId}) => {
     };
 
     return(
-        <div>
+        <Paper>
             {user.isLoggedIn
                 ? <div>
-                    <h1>Liste des Espaces Réservés</h1>
+                    <h4>Liste des Espaces Réservés</h4>
                     <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
                     {showData()}
                     <AddReservedSpace open={open} handleClose={() => changeValueOpen(false)}/>
                 </div>
                 :<p>Vous n'avez pas la permission requise!</p>
             }
-        </div>
+        </Paper>
     )
 }
 
