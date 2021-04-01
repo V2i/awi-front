@@ -28,7 +28,7 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
             dispatch(getReservationByID(reservationId));
         };
         fetchData();
-    }, [dispatch]);
+    }, [dispatch, reservationId]);
 
     const handleInputChange = event => {
         if(event.target) {
