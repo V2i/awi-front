@@ -5,7 +5,7 @@ import Loading from "../Loading";
 import {deleteContact, getContactList, patchContact} from "../../actions/ContactActions";
 import {
     Table, TableBody, TableCell, TableRow, TableHead, TableContainer,
-    Paper, Button, IconButton, TextField, FormControlLabel, Checkbox
+    Paper, IconButton, TextField, FormControlLabel, Checkbox
 } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import {Delete, Save, Create} from '@material-ui/icons';
@@ -14,18 +14,8 @@ import {green} from "@material-ui/core/colors";
 
 const ContactList = () => {
 
-    const initialContact = {
-        contactLastname: "",
-        contactFirstname: "",
-        contactPhone: "",
-        contactMobilePhone: "",
-        contactMail: "",
-        contactFunction: "",
-        contactMain: false
-    }
-
     const [open, setOpen ] = React.useState(false);
-    const [selectedContact, setContact] = React.useState(initialContact);
+    const [selectedContact, setContact] = React.useState(false);
     const dispatch = useDispatch();
     const contactList = useSelector(state => state.ContactList);
     const user = useSelector(state => state.User);
@@ -36,6 +26,10 @@ const ContactList = () => {
         };
         fetchData();
     }, [dispatch]);
+
+    const changeValueOpen = (value) => {
+        setOpen(value)
+    };
 
     const removeContact = (id) => {
         dispatch(deleteContact(id));
@@ -48,7 +42,7 @@ const ContactList = () => {
 
     const saveContact = (selectedContact) => {
         dispatch(patchContact(selectedContact));
-        setContact(initialContact);
+        setContact({});
     };
 
     const showData = () => {
@@ -119,7 +113,7 @@ const ContactList = () => {
                                                             color="primary"
                                                         />
                                                     }
-                                                />
+                                                 />
                                                 : <Checkbox
                                                     checked={row.contactMain}
                                                     disabled
