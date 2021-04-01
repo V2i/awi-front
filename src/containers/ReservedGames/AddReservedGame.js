@@ -28,7 +28,7 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
             dispatch(getReservationByID(reservationId));
         };
         fetchData();
-    }, [dispatch]);
+    }, [dispatch, reservationId]);
 
     const handleInputChange = event => {
         if(event.target) {
@@ -38,14 +38,10 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
     };
 
     const saveGame = () => {
-        console.log(game)
         handleClose()
         dispatch(postReservedGame(game, reservation.data));
         setGame({});
     };
-
-    console.log(gameList)
-    console.log(zoneList)
 
     return(
         <Dialog

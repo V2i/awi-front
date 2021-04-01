@@ -8,7 +8,7 @@ import AddReservedGame from "./AddReservedGame";
 import { Add, Create, Delete, Save } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import { TextField, FormControlLabel, Checkbox,
-    Table, TableBody, TableCell, TableRow, TableHead,  Grid, Typography, Paper, TableContainer
+    Table, TableBody, TableCell, TableRow, TableHead, Paper, TableContainer
  } from "@material-ui/core";
 import {green} from "@material-ui/core/colors";
 
@@ -21,11 +21,11 @@ const ReservedGameList = ({reservationId}) => {
     const user = useSelector(state => state.User);
     const reservation = useSelector(state => state.Reservation);
     const reservedGameList = reservation.data.reservationReservedGame;
-    
+
     React.useEffect(() => {
         dispatch(getReservationByID(reservationId));
     }, [dispatch, reservationId]);
-    
+
 
     const changeValueOpen = (value) => {
         setOpen(value)
@@ -113,7 +113,7 @@ const ReservedGameList = ({reservationId}) => {
                                                         color="primary"
                                                     />
                                                     }
-                                                />
+                                                 label=""/>
                                                 : <Checkbox
                                                         checked={row[name]}
                                                         disabled
@@ -161,21 +161,17 @@ const ReservedGameList = ({reservationId}) => {
     };
 
     return(
-        <Grid container spacing={3}>
-            <Grid item xs={9}>
-                <Typography variant="h4"><b>Liste des Jeux Réservés</b></Typography>
-            </Grid>
-            <Grid item xs={3}>
-                {user.isLoggedIn
-                    ? <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
-                    : <></>
-                }
-                {open && <AddReservedGame open={open} handleClose={() => changeValueOpen(false)} reservation={reservation.data._id}/> }
-            </Grid>
-            <Grid item xs={12}>
-                {showData()}
-            </Grid>
-        </Grid>
+        <div>
+            {user.isLoggedIn
+                ? <div>
+                    <h1>Liste des Jeux Réservés</h1>
+                    <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
+                    {showData()}
+                    <AddReservedGame open={open} handleClose={() => changeValueOpen(false)} />
+                </div>
+                : <p>Vous n'avez pas la permission requise!</p>
+            }
+        </div>
     )
 }
 

@@ -4,6 +4,9 @@ import {getReservationByID} from "../../actions/ReservationActions";
 import _ from "lodash";
 import Loading from "../Loading";
 import ReservedGameList from "../ReservedGames/ReservedGameList";
+import ReservedSpaceList from "../ReservedSpaces/ReservedSpaceList";
+
+import {Grid} from '@material-ui/core';
 
 const Reservation = (props) => {
 
@@ -18,10 +21,17 @@ const Reservation = (props) => {
     const showData = () => {
         if(!_.isEmpty(reservation.data)) {
             return (
-                <div>
-                    <h1>{reservation.data.reservationExhibitor.exhibitorName}</h1>
-                    <ReservedGameList reservationId={reservationId} />
-                </div>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <h1>{reservation.data.reservationExhibitor.exhibitorName}</h1>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <ReservedGameList reservationId={reservationId} />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <ReservedSpaceList reservationId={reservationId} />
+                    </Grid>
+                </Grid>
             )
         }
         if(reservation.loading) {
@@ -37,7 +47,6 @@ const Reservation = (props) => {
     return(
         <div>
             {showData()}
-
         </div>
     )
 }
