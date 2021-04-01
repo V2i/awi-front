@@ -50,6 +50,7 @@ const Reservation = (props) => {
 
     return(
         <div>
+            <h1>Réservation du festival : {reservation.data.reservationFestival.festivalName}</h1>
             {showData()}
         </div>
     )
