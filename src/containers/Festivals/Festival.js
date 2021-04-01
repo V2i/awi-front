@@ -4,6 +4,8 @@ import {getFestivalByID} from "../../actions/FestivalActions";
 import _ from "lodash";
 import Loading from "../Loading";
 import FestivalCard from './FestivalCard';
+import ReservedGameByFestival from "../ReservedGames/ReservedGameByFestival";
+import Grid from "@material-ui/core/Grid"
 
 const Festival = (props) => {
 
@@ -18,7 +20,16 @@ const Festival = (props) => {
     const showData = () => {
         if(!_.isEmpty(festival.data)) {
             return (
-                <FestivalCard festival={festival.data} />
+                <Grid container spacing={3}>
+                    <Grid item xs ={5}>
+                    <FestivalCard festival={festival.data} />
+                    </Grid>
+                    <Grid item xs={5}>
+                        <ReservedGameByFestival festivalId={festival.data._id} />
+                    </Grid>
+                </Grid>
+                
+
             );
         }
         if(festival.loading) {
