@@ -10,7 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { IconButton, Paper, TextField,
     Table, TableBody, TableCell, TableRow, TableHead, InputBase, Grid, TableContainer
 } from "@material-ui/core";
-import { Add, Visibility, Create, Delete, Save } from '@material-ui/icons';
+import { Visibility, Create, Delete, Save } from '@material-ui/icons';
 
 const EditorList = () => {
 
@@ -47,7 +47,7 @@ const EditorList = () => {
     }
 
     const handleChange = (event) => {
-        const { name, value, checked } = event.target;
+        const { name, value } = event.target;
         setEditor({...selectedEditor, [name] : value})
     }
 
