@@ -79,7 +79,6 @@ const NavBar = () => {
                         <div>
                             <Button color="inherit" component={Link} to="/festival/list" className={classes.menuButton}>Festival</Button>
                             <Button color="inherit" component={Link} to="/game/list" className={classes.menuButton}>Jeux</Button>
-                            <Button color="inherit" component={Link} to="/zone/list" className={classes.menuButton}>Zones</Button>
                             <Button color="inherit" component={Link} to="/editor/list" className={classes.menuButton}>Editeurs</Button>
                             <Button color="inherit" component={Link} to="/exhibitor/list" className={classes.menuButton}>Exposants</Button>
                             <Button color="inherit" component={Link} to="/reservation/list" className={classes.menuButton}>Réservations</Button>

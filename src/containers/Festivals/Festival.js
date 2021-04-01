@@ -4,6 +4,7 @@ import {getFestivalByID} from "../../actions/FestivalActions";
 import _ from "lodash";
 import Loading from "../Loading";
 import FestivalCard from './FestivalCard';
+import ZoneList from "../Zones/ZoneList";
 
 const Festival = (props) => {
 
@@ -18,7 +19,10 @@ const Festival = (props) => {
     const showData = () => {
         if(!_.isEmpty(festival.data)) {
             return (
+                <>
                 <FestivalCard festival={festival.data} />
+                <ZoneList festivalId={festivalId}/>
+                </>
             );
         }
         if(festival.loading) {

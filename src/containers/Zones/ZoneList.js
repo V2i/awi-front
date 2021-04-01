@@ -11,7 +11,8 @@ import { IconButton, Button,
 } from "@material-ui/core";
 
 
-const ZoneList = () => {
+const ZoneList = (props) => {
+    const festivalId = props.festivalId;
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
     const zoneList = useSelector(state => state.ZoneList);
@@ -26,7 +27,7 @@ const ZoneList = () => {
 
     useEffect(() => {
         const fetchData = () => {
-            dispatch(getZoneList());
+            dispatch(getZoneList(festivalId));
         };
         fetchData();
     }, [dispatch]);
@@ -54,16 +55,16 @@ const ZoneList = () => {
                     {zoneList.data.filter((data) => {
                             if(searchState.search == null)
                                 return data
-                            else if(data.zoneName.toLowerCase().includes(searchState.search.toLowerCase())){
+                            else if(data.zone.zoneName.toLowerCase().includes(searchState.search.toLowerCase())){
                                 return data
                             }
                             })
                     .map((row) => (
-                        <TableRow key={row._id}>
+                        <TableRow key={row.zone._id}>
                         <TableCell component="th" scope="row">
-                            {row.zoneName}
+                            {row.zone.zoneName}
                         </TableCell>
-                        <TableCell><Link to={`/zone/${row._id}`}><Button variant="outlined" color="primary">Détails</Button></Link></TableCell>
+                        <TableCell><Link to={`/zone/${row.zone._id}`}><Button variant="outlined" color="primary">Détails</Button></Link></TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
@@ -77,7 +78,7 @@ const ZoneList = () => {
             return <p>{zoneList.errorMsg}</p>;
         }
 
-        return <p>Impossible d'obtenir des données</p>;
+        return <p>Pas de données</p>;
     }
 
     return (
