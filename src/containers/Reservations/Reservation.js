@@ -8,6 +8,8 @@ import ReservedSpaceList from "../ReservedSpaces/ReservedSpaceList";
 import BillingCard from "../Billings/BillingCard";
 
 import {Grid} from '@material-ui/core';
+import Tracking from "../Trackings/Tracking";
+import TrackingCard from "../Trackings/TrackingCard";
 
 const Reservation = (props) => {
 
@@ -22,7 +24,7 @@ const Reservation = (props) => {
     const showData = () => {
         if(!_.isEmpty(reservation.data)) {
             return (
-                <Grid container spacing={3}>
+               <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <h1>{reservation.data.reservationExhibitor.exhibitorName}</h1>
                     </Grid>
@@ -35,6 +37,9 @@ const Reservation = (props) => {
                     <Grid item xs={6}>
                         <BillingCard billing={reservation.data.reservationBilling} />
                     </Grid>
+                   <Grid item xs={6}>
+                       <TrackingCard tracking={reservation.data.reservationTracking} />
+                   </Grid>
                 </Grid>
             )
         }
@@ -50,7 +55,6 @@ const Reservation = (props) => {
 
     return(
         <div>
-            <h1>Réservation du festival : {reservation.data.reservationFestival.festivalName}</h1>
             {showData()}
         </div>
     )
