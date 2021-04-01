@@ -10,17 +10,8 @@ import {green} from "@material-ui/core/colors";
 
 const ExhibitorContact = ({contact, exhibitor}) => {
 
-    const initialContact = {
-        contactLastname: "",
-        contactFirstname: "",
-        contactMobilePhone: "",
-        contactMail: "",
-        contactFunction: "",
-        contactMain: ""
-    };
 
-    const [selectedContact, setContact] = useState(initialContact);
-
+    const [selectedContact, setContact] = useState(false);
     const dispatch = useDispatch();
 
     const handleChange = (event) => {
@@ -34,7 +25,7 @@ const ExhibitorContact = ({contact, exhibitor}) => {
 
     const saveContact = (contact) => {
         dispatch(patchContact(contact));
-        setContact(initialContact);
+        setContact({});
     };
 
     return(
