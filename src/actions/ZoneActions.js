@@ -31,7 +31,6 @@ export const getZoneList = (festivalId) => async dispatch => {
             type: "ZONE_LIST_LOADING",
         });
         const res = await axios.get(`${servURL}/zone/list/festival/${festivalId}`, {headers: authHeader()});
-        console.log(res)
 
         dispatch({
             type: "ZONE_LIST_SUCCESS",
