@@ -6,8 +6,9 @@ import {getGameTypeList, patchGameType, deleteGameType} from "../../actions/Game
 import Loading from "../Loading";
 import AddGameType from "./AddGameType";
 import AddIcon from '@material-ui/icons/Add';
-import { IconButton, TextField, Paper, TableContainer,
-    Table, TableBody, TableCell, TableRow, Grid, Typography, TableHead
+import {
+    IconButton, TextField, Paper, TableContainer,
+    Table, TableBody, TableCell, TableRow, Grid, Typography, TableHead,
 } from "@material-ui/core";
 import { Visibility, Save, Create, Delete} from '@material-ui/icons';
 import {green} from "@material-ui/core/colors";
@@ -50,10 +51,16 @@ const GameTypeList = () => {
         if(!_.isEmpty(gameTypeList.data)) {
             return (
                 <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
+                    <Table stickyHeader size="small" aria-label="a dense table">
                         <TableHead>
-                            <TableCell style={{'font-weight':'bold'}}>Nom</TableCell>
-                            <TableCell></TableCell>
+                            <TableRow>
+                                <TableCell style={{'font-weight':'bold'}}>
+                                    Type
+                                </TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>
+
+                                </TableCell>
+                            </TableRow>
                         </TableHead>
                         <TableBody>
                         {gameTypeList.data.map((row) => (

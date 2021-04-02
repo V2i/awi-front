@@ -28,18 +28,20 @@ export const postContact = (contact, exhibitor) => async dispatch => {
 
         const newContact = await axios.post(`${servURL}/contact`, contact,{headers: authHeader()});
 
-        const updatedExhibitor = await axios.get(`${servURL}/exhibitor/${exhibitor._id}`,{headers: authHeader()});
-
-        updatedExhibitor.data.exhibitorContact.push(newContact.data._id);
-
-        const res = await axios.patch(`${servURL}/exhibitor/${exhibitor._id}`, {
-            exhibitorContact: updatedExhibitor.data.exhibitorContact.map(c => c._id)
-        },{headers: authHeader()});
-
         dispatch({
             type: "CONTACT_ADD_SUCCESS",
             payload: newContact.data
         });
+
+        console.log(exhibitor)
+
+        exhibitor.exhibitorContact.push(newContact.data);
+
+        const res = await axios.patch(`${servURL}/exhibitor/${exhibitor._id}`, {
+            exhibitorContact: exhibitor.exhibitorContact.map(c => c._id)
+        },{headers: authHeader()});
+
+        console.log(res.data)
 
         dispatch({
             type: "EXHIBITOR_UPDATED_SUCCESS",

@@ -41,12 +41,12 @@ const UserList = () => {
     const showData = () => {
         if(!_.isEmpty(userList.data)) {
             return (
-                <Table aria-label="simple table">
+                <Table stickyHeader size="small" aria-label="a dense table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Mail</TableCell>
-                            <TableCell>isAdmin</TableCell>
-                            <TableCell> </TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Mail</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>isAdmin</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}> </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

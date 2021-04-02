@@ -69,7 +69,7 @@ const ReservedGameByFestival = ({festivalId}) => {
                     {user.isLoggedIn
                         ?
                             <TableCell>
-                                <IconButton variant="outlined" color="secondary" component={Link} to={`/reservation/${reserv._id}`}><Visibility /></IconButton>
+                                <IconButton variant="outlined" color="primary" component={Link} to={`/reservation/${reserv._id}`}><Visibility /></IconButton>
                             </TableCell>
                         :
                             <></>

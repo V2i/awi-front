@@ -16,6 +16,8 @@ const Exhibitor = (props) => {
     const dispatch = useDispatch();
     const exhibitor = useSelector(state => state.Exhibitor);
 
+    console.log(exhibitor)
+
     React.useEffect(() => {
         dispatch(getExhibitorByID(exhibitorId));
     }, [dispatch, exhibitorId]);
