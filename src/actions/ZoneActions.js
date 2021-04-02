@@ -24,13 +24,34 @@ export const getZoneByID = (id) => async dispatch => {
     }
 };
 
-export const getZoneList = (festivalId) => async dispatch => {
+export const getZoneListByFestival = (festivalId) => async dispatch => {
     try {
 
         dispatch({
             type: "ZONE_LIST_LOADING",
         });
         const res = await axios.get(`${servURL}/zone/list/festival/${festivalId}`, {headers: authHeader()});
+
+        dispatch({
+            type: "ZONE_LIST_SUCCESS",
+            payload: res.data,
+        });
+
+    } catch (err) {
+        dispatch({
+            type: "ZONE_LIST_FAIL",
+            err: err
+        });
+    }
+};
+
+export const getZoneList = () => async dispatch => {
+    try {
+
+        dispatch({
+            type: "ZONE_LIST_LOADING",
+        });
+        const res = await axios.get(`${servURL}/zone/list/`, {headers: authHeader()});
 
         dispatch({
             type: "ZONE_LIST_SUCCESS",

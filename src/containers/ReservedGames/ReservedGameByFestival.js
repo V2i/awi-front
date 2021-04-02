@@ -1,7 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import _ from 'lodash';
-import { patchReservedGame, deleteReservedGame, getReservedGameListByFestival } from "../../actions/ReservedGameActions";
+import { getReservedGameListByFestival } from "../../actions/ReservedGameActions";
 import { makeStyles } from '@material-ui/core/styles';
 import { Visibility } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';

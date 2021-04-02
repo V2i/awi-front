@@ -47,7 +47,7 @@ const AddReservedSpace = ({open = false, handleClose, reservationId}) => {
                     <Grid container spacing={3}>
                         { reservation.data.reservationFestival.festivalSpace &&
                         <Grid item xs={6}>
-                            <FormControl>
+                            <FormControl style={{minWidth: "100%"}}>
                                 <InputLabel id="reservedSpace">Espace</InputLabel>
                                 <Select
                                     labelId="reservedSpace"

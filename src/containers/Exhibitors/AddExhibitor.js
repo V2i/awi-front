@@ -72,7 +72,7 @@ const AddExhibitor = ({open = false, handleClose}) => {
 
                         { editorList.data &&
                         <Grid item xs={6}>
-                            <FormControl>
+                            <FormControl style={{minWidth: "100%"}}>
                                 <InputLabel id="exhibitorEditor">Editeur</InputLabel>
                                 <Select
                                     labelId="exhibitorEditor"

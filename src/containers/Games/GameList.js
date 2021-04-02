@@ -7,14 +7,13 @@ import {getEditorList} from "../../actions/EditorActions"
 import Loading from "../Loading";
 import AddGame from "./AddGame";
 import { makeStyles } from '@material-ui/core/styles';
-import { Add, Visibility, Create, Delete, Save } from '@material-ui/icons';
+import { Add, Create, Delete, Save } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import { TextField, FormControl, FormControlLabel, Checkbox, InputLabel, Select, MenuItem,
     Table, TableBody, TableCell, TableRow, TableHead,  Grid, Typography, Paper, TableContainer,InputBase ,TablePagination
  } from "@material-ui/core";
 import {green} from "@material-ui/core/colors";
 import GameTypeList from "../GameTypes/GameTypeList"
-import {Link} from 'react-router-dom';
 
 const GameList = () => {
 
@@ -50,7 +49,7 @@ const GameList = () => {
 
     const handleChange = (event) => {
         const { name, value, checked } = event.target;
-        setGame({...selectedGame, [name] : (name == "isPrototype" ? checked : value)})
+        setGame({...selectedGame, [name] : (name === "isPrototype" ? checked : value)})
     }
 
     const saveGame = (gameSelected) => {

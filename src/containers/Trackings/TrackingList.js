@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import Loading from "../Loading";
 import { Paper,
-    Table, TableBody, TableCell, TableRow, TableHead, Grid, TableContainer
+    Table, TableBody, TableCell, TableRow, TableHead, TableContainer
 } from "@material-ui/core";
 import {getTrackingListByFestival} from "../../actions/TrackingActions";
 import Tracking from "./Tracking";
@@ -12,7 +12,6 @@ import {getReservationByFestivalID} from "../../actions/ReservationActions";
 const TrackingList = ({festivalId}) => {
 
     const dispatch = useDispatch();
-    const reservationList = useSelector(state => state.ReservationList);
     const trackingList = useSelector(state => state.TrackingList);
 
     React.useEffect(() => {

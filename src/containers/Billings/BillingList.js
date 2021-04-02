@@ -1,13 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {Link} from 'react-router-dom';
 import {getBillingListByFestival, patchBilling} from "../../actions/BillingActions";
-
 import Loading from "../Loading";
-import AddIcon from '@material-ui/icons/Add';
 import { IconButton, Paper, TextField, FormControl, Select, MenuItem,
-    Table, TableBody, TableCell, TableRow, TableHead, Grid, TableContainer
+    Table, TableBody, TableCell, TableRow, TableHead, TableContainer
 } from "@material-ui/core";
 import { Create, Save, Visibility } from '@material-ui/icons';
 import moment from 'moment';
@@ -15,7 +13,6 @@ import {KeyboardDatePicker} from "@material-ui/pickers";
 
 const BillingList = ({festivalId}) => {
     
-    const [open, setOpen] = React.useState(false);
     const [selectedBilling, setBilling] = React.useState(false);
     const dispatch = useDispatch();
     const billingList = useSelector(state => state.BillingList);
@@ -27,11 +24,8 @@ const BillingList = ({festivalId}) => {
             dispatch(getBillingListByFestival(festivalId));
         };
         fetchData();
-    }, [dispatch]);
+    }, [dispatch, festivalId]);
 
-    const changeValueOpen = (value) => {
-        setOpen(value)
-    }
 
     const handleChange = (event) => {
         if (event.target){

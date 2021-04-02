@@ -9,7 +9,7 @@ import {
     Grid,
 } from "@material-ui/core";
 import {patchFestival, deleteFestival, getFestivalByID, changeFestival} from "../../actions/FestivalActions";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import AddIcon from "@material-ui/icons/Add";
 import {postSpace} from "../../actions/SpaceActions";
@@ -20,7 +20,6 @@ import {Link} from 'react-router-dom';
 import {getReservationByFestivalID} from "../../actions/ReservationActions";
 
 const FestivalCard = ({festival}) => {
-    const reservations = useSelector(state => state.ReservationList);
 
     const initialFestival = {
         _id: festival._id,

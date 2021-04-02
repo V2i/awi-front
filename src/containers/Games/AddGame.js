@@ -26,7 +26,6 @@ const AddGame = ({open = false, handleClose}) => {
     const dispatch = useDispatch();
     const [game, setGame] = useState(initialGameState);
     const [addEditor, setAddEditor] = useState(false);
-    const [addGameType, setGameType] = useState(false);
     const editorList = useSelector(state => state.EditorList);
     const gameTypeList = useSelector(state => state.GameTypeList);
 
@@ -82,7 +81,7 @@ const AddGame = ({open = false, handleClose}) => {
                             
                         <Grid item xs={4}>
                             
-                            <FormControl>
+                        <FormControl style={{minWidth: "100%"}}>
                                 <InputLabel id="prototype">Prototype ?</InputLabel>
                                 <Select
                                 labelId="prototype"
@@ -103,7 +102,7 @@ const AddGame = ({open = false, handleClose}) => {
 
                         { editorList.data && 
                         <Grid item xs={6}>
-                            <FormControl>
+                            <FormControl style={{minWidth: "100%"}}>
                                 <InputLabel id="gameEditor">Editeur</InputLabel>
                                 <Select
                                 labelId="gameEditor"
@@ -127,7 +126,7 @@ const AddGame = ({open = false, handleClose}) => {
 
                         { gameTypeList.data && 
                         <Grid item xs={6}>
-                            <FormControl>
+                            <FormControl style={{minWidth: "100%"}}>
                                 <InputLabel id="gameType">Catégorie</InputLabel>
                                 <Select
                                 labelId="gameType"
@@ -139,9 +138,7 @@ const AddGame = ({open = false, handleClose}) => {
                                 {gameTypeList.data.map(t => <MenuItem value={t._id} key={t._id}>{t.gameTypeName}</MenuItem>)}
                                 </Select>
                             </FormControl>
-                            <IconButton onClick={() => setGameType(true)}>
-                                <Add/>
-                            </IconButton>
+                            
                         </Grid>
                         }
                     </Grid>

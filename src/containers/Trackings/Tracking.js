@@ -3,7 +3,6 @@ import {
     TableCell, TableRow, IconButton, InputLabel, Select, MenuItem, FormControl, FormControlLabel, Checkbox
 } from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import TextField from "@material-ui/core/TextField";
 import { Save, Create} from '@material-ui/icons';
 import {KeyboardDatePicker} from "@material-ui/pickers";
 import {patchTracking} from "../../actions/TrackingActions";
@@ -56,7 +55,7 @@ const Tracking = ({tracking}) => {
             </TableCell>
             <TableCell component="th" scope="row">
                 {newTracking._id === tracking._id
-                    ? <FormControl>
+                    ? <FormControl style={{minWidth: "100%"}}>
                         <InputLabel id="trackingWorkflow">Workflow</InputLabel>
                         <Select
                             labelId="trackingWorkflow"

@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {getZoneList} from "../../actions/ZoneActions";
+import {getZoneListByFestival} from "../../actions/ZoneActions";
 import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {Link} from 'react-router-dom';
 import Loading from "../Loading";
-import AddIcon from '@material-ui/icons/Add';
 import AddZone from "./AddZone";
-import { IconButton, Button, Paper,
+import { Button, Paper,
     Table, TableBody, TableCell, TableRow, TableHead, InputBase
 } from "@material-ui/core";
 
@@ -26,7 +25,7 @@ const ZoneList = (props) => {
 
     useEffect(() => {
         const fetchData = () => {
-            dispatch(getZoneList(festivalId));
+            dispatch(getZoneListByFestival(festivalId));
         };
         fetchData();
     }, [dispatch]);

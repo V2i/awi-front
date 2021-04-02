@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import _ from 'lodash';
 import {getReservationList, deleteReservation, getReservationByFestivalID} from "../../actions/ReservationActions";
 import {
-    Table, TableBody, TableCell, TableRow, TableHead, TableContainer, Paper, Grid, InputBase, TablePagination
+    Table, TableBody, TableCell, TableRow, TableHead, TableContainer, Paper, InputBase, TablePagination
 } from "@material-ui/core";
 import {Link} from "react-router-dom";
 import Loading from "../Loading";
@@ -37,7 +37,7 @@ const ReservationList = ({festivalID = false}) => {
             
         };
         fetchData();
-    }, [dispatch]);
+    }, [dispatch, festivalID]);
 
     const removeReservation = (id) => {
         dispatch(deleteReservation(id));

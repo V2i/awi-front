@@ -8,6 +8,7 @@ import { Button, TextField, Grid, FormControl, Select, InputLabel, MenuItem, Ico
  } from "@material-ui/core";
  import { Add} from '@material-ui/icons';
  import AddGame from "../Games/AddGame";
+ import AddZone from "../Zones/AddZone";
 import { getReservationByID } from '../../actions/ReservationActions';
 
  
@@ -16,6 +17,7 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
     const dispatch = useDispatch();
     const [game, setGame] = useState({});
     const [addGame, setAddGame] = useState(false);
+    const [addZone, setAddZone] = useState(false);
     
     const gameList = useSelector(state => state.GameList);
     const zoneList = useSelector(state => state.ZoneList);
@@ -58,7 +60,8 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
 
                     { gameList.data && 
                         <Grid item xs={6}>
-                            <FormControl>
+                            
+                            <FormControl style={{minWidth: "100%"}}>
                                 <InputLabel id="reservedGame">Jeu</InputLabel>
                                 <Select
                                 labelId="reservedGame"
@@ -71,12 +74,15 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
                                 {gameList.data.map(e => <MenuItem value={e._id} key={e._id}>{e.gameName}</MenuItem>)}
                                 </Select>
                             </FormControl>
+                            
                             <IconButton onClick={() => setAddGame(true)}>
                                 <Add/>
                             </IconButton>
+                           
                             {
                                 addGame && <AddGame open={addGame} handleClose={() => setAddGame(false)}/>
                             }
+                            
                         </Grid>
                     }
 
@@ -84,8 +90,8 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
                             <TextField name="reservedGameQuantity" label="Quantité" value={game.reservedGameQuantity} onChange={handleInputChange}/>
                         </Grid>
                         
-                        <Grid item xs={4}>
-                            <FormControl>
+                        <Grid item xs={6}>
+                            <FormControl style={{minWidth: "100%"}}>
                                 <InputLabel id="AP">Avant Première ?</InputLabel>
                                 <Select
                                 labelId="AP"
@@ -99,8 +105,8 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={4}>
-                            <FormControl>
+                        <Grid item xs={6}>
+                        <FormControl style={{minWidth: "100%"}}>
                                 <InputLabel id="hasAnimator">Besoin animateur ?</InputLabel>
                                 <Select
                                 labelId="hasAnimator"
@@ -117,7 +123,7 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
 
                         { zoneList.data && 
                         <Grid item xs={6}>
-                            <FormControl>
+                            <FormControl style={{minWidth: "100%"}}>
                                 <InputLabel id="reservedGameZone">Zone</InputLabel>
                                 <Select
                                 labelId="reservedGameZone"
@@ -134,7 +140,7 @@ const AddReservedGame = ({open = false, handleClose, reservationId}) => {
                                 <Add/>
                             </IconButton>
                             {
-                                addGame && <AddGame open={addGame} handleClose={() => setAddGame(false)}/> 
+                                addZone && <AddZone open={addZone} handleClose={() => setAddZone(false)}/> 
                             }
                         </Grid>
                         }

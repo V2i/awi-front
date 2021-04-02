@@ -9,7 +9,6 @@ import Festival from "./containers/Festivals/Festival";
 import GameList from "./containers/Games/GameList";
 import Game from "./containers/Games/Game";
 
-import ZoneList from "./containers/Zones/ZoneList"
 import Zone from "./containers/Zones/Zone"
 
 import EditorList from "./containers/Editors/EditorList";

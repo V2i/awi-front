@@ -1,17 +1,12 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getGameListByZoneID } from "../../actions/GameActions";
 import _ from "lodash";
 import Loading from "../Loading";
-import {getZoneByID, patchZone, deleteZone} from "../../actions/ZoneActions";
+import { patchZone, deleteZone} from "../../actions/ZoneActions";
 import { Grid, Button, TextField, Typography,
     Table, TableBody, TableCell, TableRow, TableHead, 
  } from "@material-ui/core";
- import IconButton from '@material-ui/core/IconButton';
- import { Visibility, Add, Create, Delete} from '@material-ui/icons';
-import {Link} from 'react-router-dom';
 import AddGame from "../Games/AddGame";
-import {green} from "@material-ui/core/colors";
 import {getZoneList} from "../../actions/ZoneActions";
 
 const Zone = (props) => {

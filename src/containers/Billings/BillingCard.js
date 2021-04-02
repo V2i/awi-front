@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import _ from "lodash";
-import Loading from "../Loading";
-import {getBillingById, patchBilling} from "../../actions/BillingActions";
-import { Paper, Grid, TextField, Typography, FormControl, Select, MenuItem, TableContainer,
+import {useDispatch} from "react-redux";
+import { patchBilling} from "../../actions/BillingActions";
+import { Paper, TextField, FormControl, Select, MenuItem, TableContainer,
     Table, TableBody, TableCell, TableRow, TableHead, 
  } from "@material-ui/core";
  import IconButton from '@material-ui/core/IconButton';
@@ -17,8 +15,6 @@ const Billing = ({billing}) => {
     const dispatch = useDispatch();
     const [ billingChanged, setUpdate ] = useState(false);
     const [ billingUpdated, setBilling ] = useState(billing);
-    
-    const user = useSelector(state => state.User);
 
     const handleChange = (event) => {
         if(event.target) {
@@ -29,7 +25,6 @@ const Billing = ({billing}) => {
 
 
     const saveBilling = () => {
-        console.log(billingUpdated)
         dispatch(patchBilling(billingUpdated))
         setBilling({})
         setUpdate(false)
