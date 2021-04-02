@@ -64,37 +64,21 @@ const Editor = (props) => {
                 return(
                     <Grid container spacing={3}>
                         <Grid item xs={12}><h1>{editor.data.editorName}</h1></Grid>
-
-                        {toUpdate &&
-                        <Grid item xs={4}>
-                            <TextField name="editorName" label="Nom" value={editorSelected.editorName}
-                                       onChange={handleChange}/>
-                            <Button onClick={() => updateEditor(editorSelected)}>Modifier</Button>
-                        </Grid>
-                        }
-                        {!toUpdate &&
-                        <Grid item xs={4}>
-                            <Button onClick={() => setUpdate(true)}>Modifier</Button>
-                        </Grid>}
-
-                        <Grid item xs={4}>
-                            <Button onClick={() => removeEditor(editorId)}>Supprimer</Button>
-                        </Grid>
-                        <Grid item xs={9}>
+                        <Grid item xs={12}>
                             <Typography><h3>Liste des jeux</h3></Typography>
                             <IconButton variant="outlined" color="primary" onClick={() => changeValueOpen(true)}><Add /></IconButton>
-                            <Table aria-label="simple table">
+                            <Table stickyHeader size="small" aria-label="a dense table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Nom</TableCell>
-                                        <TableCell>Age Min</TableCell>
-                                        <TableCell>Durée (en min)</TableCell>
-                                        <TableCell>Min Joueurs</TableCell>
-                                        <TableCell>Max Joueurs</TableCell>
-                                        <TableCell>Catégorie</TableCell>
-                                        <TableCell>Notice</TableCell>
-                                        <TableCell>Prototype ?</TableCell>
-                                        <TableCell> </TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Nom</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Age Min</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Durée (en min)</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Min Joueurs</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Max Joueurs</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Catégorie</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Notice</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Prototype ?</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}> </TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -106,10 +90,12 @@ const Editor = (props) => {
                                             <TableCell>{row.gameMinimumPlayers}</TableCell>
                                             <TableCell>{row.gameMaximumPlayers}</TableCell>
                                             <TableCell>{row.gameType.gameTypeName}</TableCell>
-                                            <TableCell>{row.gameNotice}</TableCell>
+                                            <TableCell>{row.gameNotice.length > 0
+                                                ? <a href={row.gameNotice}>Notice</a>
+                                                : ""}
+                                            </TableCell>
                                             <TableCell>{row.isPrototype ? 'Oui' : 'Non'}</TableCell>
                                             <TableCell>
-                                                <IconButton variant="outlined" color="primary" component={Link} to={`/game/${row._id}`}><Visibility /></IconButton>
                                                 <IconButton variant="outlined" style={{ color: green[500] }} ><Create /></IconButton>
                                                 <IconButton variant="outlined" color="secondary" ><Delete /></IconButton>
                                             </TableCell>
@@ -127,18 +113,18 @@ const Editor = (props) => {
 
                         <Grid item xs={9}>
                             <Typography><h3>Liste des jeux</h3></Typography>
-                            <Table aria-label="simple table">
+                            <Table stickyHeader size="small" aria-label="a dense table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Nom</TableCell>
-                                        <TableCell>Age Min</TableCell>
-                                        <TableCell>Durée (en min)</TableCell>
-                                        <TableCell>Min Joueurs</TableCell>
-                                        <TableCell>Max Joueurs</TableCell>
-                                        <TableCell>Catégorie</TableCell>
-                                        <TableCell>Notice</TableCell>
-                                        <TableCell>Prototype ?</TableCell>
-                                        <TableCell> </TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Nom</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Age Min</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Durée (en min)</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Min Joueurs</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Max Joueurs</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Catégorie</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Notice</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}>Prototype ?</TableCell>
+                                        <TableCell style={{'font-weight':'bold'}}> </TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

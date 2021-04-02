@@ -95,7 +95,6 @@ const GameTable = () => {
                 {user.isLoggedIn
                     ?
                         <TableCell>
-                            <IconButton variant="outlined" color="primary" component={Link} to={`/game/${row._id}`}><Visibility /></IconButton>
                             { selectedGame._id === row._id
                                 ? <IconButton variant="outlined" onClick={() => saveGame(selectedGame)}><Save /></IconButton>
                                 : <IconButton variant="outlined" style={{ color: green[500] }} onClick={() => setGame(row)}><Create /></IconButton>

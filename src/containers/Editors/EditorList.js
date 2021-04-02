@@ -112,12 +112,21 @@ const EditorList = () => {
                                 
                                 </TableCell>
                                 <TableCell>
-                                        <IconButton variant="outlined" color="primary" component={Link} to={`/editor/${row._id}`}><Visibility /></IconButton>
-                                        { selectedEditor._id === row._id
-                                            ? <IconButton variant="outlined" onClick={() => saveEditor(selectedEditor)}><Save /></IconButton>
-                                            : <IconButton variant="outlined" onClick={() => setEditor(row)}><Create /></IconButton>
+                                        
+                                        {
+                                            user.isLoggedIn 
+                                            ? <div>
+                                                <IconButton variant="outlined" color="primary" component={Link} to={`/editor/${row._id}`}><Visibility /></IconButton>
+                                            { selectedEditor._id === row._id
+                                                ? <IconButton variant="outlined" onClick={() => saveEditor(selectedEditor)}><Save /></IconButton>
+                                                : <IconButton variant="outlined" onClick={() => setEditor(row)}><Create /></IconButton>
+                                            }
+                                            <IconButton variant="outlined" color="secondary" onClick={() => removeEditor(row._id)}><Delete /></IconButton>
+                                            </div>
+                                            : <IconButton variant="outlined" color="primary" component={Link} to={`/editor/${row._id}`}><Visibility /></IconButton>
+                                        
                                         }
-                                        <IconButton variant="outlined" color="secondary" onClick={() => removeEditor(row._id)}><Delete /></IconButton>
+                                        
                                 </TableCell>
                             </TableRow>
                         );

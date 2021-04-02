@@ -72,12 +72,17 @@ const GameTypeList = () => {
                                 }
                             </TableCell>
                             <TableCell>
-                                <IconButton variant="outlined" color="primary" component={Link} to={`/game/${row._id}`}><Visibility /></IconButton>
-                                { selectedType._id === row._id
+                                { user.isLoggedIn
+                                ? <div>
+                                    { selectedType._id === row._id
                                     ? <IconButton variant="outlined" onClick={() => saveGameType(selectedType)}><Save /></IconButton>
                                     : <IconButton variant="outlined" style={{ color: green[500] }} onClick={() => setType(row)}><Create /></IconButton>
                                 }
                                 <IconButton variant="outlined" color="secondary" onClick={() => removeGameType(row._id)}><Delete /></IconButton>
+                                </div>
+                                : <></>
+                                }
+                                
                             </TableCell>
                             </TableRow>
                         ))}

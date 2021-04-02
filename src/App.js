@@ -27,6 +27,7 @@ import User from "./containers/Users/User";
 import ContactList from "./containers/Contacts/ContactList";
 
 import NavBar from "./containers/Navbar";
+import Dashboard from "./containers/Dashboard";
 
 function App() {
     return (
@@ -57,7 +58,7 @@ function App() {
                 <Route path={"/profile"} exact component={User}/>
 
                 <Route path={"/contact/list"} exact component={ContactList}/>
-
+                <Route path={"/"} exact component={Dashboard}/>
                 <Redirect to={"/"}/>
             </Switch>
         </div>
