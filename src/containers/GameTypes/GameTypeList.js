@@ -7,7 +7,7 @@ import Loading from "../Loading";
 import AddGameType from "./AddGameType";
 import AddIcon from '@material-ui/icons/Add';
 import { IconButton, TextField, Paper, TableContainer,
-    Table, TableBody, TableCell, TableRow, Grid, Typography, 
+    Table, TableBody, TableCell, TableRow, Grid, Typography, TableHead
 } from "@material-ui/core";
 import { Visibility, Save, Create, Delete} from '@material-ui/icons';
 import {green} from "@material-ui/core/colors";
@@ -51,7 +51,10 @@ const GameTypeList = () => {
             return (
                 <TableContainer component={Paper}>
                     <Table aria-label="simple table">
-                        
+                        <TableHead>
+                            <TableCell style={{'font-weight':'bold'}}>Nom</TableCell>
+                            <TableCell></TableCell>
+                        </TableHead>
                         <TableBody>
                         {gameTypeList.data.map((row) => (
                             <TableRow key={row._id}>

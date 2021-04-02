@@ -26,15 +26,15 @@ const TrackingList = ({festivalId}) => {
         if(!_.isEmpty(trackingList.data)) {
             return (
                 <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
+                    <Table stickyHeader size="small" aria-label="a dense table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Exposant</TableCell>
-                                <TableCell>Workflow</TableCell>
-                                <TableCell>Contact 1</TableCell>
-                                <TableCell>Contact 2</TableCell>
-                                <TableCell>CR</TableCell>
-                                <TableCell> </TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Exposant</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Workflow</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Contact 1</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Contact 2</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>CR</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}> </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

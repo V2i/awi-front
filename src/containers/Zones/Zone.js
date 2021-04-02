@@ -105,7 +105,7 @@ const Zone = (props) => {
                                             <TableCell>{row.reservedGame.gameMaximumPlayers}</TableCell>
                                             <TableCell>{row.reservedGame.gameType.gameTypeName}</TableCell>
                                             <TableCell>
-                                                {row.gameNotice.length > 0
+                                                {row.reservedGame.gameNotice.length > 0
                                                 ? <a href={row.gameNotice}>Notice</a>
                                                 : ""}
                                             </TableCell>

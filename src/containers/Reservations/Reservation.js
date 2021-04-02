@@ -8,6 +8,8 @@ import ReservedSpaceList from "../ReservedSpaces/ReservedSpaceList";
 import BillingCard from "../Billings/BillingCard";
 
 import {Grid} from '@material-ui/core';
+import Tracking from "../Trackings/Tracking";
+import TrackingCard from "../Trackings/TrackingCard";
 
 const Reservation = (props) => {
 
@@ -36,6 +38,9 @@ const Reservation = (props) => {
                     <Grid item xs={6}>
                         <BillingCard billing={reservation.data.reservationBilling} />
                     </Grid>
+                   <Grid item xs={6}>
+                       <TrackingCard tracking={reservation.data.reservationTracking} />
+                   </Grid>
                 </Grid>
                 </div>
 
