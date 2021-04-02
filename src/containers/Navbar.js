@@ -78,8 +78,8 @@ const NavBar = () => {
         <div className={classes.root}>
             <AppBar position="fixed" style={{ background: '#739600' }}>
                 <Toolbar>
+                <Button color="inherit" component={Link} to="/" className={classes.menuButton}><img src={logo} className={classes.logo}></img></Button>
                     
-                    <img src={logo} className={classes.logo}/>
 
                     
                     {user.isLoggedIn ?
