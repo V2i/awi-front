@@ -5,7 +5,7 @@ import _ from 'lodash';
 import {Link} from 'react-router-dom';
 import Loading from "../Loading";
 import AddZone from "./AddZone";
-import { Button, Paper,
+import { Button, Paper, IconButton,
     Table, TableBody, TableCell, TableRow, TableHead, InputBase
 } from "@material-ui/core";
 import {Visibility} from "@material-ui/icons";
