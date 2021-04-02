@@ -12,6 +12,7 @@ import { IconButton, Paper, TextField, FormControl, Select, MenuItem,
 import { Create, Save, Visibility } from '@material-ui/icons';
 import moment from 'moment';
 import {KeyboardDatePicker} from "@material-ui/pickers";
+import {green} from "@material-ui/core/colors";
 
 const BillingList = ({festivalId}) => {
     
@@ -54,14 +55,14 @@ const BillingList = ({festivalId}) => {
         if(!_.isEmpty(billingList.data)) {
             return (
                 <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
+                    <Table stickyHeader size="small" aria-label="a dense table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Statut</TableCell>
-                                <TableCell>Montant</TableCell>
-                                <TableCell>Envoyée le</TableCell>
-                                <TableCell>Payée le</TableCell>
-                                <TableCell> </TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Statut</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Montant</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Envoyée le</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}>Payée le</TableCell>
+                                <TableCell style={{'font-weight':'bold'}}> </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -126,7 +127,7 @@ const BillingList = ({festivalId}) => {
                                             <IconButton variant="outlined" color="primary" component={Link} to={`/reservation/${row._id}`}><Visibility /></IconButton>
                                             { selectedBilling._id === row.reservationBilling._id
                                                 ? <IconButton variant="outlined" onClick={() => saveBilling(selectedBilling)}><Save /></IconButton>
-                                                : <IconButton variant="outlined" onClick={() => setBilling(row.reservationBilling)}><Create /></IconButton>
+                                                : <IconButton variant="outlined" style={{ color: green[500] }} onClick={() => setBilling(row.reservationBilling)}><Create /></IconButton>
                                             }
                                         </TableCell>
                                     :

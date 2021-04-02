@@ -10,6 +10,7 @@ import { Paper, Grid, TextField, Typography, FormControl, Select, MenuItem, Tabl
  import { Create, Save } from '@material-ui/icons';
 import moment from 'moment';
 import {KeyboardDatePicker} from "@material-ui/pickers";
+import {green} from "@material-ui/core/colors";
 
 const Billing = ({billing}) => {
 
@@ -40,14 +41,14 @@ const Billing = ({billing}) => {
         <Paper>
             <h4>Facture</h4>
         <TableContainer component={Paper}>
-            <Table aria-label="simple table">
+            <Table stickyHeader size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Statut</TableCell>
-                        <TableCell>Montant (en €)</TableCell>
-                        <TableCell>Envoyée le</TableCell>
-                        <TableCell>Payée le</TableCell>
-                        <TableCell> </TableCell>
+                        <TableCell style={{'font-weight':'bold'}}>Statut</TableCell>
+                        <TableCell style={{'font-weight':'bold'}}>Montant (en €)</TableCell>
+                        <TableCell style={{'font-weight':'bold'}}>Envoyée le</TableCell>
+                        <TableCell style={{'font-weight':'bold'}}>Payée le</TableCell>
+                        <TableCell style={{'font-weight':'bold'}}> </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -119,7 +120,7 @@ const Billing = ({billing}) => {
                     
                     { billingChanged
                     ? <IconButton variant="outlined" onClick={saveBilling}><Save /></IconButton>
-                    : <IconButton variant="outlined" onClick={() => setUpdate(true)}><Create /></IconButton>
+                    : <IconButton variant="outlined" style={{ color: green[500] }} onClick={() => setUpdate(true)}><Create /></IconButton>
                     }
                     
                 </TableRow>

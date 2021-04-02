@@ -31,13 +31,10 @@ const AddContact = ({open = true, handleClose}) => {
         contactMain: false
     };
 
-    const initialExhibitorState = {
-        _id: "",
-    };
 
     const dispatch = useDispatch();
     const exhibitorList = useSelector(state => state.ExhibitorList);
-    const [exhibitor, setExhibitor] = useState(initialExhibitorState);
+    const [exhibitor, setExhibitor] = useState(exhibitorList.data[0]);
     const [addExhibitor, setAddExhibitor] = useState(false);
     const [contact, setContact] = useState(initialContactState);
 
@@ -55,18 +52,16 @@ const AddContact = ({open = true, handleClose}) => {
         }
     };
 
-    const handleExhibitorId = event => {
+    const handleInputChangeId = event => {
         if(event.target) {
-            const { name, value } = event.target;
-            setExhibitor({ ...exhibitor, [name]: value });
+            const { value } = event.target;
+            setExhibitor(exhibitorList.data.find(e => e._id === value));
         }
     };
-
     const saveContact = () => {
         handleClose()
         dispatch(postContact(contact, exhibitor));
         setContact(initialContactState);
-        console.log(exhibitor)
     };
 
     return(
@@ -102,14 +97,14 @@ const AddContact = ({open = true, handleClose}) => {
                         </Grid>
                         { exhibitorList.data &&
                         <Grid item xs={6}>
-                            <FormControl>
+                            <FormControl style={{minWidth: "100%"}}>
                                 <InputLabel id="exhibitor">Exposant</InputLabel>
                                 <Select
-                                    labelId="exhibitorId"
+                                    labelId="exhibitor"
                                     id="exhibitorNameSelect"
                                     name="_id"
-                                    value={exhibitorList.data.find(e => e._id === exhibitor._id)}
-                                    onChange={handleExhibitorId}
+                                    value={exhibitorList.data.find(e => e._id === exhibitor._id)._id}
+                                    onChange={handleInputChangeId}
                                     displayEmpty
                                 >
                                     {exhibitorList.data.map(e => <MenuItem value={e._id} key={e._id}>{e.exhibitorName}</MenuItem>)}

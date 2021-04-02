@@ -7,8 +7,8 @@ import {makeStyles} from "@material-ui/core/styles";
 const TrackingCard = ({tracking}) => {
 
     return(
-        <>
-            <h1>Suivi</h1>
+        <Paper>
+            <h4>Suivi</h4>
             <TableContainer component={Paper}>
                 <Table stickyHeader size="small" aria-label="a dense table">
                     <TableHead>
@@ -26,7 +26,7 @@ const TrackingCard = ({tracking}) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </>
+        </Paper>
     )
 }
 

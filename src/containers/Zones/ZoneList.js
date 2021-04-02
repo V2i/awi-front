@@ -9,6 +9,7 @@ import AddZone from "./AddZone";
 import { IconButton, Button, Paper,
     Table, TableBody, TableCell, TableRow, TableHead, InputBase
 } from "@material-ui/core";
+import {Visibility} from "@material-ui/icons";
 
 
 const ZoneList = (props) => {
@@ -43,11 +44,11 @@ const ZoneList = (props) => {
     const showData = () => {
         if(!_.isEmpty(zoneList.data)) {
             return (
-                <Table aria-label="simple table">
+                <Table stickyHeader size="small" aria-label="a dense table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Nom</TableCell>
-                            <TableCell> </TableCell>
+                            <TableCell style={{'font-weight':'bold'}}>Nom</TableCell>
+                            <TableCell style={{'font-weight':'bold'}}> </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -63,7 +64,9 @@ const ZoneList = (props) => {
                         <TableCell component="th" scope="row">
                             {row.zone.zoneName}
                         </TableCell>
-                        <TableCell><Link to={`/festival/${festivalId}/zone/${row.zone._id}`}><Button variant="outlined" color="primary">Détails</Button></Link></TableCell>
+                            <TableCell>
+                                <IconButton variant="outlined" color="primary" component={Link} to={`/festival/${festivalId}/zone/${row.zone._id}`}><Visibility /></IconButton>
+                            </TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
